@@ -5,4 +5,8 @@ body {
   box-sizing: border-box; /* Terapkan box-sizing pada seluruh elemen */
   min-height: 100vh; /* Agar body mengambil setidaknya 100% tinggi layar */
   color: black;
+    background-color: #ffffff;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    margin: 0;
+
 }

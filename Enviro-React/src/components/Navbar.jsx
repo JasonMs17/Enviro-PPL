@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Tambahkan ini di bagian atas
+import axios from "axios"; 
 
 import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
@@ -37,7 +37,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="logo-and-navbar">
+    <header className="navbar">
       <div className="enviro-logo">
         <Link to="/">
           <img src={logoEnviro} alt="Website Logo" />

@@ -1,0 +1,55 @@
+.User-Profile{
+    display: flex;
+    background-color:#1DBC60 ;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    gap: 30px;
+}
+
+
+
+.User-Photo{
+    background-color: #ffffff;
+    margin-left: 300px;
+    margin-right: 0px;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.User-Photo > img{
+    width: inherit;
+    height: inherit;
+    border: 4px transparent;
+}
+.user-profile-picture-edit-button{
+    position: absolute;
+    top: 18rem;
+    left: 29rem;
+}
+
+
+
+
+.User-Information{
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}
+.profile-headline-name{
+    font-size: 50px;
+    line-height: 70px;
+    margin-bottom: 30px;
+}
+
+.User-Information > p{
+    font-size: 20px;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Login.css";
 import logo from "../assets/logoEnviro.png"; // atau "../../assets/logoEnviro.png" sesuai folder kamu
-import background from "../assets/Background-login.jpg"
+import background from "../assets/Background-login.jpg";
 
 axios.defaults.withCredentials = true;
 
@@ -95,15 +95,16 @@ export default function LoginUser() {
             </p>
           </div>
           <div className="lupa-password">
-            <a href="#">Lupa Password?</a>
+            <a href="/reset-password" className="highlight">
+              Lupa Password?
+            </a>
           </div>
         </div>
       </div>
 
       <div className="imageLogin">
-        <img src={background} />
+        <img src={background} alt="Login Background" />
       </div>
     </div>
   );
 }
-

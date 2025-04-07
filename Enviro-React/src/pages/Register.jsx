@@ -22,6 +22,7 @@ function RegisterForm() {
       return;
     }
 
+    
     try {
       const response = await axios.post("/api/register", {
         name,

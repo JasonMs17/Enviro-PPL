@@ -9,6 +9,7 @@ Route::get('/user', [UserController::class, 'getUser']);
 
 Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/send-test-email', [VerificationController::class, 'resend']);
 Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getUser']);
 Route::middleware('auth:sanctum')->post('/logout', [LoginController::class, 'logout']);
 

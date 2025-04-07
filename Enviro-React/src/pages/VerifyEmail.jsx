@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./VerifyEmail.css";
+import logoEnviro from "../assets/logoEnviro.png";
+import checkmark from "../assets/checkmark.png";
 
 axios.defaults.withCredentials = true;
 
 function VerifyEmail() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("Memuat...");
   const [isVerified, setIsVerified] = useState(false);
 
-  // Fungsi untuk memeriksa status verifikasi email saat halaman pertama kali dimuat
   useEffect(() => {
     const checkVerificationStatus = async () => {
       try {
         const response = await axios.get("/api/email/verify");
 
-        console.log(response);
-
         if (response.status === 200) {
-          setMessage("Silakan cek email Anda untuk tautan verifikasi.");
+          setMessage("Silakan cek email Anda dan klik tautan verifikasi.");
         }
       } catch (error) {
         setMessage(
-          "Email belum diverifikasi. Silakan kirim ulang tautan verifikasi."
+          "Klik tombol di bawah untuk kirim ulang tautan verifikasi."
         );
       }
     };
@@ -28,12 +28,10 @@ function VerifyEmail() {
     checkVerificationStatus();
   }, []);
 
-  // Fungsi untuk mengirim ulang email verifikasi
   const handleResend = async () => {
     try {
       const response = await axios.post("/api/send-test-email");
-      console.log(response);
-      if (response.ok) {
+      if (response.status === 200) {
         setMessage("Tautan verifikasi telah dikirim ulang ke email Anda.");
       }
     } catch (error) {
@@ -42,12 +40,22 @@ function VerifyEmail() {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "2rem" }}>
-      <h2>Verifikasi Email</h2>
-      <p>{message}</p>
-      {!isVerified && (
-        <button onClick={handleResend}>Kirim Ulang Email Verifikasi</button>
-      )}
+    <div className="verify-email-container">
+      <div className="verify-card">
+        <img src={logoEnviro} alt="Logo Enviro" className="logo" />
+        <h2>Verifikasi Email <br></br>
+          Berhasil Dikirim</h2>
+
+        <img src={checkmark} alt="Checkmark" className="checkmark" />
+
+        <p>{message}</p>
+
+        {!isVerified && (
+          <button onClick={handleResend} className="resend-button">
+            Kirim Ulang
+          </button>
+        )}
+      </div>
     </div>
   );
 }

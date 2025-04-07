@@ -1,0 +1,88 @@
+.verify-email-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  padding: 130px 50px;
+  background-color: #f0f0f0;
+  box-sizing: border-box;
+}
+
+.verify-card {
+  background-color: #fafafa;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px grey;
+  padding: 40px 30px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.logo {
+  width: 200px;
+  margin-bottom: 0;
+}
+
+.checkmark {
+  width: 70px;
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: bolder;
+  margin-bottom: 40px;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.resend-button {
+  background-color: #1DBC60;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.resend-button:hover {
+  background-color: #17a94e;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .verify-card {
+    padding: 25px 20px;
+  }
+
+  .logo {
+    width: 160px;
+  }
+
+  .checkmark {
+    width: 60px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+
+  .resend-button {
+    font-size: 0.95rem;
+    padding: 10px 25px;
+  }
+}

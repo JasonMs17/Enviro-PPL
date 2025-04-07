@@ -1,5 +1,12 @@
 import "./Footer.css";
 
 export default function Footer() {
-    return <footer className="footer">Footer Content</footer>;
+    return (
+        <div className="footer">
+          <div className="footer-container">
+            <hr className="footer-divider" />
+            <p>Footer Content</p>
+          </div>
+        </div>
+      );
 }

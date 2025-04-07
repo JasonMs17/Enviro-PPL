@@ -3,7 +3,8 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
-import VerifyEmail from "../pages/VerifyEmail"; // Halaman Verifikasi Email
+import VerifyEmail from "../pages/VerifyEmail";
+import ResetPass from "../pages/ResetPass";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import Loading from "../components/Loading"; // Import komponen Loading
@@ -24,22 +25,12 @@ const AppRoutes = () => {
 
       {/* Redirect jika sudah login ke halaman profile */}
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-      <Route
-        path="/register"
-        element={user ? <Navigate to="/" /> : <Register />}
-      />
-
-      {/* Halaman profile, redirect ke home jika user tidak ada */}
-      <Route
-        path="/profile"
-        element={user ? <Profile /> : <Navigate to="/" />}
-      />
-
-      {/* Halaman verifikasi email */}
-      <Route
-        path="/verify-email"
-        element={user ? <VerifyEmail /> : <Navigate to="/" />}
-      />
+      <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+      <Route path="/profile" element={user ? <Profile /> : <Navigate to="/" />} />
+      {/*Halaman Verifikasi Email */}
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      {/*Halaman Reset Password */}
+      <Route path="/reset-password" element={<ResetPass />} />
     </Routes>
   );
 };

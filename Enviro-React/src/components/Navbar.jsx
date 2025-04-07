@@ -36,6 +36,10 @@ const Navbar = () => {
     }
   };
 
+  const imageClick = () => {
+    navigate('/profile');
+  }
+
   return (
     <header className="navbar">
       <div className="enviro-logo">
@@ -53,9 +57,8 @@ const Navbar = () => {
       <div className="login-signup">
         {user ? (
           <div className="user-profile">
-            <img
-              src="path-to-profile-image.jpg"
-              alt="Profile"
+            <img src= {"path-to-profile-image.jpg"} 
+              onClick={() => imageClick()}
               className="profile-image"
             />
             <button onClick={handleLogout} className="logout">

@@ -1,0 +1,59 @@
+/* Navbar.css */
+.logo-and-navbar {
+    width: 100vw; /* Biar full lebar layar */
+    background-color: #ffffff; /* Atur warna latar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem; /* Spasi biar gak nempel */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
+    position: relative; /* Biar gak nempel di atas */
+    margin-bottom: 1rem; /* Biar ada jarak dari konten lain */
+    box-sizing: border-box;
+  }
+
+.enviro-logo img {
+    width: 150px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+nav a:hover {
+    color: #1DBC60;
+}
+
+.login-signup {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.login {
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.signup {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-right: 18px;
+    padding-left: 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 24px;
+}
+
+.signup:hover {
+    background-color: #333;
+}

@@ -1,0 +1,8 @@
+/* App.css */
+body {
+  margin: 0; /* Pastikan tidak ada margin default */
+  padding: 0; /* Pastikan tidak ada padding default */
+  box-sizing: border-box; /* Terapkan box-sizing pada seluruh elemen */
+  min-height: 100vh; /* Agar body mengambil setidaknya 100% tinggi layar */
+  color: black;
+}

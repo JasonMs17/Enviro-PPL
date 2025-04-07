@@ -1,0 +1,175 @@
+body {
+    background-color: #ffffff;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    margin: 0;
+}
+
+body > header {
+    height: 119px;
+    box-shadow: 2px 2px 4px grey;
+}
+
+.logo-and-navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+
+.enviro-logo {
+width: 245px;   
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+}
+
+nav > a {
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.enviro-logo > img {
+    width: 100%;
+    height: auto;
+}
+
+.login-signup {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.login {
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.signup {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-right: 18px;
+    padding-left: 18px;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 24px;
+}
+
+.signup:hover {
+    background-color: #333;
+}
+
+main {
+    margin-top: 99px;
+}
+
+.logoEnviro {
+    margin-top: 23px;
+    margin-bottom: 15px;
+    width: 245px;
+}
+
+.logoEnviro > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-form {
+    width: 720px;
+    background-color: #fafafa;
+    border-radius: 20px;
+    box-shadow: 2px 2px 4px grey;
+}
+
+.login-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form > header, #form {
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form > header > p {
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+.login-form > #form .inputgroup input,
+.login-form > #form .input-box input {
+    width: 569.79px;
+    height: 55.32px;
+    border-radius: 50px;
+    margin-top: 20px;  /* Set a consistent margin */
+    border: none;
+    padding-left: 16px;
+    font-size: 20px;
+}
+
+.login-form > #form #Login {
+    width: 569.79px;
+    height: 55.32px;
+    border-radius: 50px;
+    margin-top: 20px;  /* Make sure spacing is consistent */
+    background-color: #1DBC60;
+    border: none;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.login-form > .signup-lupapassword {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.highlight {
+    color: #1DBC60;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.lupa-password > a {
+    color: red;
+    text-decoration: none;
+}
+
+.imageLogin {
+    width: 832px;
+    border-radius: 20px;
+    background-color: #fafafa;
+}
+
+footer {
+    margin-top: 147px;
+    height: 413px;
+    background-color: #1DBC60;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  

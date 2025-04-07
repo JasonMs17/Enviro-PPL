@@ -19,7 +19,7 @@
     align-items: center;
     background-color: white;
     box-shadow: 2px 2px 4px grey;
-    height: 119px;
+    height: 80px;
     font-weight: bold;
   }
 .enviro-logo img {
@@ -30,7 +30,7 @@ nav a {
     margin: 0 15px;
     text-decoration: none;
     color: black;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 nav a:hover {
@@ -46,7 +46,7 @@ nav a:hover {
 .login {
     text-decoration: none;
     color: black;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -61,7 +61,7 @@ nav a:hover {
     border-radius: 50px;
     font-weight: bold;
     transition: 0.3s;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .signup:hover {

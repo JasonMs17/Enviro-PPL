@@ -11,6 +11,7 @@ export default function LoginUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [errorKey, setErrorKey] = useState(0);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +37,7 @@ export default function LoginUser() {
     } catch (error) {
       if (error.response?.status === 401) {
         setErrorMessage("Email atau Password salah");
+        setErrorKey(prev => prev + 1); // Biar trigger ulang animasi
       } else {
         console.error("Login gagal:", error.response?.data || error.message);
       }
@@ -60,6 +62,7 @@ export default function LoginUser() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className={errorMessage ? "input-error" : ""}
             />
           </div>
           <div className="input-box">
@@ -70,12 +73,17 @@ export default function LoginUser() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className={errorMessage ? "input-error" : ""}
             />
           </div>
           <input type="submit" id="Login" value="Login" />
         </form>
 
-        {errorMessage && <p className="error">{errorMessage}</p>}
+        {errorMessage && (
+          <p className="error" key={errorKey}>
+            {errorMessage}
+          </p>
+        )}
 
         <div className="signup-lupapassword">
           <div className="signUp">
@@ -98,3 +106,4 @@ export default function LoginUser() {
     </div>
   );
 }
+

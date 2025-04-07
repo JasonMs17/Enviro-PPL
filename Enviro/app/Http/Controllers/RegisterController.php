@@ -18,6 +18,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email:dns|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'birth_date' => 'required|date',
         ]);
 
         // Jika validasi gagal
@@ -30,6 +31,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'birth_date' => $request->birth_date, 
         ]);
 
         // Autentikasi pengguna setelah registrasi

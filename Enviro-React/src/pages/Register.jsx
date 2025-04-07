@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true;
 function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [birth_date, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -29,8 +30,9 @@ function RegisterForm() {
         email,
         password,
         password_confirmation: confirmPassword,
+        birth_date: birth_date,
       });
-
+      
       if (response.status === 200) {
         console.log("Pendaftaran berhasil!");
         navigate("/verify-email");
@@ -80,6 +82,19 @@ function RegisterForm() {
             />
           </div>
           {errors.email && <p className="error">{errors.email[0]}</p>}
+
+          <div className="inputgroup">
+            <input
+              type="date"
+              id="birth_date"
+              required
+              value={birth_date}
+              onChange={(e) => setBirthDate(e.target.value)}
+              className={errors.birth_date ? "input-error" : ""}
+            />
+          </div>
+          
+{errors.birth_date && <p className="error">{errors.birth_date[0]}</p>}
 
           <div className="input-box">
             <input

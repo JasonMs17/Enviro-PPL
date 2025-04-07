@@ -60,7 +60,7 @@ export default function Profile () {
           <div className="User-Information">
             <h2 className="profile-headline-name">{user.name}</h2>
             <p>Email : {user.email}</p>
-            <p>Tanggal Lahir : {user.email}</p>
+            <p>Tanggal Lahir : {user.birth_date}</p>
           </div>
         </div>
       ) : (

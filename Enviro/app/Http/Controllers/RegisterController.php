@@ -8,6 +8,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 class RegisterController extends Controller
 {
@@ -55,7 +57,6 @@ class RegisterController extends Controller
         $user = Auth::user();
         if ($user && is_null($user->email_verified_at)) {
             event(new Registered($user));
-            return view('auth.verify-email', ['pagename' => 'verify']);
         } else {
             return redirect()->intended('/');
         }
@@ -64,7 +65,6 @@ class RegisterController extends Controller
     public function emailVerificationHandler(EmailVerificationRequest $request)
     {
         $request->fulfill();
-        return redirect('/profile-edit');
     }
 
     public function resendEmailVerification(Request $request)

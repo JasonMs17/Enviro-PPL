@@ -5,6 +5,8 @@ import logoEnviro from "../assets/logoEnviro.png";
 import background from "../assets/Background-login.jpg";
 import { useNavigate } from "react-router-dom";
 
+
+axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
 
 function RegisterForm() {
@@ -22,17 +24,23 @@ function RegisterForm() {
       alert("Password dan Konfirmasi Password tidak cocok.");
       return;
     }
-
     
     try {
-      const response = await axios.post("/api/register", {
-        name,
-        email,
-        password,
-        password_confirmation: confirmPassword,
-        birth_date: birth_date,
+      await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
+        // withCredentials: true,
       });
-      
+
+      const response = await axios.post(
+        "/api/register",
+        {
+          name,
+          email,
+          password,
+          password_confirmation: confirmPassword,
+        },
+        // { withCredentials: true }
+      );
+
       if (response.status === 200) {
         console.log("Pendaftaran berhasil!");
         navigate("/verify-email");

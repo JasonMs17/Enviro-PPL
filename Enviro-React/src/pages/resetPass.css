@@ -1,151 +1,164 @@
 .reset-pass {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100vh;
-    padding: 30px 50px;
-    box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  padding: 30px 50px;
+  box-sizing: border-box;
+}
+
+.reset-pass .reset-form {
+  background-color: #fafafa;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: 2px 2px 4px grey;
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.reset-pass .logoEnviro {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+.reset-pass .logoEnviro img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.reset-pass .reset-form > header,
+.reset-pass #form {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reset-pass .reset-form > header > p {
+  margin-top: 0;
+}
+
+.reset-pass .inputgroup {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.reset-pass input {
+  width: 100%;
+  max-width: 450px;
+  height: 45px;
+  border-radius: 50px;
+  border: none;
+  padding-left: 16px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.reset-pass #email {
+  margin-top: 30px;
+}
+
+.reset-pass #submitReset {
+  margin-top: 30px;
+  background-color: #1dbc60;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset-pass .signup-lupapassword {
+  display: flex;
+  justify-content: left;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
+
+.reset-pass .highlight {
+  color: #1dbc60;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.reset-pass .imageLogin > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 2px 2px 4px grey;
+}
+
+.reset-pass .error {
+  color: red;
+  font-size: 0.95rem;
+  margin-top: 15px;
+  text-align: center;
+  animation: shake 0.3s ease-in-out;
+}
+
+.reset-pass .message {
+  color: green;
+  font-size: 0.95rem;
+  margin-top: 15px;
+  text-align: center;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
   }
-  
-  .reset-form {
-    background-color: #fafafa;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    box-shadow: 2px 2px 4px grey;
-    padding: 20px 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 1rem;
+
+  25% {
+    transform: translateX(-5px);
   }
-  
-  .logoEnviro {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 200px;
+
+  50% {
+    transform: translateX(5px);
   }
-  
-  .logoEnviro img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+
+  75% {
+    transform: translateX(-5px);
   }
-  
-  .reset-form > header,
-  #form {
-    font-size: 24px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+  100% {
+    transform: translateX(0);
   }
-  
-  .reset-form > header > p {
-    margin-top: 0;
+}
+
+@media (max-width: 1024px) {
+  .reset-pass {
+    grid-template-columns: 1fr;
+    padding: 20px;
   }
-  
-  .inputgroup {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+
+  .reset-pass .reset-form {
+    border-radius: 20px;
   }
-  
-  input {
-    width: 100%;
-    max-width: 450px;
-    height: 45px;
-    border-radius: 50px;
-    border: none;
-    padding-left: 16px;
-    font-size: 1rem;
-    box-sizing: border-box;
+
+  .reset-pass .imageLogin > img {
+    display: none;
   }
-  
-  #email {
-    margin-top: 30px;
-  }
-  
-  #submitReset {
-    margin-top: 30px;
-    background-color: #1dbc60;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .signup-lupapassword {
-    display: flex;
-    justify-content: left;
-    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .reset-pass .reset-form {
+    padding: 15px;
     font-size: 0.9rem;
   }
-  
-  .highlight {
-    color: #1dbc60;
-    font-weight: bold;
-    text-decoration: none;
+
+  .reset-pass #email,
+  .reset-pass #submitReset {
+    font-size: 0.9rem;
+    height: 40px;
   }
-  
-  .imageLogin > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    box-shadow: 2px 2px 4px grey;
+
+  .reset-pass .logoEnviro {
+    width: 160px;
   }
-  
-  .error {
-    color: red;
-    font-size: 0.95rem;
-    margin-top: 15px;
-    text-align: center;
-    animation: shake 0.3s ease-in-out;
-  }
-  
-  .message {
-    color: green;
-    font-size: 0.95rem;
-    margin-top: 15px;
-    text-align: center;
-  }
-  
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-  }
-  
-  @media (max-width: 1024px) {
-    .reset-pass {
-      grid-template-columns: 1fr;
-      padding: 20px;
-    }
-  
-    .reset-form {
-      border-radius: 20px;
-    }
-  
-    .imageLogin > img {
-      display: none;
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .reset-form {
-      padding: 15px;
-      font-size: 0.9rem;
-    }
-  
-    #email,
-    #submitReset {
-      font-size: 0.9rem;
-      height: 40px;
-    }
-  
-    .logoEnviro {
-      width: 160px;
-    }
-  }
-  
+}

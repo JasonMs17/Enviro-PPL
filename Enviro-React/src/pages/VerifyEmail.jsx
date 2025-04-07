@@ -1,61 +1,56 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./VerifyEmail.css";
-import logoEnviro from "../assets/logoEnviro.png";
-import checkmark from "../assets/checkmark.png";
-
-axios.defaults.withCredentials = true;
 
 function VerifyEmail() {
-  const [message, setMessage] = useState("Memuat...");
-  const [isVerified, setIsVerified] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkVerificationStatus = async () => {
-      try {
-        const response = await axios.get("/api/email/verify");
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get("id");
+    const hash = searchParams.get("hash");
+    const expires = searchParams.get("expires");
+    const signature = searchParams.get("signature");
 
-        if (response.status === 200) {
-          setMessage("Silakan cek email Anda dan klik tautan verifikasi.");
-        }
-      } catch (error) {
-        setMessage(
-          "Klik tombol di bawah untuk kirim ulang tautan verifikasi."
-        );
-      }
-    };
+    const token = localStorage.getItem("token"); // Ambil token dari localStorage
 
-    checkVerificationStatus();
-  }, []);
-
-  const handleResend = async () => {
-    try {
-      const response = await axios.post("/api/send-test-email");
-      if (response.status === 200) {
-        setMessage("Tautan verifikasi telah dikirim ulang ke email Anda.");
-      }
-    } catch (error) {
-      setMessage("Gagal mengirim ulang email verifikasi.");
+    if (!id || !hash || !expires || !signature || !token) {
+      setMessage("Invalid verification link or missing token.");
+      setLoading(false);
+      return;
     }
-  };
+
+    const backendUrl = `/api/verify-email/${id}/${hash}?expires=${expires}&signature=${signature}`;
+
+    axios
+      .get(backendUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setMessage("Email verified successfully!");
+        setLoading(false);
+        setTimeout(() => {
+          navigate("/profile");
+        }, 3000);
+      })
+      .catch((error) => {
+        setMessage("Verification failed.");
+        console.error(error.response?.data || error.message);
+        setLoading(false);
+      });
+  }, [location, navigate]);
+
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="verify-email-container">
-      <div className="verify-card">
-        <img src={logoEnviro} alt="Logo Enviro" className="logo" />
-        <h2>Verifikasi Email <br></br>
-          Berhasil Dikirim</h2>
-
-        <img src={checkmark} alt="Checkmark" className="checkmark" />
-
-        <p>{message}</p>
-
-        {!isVerified && (
-          <button onClick={handleResend} className="resend-button">
-            Kirim Ulang
-          </button>
-        )}
-      </div>
+    <div>
+      <h1>Verify Email</h1>
+      <p>{message}</p>
     </div>
   );
 }

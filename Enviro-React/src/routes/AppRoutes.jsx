@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Profile from "../pages/Profile";
+import SendEmail from "../pages/SendEmail";
 import VerifyEmail from "../pages/VerifyEmail";
 import ResetPass from "../pages/ResetPass";
 import { useContext } from "react";
@@ -16,7 +17,7 @@ const AppRoutes = () => {
 
   // Tampilkan loading jika masih dalam proses pengecekan
   if (loading) {
-    return <Loading />;
+    return null;
   }
 
   return (
@@ -25,11 +26,20 @@ const AppRoutes = () => {
 
       {/* Redirect jika sudah login ke halaman profile */}
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-      <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-      <Route path="/profile" element={user ? <Profile /> : <Navigate to="/" />} />
-      {/*Halaman Verifikasi Email */}
+      <Route
+        path="/register"
+        element={user ? <Navigate to="/" /> : <Register />}
+      />
+
+      {/* Halaman profile, redirect ke home jika user tidak ada */}
+      <Route
+        path="/profile"
+        element={user ? <Profile /> : <Navigate to="/" />}
+      />
+
+      {/* Halaman verifikasi email */}
+      <Route path="/send-email" element={<SendEmail />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
-      {/*Halaman Reset Password */}
       <Route path="/reset-password" element={<ResetPass />} />
     </Routes>
   );

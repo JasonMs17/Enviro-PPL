@@ -15,9 +15,10 @@ export default function LoginUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.get("/sanctum/csrf-cookie");
-
+    
     try {
+      await axios.get("/sanctum/csrf-cookie");
+      
       const response = await axios.post(
         "/api/login",
         {
@@ -37,7 +38,7 @@ export default function LoginUser() {
     } catch (error) {
       if (error.response?.status === 401) {
         setErrorMessage("Email atau Password salah");
-        setErrorKey(prev => prev + 1); // Biar trigger ulang animasi
+        setErrorKey((prev) => prev + 1); // Biar trigger ulang animasi
       } else {
         console.error("Login gagal:", error.response?.data || error.message);
       }

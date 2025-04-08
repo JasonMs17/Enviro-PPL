@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -15,6 +16,11 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/user', [UserController::class, 'getUser']);
 Route::middleware('auth:sanctum')->post('/logout', [LoginController::class, 'logout']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show']);
+    Route::post('/profile', [ProfileController::class, 'update']);
+});
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/email/verify', [RegisterController::class, 'verifyEmail'])->name('verification.notice');

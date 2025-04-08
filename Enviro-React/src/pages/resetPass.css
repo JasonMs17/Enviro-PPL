@@ -75,8 +75,15 @@
 .reset-pass .signup-lupapassword {
   display: flex;
   justify-content: left;
+  align-items: center; /* Align vertically */
   margin-top: 20px;
   font-size: 0.9rem;
+}
+
+.reset-pass .signup-lupapassword .signUp {
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
 .reset-pass .highlight {
@@ -97,17 +104,25 @@
 .reset-pass .error {
   color: red;
   font-size: 0.95rem;
-  margin-top: 15px;
-  text-align: center;
-  animation: shake 0.3s ease-in-out;
+  margin-top: 10px;
+  text-align: left; /* Align error messages to the left */
+  width: 100%; /* Ensure it stretches across the available space */
 }
 
 .reset-pass .message {
-  color: green;
   font-size: 0.95rem;
   margin-top: 15px;
-  text-align: center;
+  text-align: left;
 }
+
+.reset-pass .message.success {
+  color: green;
+}
+
+.reset-pass .message.error {
+  color: red;
+}
+
 
 @keyframes shake {
   0% {

@@ -7,6 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\ResetPasswordController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -34,3 +35,6 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
     // Return a response (you can customize this response)
     return response()->json(['message' => 'Email verified successfully.'], 200);
 })->name('verification.verify')->middleware(['auth:sanctum', 'signed']);
+
+Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']);
+Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPassword']);

@@ -1,16 +1,14 @@
-// src/components/ResetPass.jsx
 import React, { useState } from "react";
-import axios from "axios";
+import http from "../utils/fetch"; // Adjust the path as needed
 import "./ResetPass.css";
 import logo from "../assets/logoEnviro.png";
 import background from "../assets/Background-login.jpg";
 import { useNavigate } from "react-router-dom";
 
-axios.defaults.withCredentials = true;
-
 function ResetPass() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [messageStatus, setMessageStatus] = useState(""); // New state for message status
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -18,20 +16,27 @@ function ResetPass() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/password/email", { email });
+      const response = await http("/api/reset-password", {
+        method: "POST",
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      console.log("Reset password response:", data);
 
       if (response.status === 200) {
         setMessage("Link reset password telah dikirim ke email.");
+        setMessageStatus("success"); // Set success status
         setErrors({});
+      } else {
+        setMessage(data.message || "Terjadi kesalahan saat mengirim email reset.");
+        setMessageStatus("error"); // Set error status
       }
     } catch (error) {
-      if (error.response?.status === 422) {
-        setErrors(error.response.data.errors || {});
-        setMessage(error.response.data.message);
-      } else {
-        console.error("Gagal mengirim email reset:", error.message);
-        setMessage("Terjadi kesalahan saat mengirim email reset.");
-      }
+      console.error("Gagal mengirim email reset:", error);
+      setMessage("Terjadi kesalahan saat mengirim email reset.");
+      setMessageStatus("error"); // Set error status
     }
   };
 
@@ -58,7 +63,13 @@ function ResetPass() {
             />
           </div>
           {errors.email && <p className="error">{errors.email[0]}</p>}
-          {message && <p className="message">{message}</p>}
+          {message && (
+            <p
+              className={`message ${messageStatus === "success" ? "success" : "error"}`}
+            >
+              {message}
+            </p>
+          )}
 
           <input type="submit" id="submitReset" value="Reset Password" />
         </form>
@@ -66,7 +77,7 @@ function ResetPass() {
         <div className="signup-lupapassword">
           <div className="signUp">
             <p>
-              Masuk ke akun? {" "}
+              Masuk ke akun?{" "}
               <a href="/login" className="highlight">
                 Login
               </a>

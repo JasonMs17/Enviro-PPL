@@ -3,11 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Log;
-
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // Custom email verification link
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             Log::info('Custom verify email called.', ['url' => $url]);
 
@@ -56,6 +56,9 @@ class AppServiceProvider extends ServiceProvider
                 ->action('Verify Email Address', $frontendUrl);
         });
 
-        //
+        // Custom password reset link
+        ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
+            return config('app.frontend_url')."reset-password/$token?email={$notifiable->getEmailForPasswordReset()}";
+        });
     }
 }

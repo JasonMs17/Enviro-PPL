@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 import SendEmail from "../pages/SendEmail";
 import VerifyEmail from "../pages/VerifyEmail";
 import ResetPass from "../pages/ResetPass";
+import ResetPasswordForm from "../pages/ResetPasswordForm";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import Loading from "../components/Loading"; // Import komponen Loading
@@ -41,6 +42,7 @@ const AppRoutes = () => {
       <Route path="/send-email" element={<SendEmail />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/reset-password" element={<ResetPass />} />
+      <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
     </Routes>
   );
 };

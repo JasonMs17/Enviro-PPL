@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios"; 
+import axios from "axios";
+import http from "../utils/fetch";
 
 import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
@@ -15,19 +16,16 @@ const Navbar = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        "/api/logout",
-        {},
-        { withCredentials: true }
-      );
+      const response = await http("/api/logout", {
+        method: "POST",
+      });
 
       console.log(response);
 
       if (response.status === 200) {
         setUser(null);
-        document.cookie =
-          "auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-        navigate("/login");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
       } else {
         console.error("Failed to logout");
       }
@@ -37,8 +35,8 @@ const Navbar = () => {
   };
 
   const imageClick = () => {
-    navigate('/profile');
-  }
+    navigate("/profile");
+  };
 
   return (
     <header className="navbar">
@@ -57,7 +55,8 @@ const Navbar = () => {
       <div className="login-signup">
         {user ? (
           <div className="user-profile">
-            <img src= {"path-to-profile-image.jpg"} 
+            <img
+              src={"path-to-profile-image.jpg"}
               onClick={() => imageClick()}
               className="profile-image"
             />

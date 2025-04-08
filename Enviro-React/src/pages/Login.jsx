@@ -4,8 +4,7 @@ import axios from "axios";
 import "./Login.css";
 import logo from "../assets/logoEnviro.png"; // atau "../../assets/logoEnviro.png" sesuai folder kamu
 import background from "../assets/Background-login.jpg";
-
-axios.defaults.withCredentials = true;
+import { http } from "../utils/fetch";
 
 export default function LoginUser() {
   const [email, setEmail] = useState("");
@@ -15,33 +14,30 @@ export default function LoginUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    try {
-      await axios.get("/sanctum/csrf-cookie");
-      
-      const response = await axios.post(
-        "/api/login",
-        {
-          account: email,
-          password,
-        },
-        { withCredentials: true }
-      );
 
-      if (response.status === 200) {
-        const { user, token } = response.data;
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("token", token);
-        console.log("Login berhasil!");
-        window.location.href = "/";
+    try {
+      const response = await http("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          setErrorMessage("Email atau Password salah");
+          setErrorKey((prev) => prev + 1);
+        } else {
+          const errData = await response.json();
+          console.error("Login gagal:", errData);
+        }
+        return;
       }
+
+      const resData = await response.json();
+      localStorage.setItem("user", JSON.stringify(resData));
+      console.log("Login berhasil!");
+      window.location.href = "/";
     } catch (error) {
-      if (error.response?.status === 401) {
-        setErrorMessage("Email atau Password salah");
-        setErrorKey((prev) => prev + 1); // Biar trigger ulang animasi
-      } else {
-        console.error("Login gagal:", error.response?.data || error.message);
-      }
+      console.error("Login error:", error);
     }
   };
 
@@ -54,7 +50,6 @@ export default function LoginUser() {
           </div>
           <p>Selamat Datang Kembali!</p>
         </header>
-
         <form id="form" onSubmit={handleSubmit}>
           <div className="inputgroup">
             <input
@@ -85,7 +80,6 @@ export default function LoginUser() {
             {errorMessage}
           </p>
         )}
-
         <div className="signup-lupapassword">
           <div className="signUp">
             <p>

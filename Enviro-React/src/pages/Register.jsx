@@ -3,11 +3,7 @@ import axios from "axios";
 import "./Register.css";
 import logoEnviro from "../assets/logoEnviro.png";
 import background from "../assets/Background-login.jpg";
-import { useNavigate } from "react-router-dom";
-
-
-axios.defaults.baseURL = "http://localhost:8000";
-axios.defaults.withCredentials = true;
+import { http } from "../utils/fetch";
 
 function RegisterForm() {
   const [name, setName] = useState("");
@@ -16,41 +12,48 @@ function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errorKey, setErrorKey] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (password !== confirmPassword) {
       alert("Password dan Konfirmasi Password tidak cocok.");
       return;
     }
-    
-    try {
-      await axios.get("http://localhost:8000/sanctum/csrf-cookie", {
-        // withCredentials: true,
-      });
 
-      const response = await axios.post(
-        "/api/register",
-        {
+    try {
+      // Kirim objek JavaScript menggunakan JSON.stringify untuk request body
+      const response = await http("/api/register", {
+        method: "POST",
+        body: JSON.stringify({
           name,
           email,
+          birth_date,
           password,
           password_confirmation: confirmPassword,
-        },
-        // { withCredentials: true }
-      );
+        }),
+      });
 
-      if (response.status === 200) {
-        console.log("Pendaftaran berhasil!");
-        navigate("/verify-email");
+      if (!response.ok) {
+        if (response.status === 422) {
+          const errData = await response.json();
+          setErrors(errData.errors); // Set errors dari response
+        } else {
+          const errData = await response.json();
+          console.error("Pendaftaran gagal:", errData);
+          setErrorMessage("Pendaftaran gagal. Coba lagi.");
+        }
+        return;
       }
+
+      const resData = await response.json();
+      console.log("Pendaftaran berhasil!");
+      window.location.href = "/send-email"; // Redirect ke halaman lain setelah pendaftaran berhasil
     } catch (error) {
-      if (error.response?.status === 422) {
-        setErrors(error.response.data.errors);
-      } else {
-        console.error("Gagal daftar:", error.response?.data || error.message);
-      }
+      console.error("Pendaftaran error:", error);
+      setErrorMessage("Terjadi kesalahan. Coba lagi.");
     }
   };
 
@@ -101,8 +104,8 @@ function RegisterForm() {
               className={errors.birth_date ? "input-error" : ""}
             />
           </div>
-          
-{errors.birth_date && <p className="error">{errors.birth_date[0]}</p>}
+
+          {errors.birth_date && <p className="error">{errors.birth_date[0]}</p>}
 
           <div className="input-box">
             <input
@@ -135,6 +138,12 @@ function RegisterForm() {
           <input type="submit" id="Login" value="Daftar" />
         </form>
 
+        {errorMessage && (
+          <p className="error" key={errorKey}>
+            {errorMessage}
+          </p>
+        )}
+
         <div className="signup-lupapassword">
           <div className="signUp">
             <p>
@@ -148,7 +157,7 @@ function RegisterForm() {
       </div>
 
       <div className="imageLogin">
-        <img src={background} />
+        <img src={background} alt="Background" />
       </div>
     </div>
   );

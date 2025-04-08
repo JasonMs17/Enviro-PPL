@@ -8,44 +8,36 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = getCookie("auth_token");
-
-    if (token) {
-      fetchUserFromToken(token);
-    } else {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
       setLoading(false);
+    } else {
+      fetchUserFromSession();
     }
   }, []);
 
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(";").shift();
-    return null;
-  };
-
-  const fetchUserFromToken = async (token) => {
+  const fetchUserFromSession = async () => {
     try {
-      const response = await axios.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-        withCredentials: true,
-      });
-
-      console.log("Response from Laravel:", response.data);
+      const response = await axios.get("/api/user");
       setUser(response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
-      console.error("Error fetching user from token:", error);
+      console.error("Error fetching user from session:", error);
       setUser(null);
+      localStorage.removeItem("user");
     } finally {
       setLoading(false);
     }
   };
 
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
+
   return (
-    <AuthContext.Provider value={{ user, setUser, loading }}>
+    <AuthContext.Provider value={{ user, setUser, loading, logout }}>
       {children}
     </AuthContext.Provider>
   );

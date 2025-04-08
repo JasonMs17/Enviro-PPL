@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Log;
 
 
 class RegisterController extends Controller
@@ -25,6 +26,7 @@ class RegisterController extends Controller
 
         // Jika validasi gagal
         if ($validator->fails()) {
+            Log::error($validator->errors());
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
@@ -33,23 +35,23 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'birth_date' => $request->birth_date, 
+            'birth_date' => $request->birth_date,
         ]);
 
         // Autentikasi pengguna setelah registrasi
         Auth::login($user);
+        $request->session()->regenerate();
 
         // Buat token API untuk pengguna
-        $token = $user->createToken('spa-token')->plainTextToken;
+        // $token = $user->createToken('spa-token')->plainTextToken;
 
         // Simpan token di cookie dengan HttpOnly dan Secure flag
-        $cookie = cookie('auth_token', $token, 60 * 24, null, null, secure: true, httpOnly: false, raw: false, sameSite: 'None'); // SameSite=None
+        // $cookie = cookie('auth_token', $token, 60 * 24, null, null, secure: true, httpOnly: false, raw: false, sameSite: 'None'); // SameSite=None
 
         // Mengembalikan response dengan data pengguna dan token, serta cookie
         return response()->json([
             'user' => $user,
-            'token' => $token,
-        ])->withCookie($cookie);
+        ]);
     }
 
     public function verifyEmail()

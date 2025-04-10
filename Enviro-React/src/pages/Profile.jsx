@@ -2,10 +2,15 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import userIMG from "../assets/person.svg"
 import "./Profile.css";
+import Dropdown from "../components/DropdownUserProfile/Dropdown/Dropdown";
+import DropdownItems from "../components/DropdownUserProfile/DropdownItem/DropdownItem";
 
 export default function Profile () {
   const [user, setUser] = useState(null);
-
+  const dropdownData = [
+    { label: "Sudah lulus", href: "/profile" },
+    { label: "Semua Kelas", href: "/profile" }
+  ];
   useEffect(() => {
     axios.get("/api/user", { withCredentials: true })
       .then(response => {
@@ -82,13 +87,17 @@ export default function Profile () {
             <div className="profile-tab-content">
               <div className="dropdown-and-content">
                 <div className="dropdown">
-                  <p className="dropdown-label">Tampilkan</p>
+                  <p className="dropdown-label">Tampilkan : </p>
                   <div className="dropdown-shown">
-                    <div className="button-dropdown"> Sedang Dipelajari
-                      <ul className="dropdown-value" />
-                        <li>Sudah Lulus</li>
-                        <li>Semua Kelas</li>
-                    </div>
+                    <Dropdown  buttonText ="Sedang dipelajari" content = {
+                      <>
+                      {dropdownData.map((item, index) => (
+                          <DropdownItems key={index} href={item.href}>
+                            {item.label}
+                          </DropdownItems>
+                        ))}
+                      </>
+                      }/>
                   </div>
                 </div>
               </div>

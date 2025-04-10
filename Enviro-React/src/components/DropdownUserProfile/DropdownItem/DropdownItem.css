@@ -1,0 +1,11 @@
+.dropdown-items{
+    padding: 1rem !important;
+    font-size: 20px;
+    margin: 0.1rem;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.dropdown-items:hover{
+    background-color:#1dbc5f66;
+}

@@ -1,0 +1,26 @@
+.dropdown-btn{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    font-weight: 400;
+    padding: 16px;
+    border-radius: 2px;
+    border: solid rgb(178, 178, 178) 1px;
+    letter-spacing: normal;
+    font-size: 20px !important;
+    color: #18181b !important;
+    cursor:pointer;
+    background-color: #ffffff;
+    box-shadow: rgba(149, 157, 166, 0.2) 0px 8px 24px;
+}
+
+.dropdown-btn:hover{
+    border: 1px solid #1DBC60;
+}
+
+.toggle-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+}

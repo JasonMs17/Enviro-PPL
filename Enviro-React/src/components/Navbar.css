@@ -26,11 +26,22 @@
     width: 150px;
 }
 
-nav a {
-    margin: 0 15px;
+.login-button{
+  margin: 0 15px;
     text-decoration: none;
     color: black;
     font-size: 18px;
+}
+
+.login-button:hover {
+  color: #1DBC60;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
 }
 
 nav a:hover {
@@ -65,7 +76,7 @@ nav a:hover {
 }
 
 .signup:hover {
-    background-color: #333;
+    background-color: #1DBC60;
 }
 
 .user-profile{

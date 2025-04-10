@@ -1,17 +1,25 @@
+* {
+    box-sizing: border-box;
+  }
 .User-Profile{
     display: flex;
     background-color:#1DBC60 ;
+    background-image: url("../assets/Background-login.jpg") ;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-top: 3rem;
     padding-bottom: 3rem;
-    gap: 30px;
+    gap:20px
 }
 
 .User-Photo{
-    background-color: #ffffff;
-    margin-left: 300px;
+    background-color: #1DBC60;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     margin-right: 0px;
     height: 200px;
     width: 200px;
@@ -21,26 +29,32 @@
 .User-Photo > img{
     width: inherit;
     height: inherit;
-    border: 4px transparent;
+    border-radius: 50%;
+    object-fit: cover;
+    max-width: 100%;
 }
 .user-profile-picture-edit-button{
     position: absolute;
-    top: 18rem;
-    left: 29rem;
+    top: 17rem;
+    left: 61rem;
 }
-
 
 .User-Information{
-    margin-top: auto !important;
-    margin-bottom: auto !important;
+    text-align: center;
+    
 }
 .profile-headline-name{
+    color: black;
+    font-weight: 500;
     font-size: 50px;
     line-height: 70px;
     margin-bottom: 30px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
 }
 
 .User-Information > p{
+    margin-top: 0px !important;
     font-size: 20px;
     display: block;
     margin-block-start: 1em;
@@ -59,6 +73,7 @@
     padding-left: 15px;
     margin-right: 400px;
     margin-left: 400px;
+    max-width: 960px;
 }
 
 .profile-navbar-control{
@@ -83,6 +98,10 @@
     display: inline-block;
 }
 
+.user-progress{
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+}
 .container{
     width: 100%;
     padding-right: 15px;
@@ -95,12 +114,17 @@
     margin-top: 1rem !important;
     margin-bottom: 1.5rem !important;
 }
-
+.dropdown{
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: flex-end;
+}
 .dropdown-label{
     font-weight: 400;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 22px;
-    margin-bottom: 0;
+    margin: 0;
     color: #000;
 }
 
@@ -109,5 +133,17 @@
 }
 
 .button-dropdown{
+    font-weight: 400;
+    padding: 16px;
+    border-radius: 2px;
+    border: solid rgb(178, 178, 178) 1px;
+    letter-spacing: normal;
+    font-size: 20px !important;
+    color: #18181b !important;
     cursor:pointer;
+    background-color: #ffffff;
+}
+
+.button-dropdown:hover{
+    border: 1px solid #1DBC60;
 }

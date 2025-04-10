@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import userIMG from "../assets/person.svg"
 import "./Profile.css";
 
 export default function Profile () {
@@ -22,7 +23,7 @@ export default function Profile () {
         <div className="User-Profile">
           <div className="User-Photo-Wrapper">
               <div className="User-Photo">
-                  <img src={"path-to-db"} alt="User" />
+                  <img src={userIMG} alt="User" />
               </div>
                 <a href="#" className="user-profile-picture-edit-button">
                     <svg
@@ -60,8 +61,7 @@ export default function Profile () {
           </div>
           <div className="User-Information">
             <h2 className="profile-headline-name">{user.name}</h2>
-            <p>Email : {user.email}</p>
-            <p>Tanggal Lahir : {user.birth_date}</p>
+            <p>{user.email}</p>
           </div>
         </div>
         <div className="Header-Content">
@@ -84,7 +84,11 @@ export default function Profile () {
                 <div className="dropdown">
                   <p className="dropdown-label">Tampilkan</p>
                   <div className="dropdown-shown">
-                    <button className="button-dropdown"> Sedang Dipelajari</button>
+                    <div className="button-dropdown"> Sedang Dipelajari
+                      <ul className="dropdown-value" />
+                        <li>Sudah Lulus</li>
+                        <li>Semua Kelas</li>
+                    </div>
                   </div>
                 </div>
               </div>

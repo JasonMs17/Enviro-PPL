@@ -125,4 +125,80 @@
     position: relative;
 }
 
+.row-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-right: 300px;
+    margin-left: 300px;
+}
+.progress-container{
+    flex: 1 1 600px; 
+    margin-top: .5rem !important;
+    width:625px;
+    width: 100%;
+}
 
+.user-course-profile{
+    padding-left: .5rem !important;
+    padding-bottom: .5rem !important;
+    padding-right: .5rem !important;
+    padding-top: .5rem !important;
+}
+
+.course-card-user-progress{
+    height: 100%;
+    align-items: flex-start;
+    border: 1px solid #e4e4e7;
+    border-radius: 4px;
+    color: inherit;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.course-card-header{
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.course-card-logo-wrapper{
+    margin-right: 1rem;
+    max-width: 4rem;
+    position: relative;
+}
+
+img{
+    vertical-align: middle;
+    border-style: none;
+}
+
+.course-card-logo{
+    border-radius: 2px;
+    height: auto;
+    max-width: 100%;
+}
+
+.course-card-name{
+    font-size: 20px;
+    font-weight: 700 !important;
+    margin:0px;
+}
+
+.course-card-summary{
+    padding: 19px 0;
+    color: #71717a;
+}
+
+.course-card-summary > p{
+    margin: 0;
+}
+
+.course-card-user-progress:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  

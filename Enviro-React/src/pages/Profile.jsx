@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import userIMG from "../assets/person.svg"
+import pencemaran from "../assets/pencemaranUdara.png"
 import "./Profile.css";
 import Dropdown from "../components/DropdownUserProfile/Dropdown/Dropdown";
 import DropdownItems from "../components/DropdownUserProfile/DropdownItem/DropdownItem";
@@ -104,6 +105,124 @@ export default function Profile () {
             </div>
           </div>
         </div>
+        
+        <div className="row-section">
+          <div className="progress-container">
+              <div className="user-course-profile">
+                  <a className="course-card-user-progress" href="./">
+                      <div className="course-card-header">
+                        <div className="course-card-logo-wrapper">
+                          <img src = {pencemaran} className="course-card-logo" />
+                        </div>
+                        <div className="course-card-content">
+                          <h5 className="course-card-name">Apa Itu Pencemaran Udara</h5>
+                        </div>
+                      </div>
+                      <div className="course-card-summary">
+                          <p>
+                          Pencemaran udara adalah kondisi di mana udara tercemar oleh zat-zat berbahaya yang dapat membahayakan kesehatan manusia, makhluk hidup, dan lingkungan secara keseluruhan.
+                          </p>
+                        </div>
+                  </a>
+              </div>
+          </div>
+          <div className="progress-container">
+              <div className="user-course-profile">
+                  <a className="course-card-user-progress" href="./">
+                      <div className="course-card-header">
+                        <div className="course-card-logo-wrapper">
+                          <img src = {pencemaran} className="course-card-logo" />
+                        </div>
+                        <div className="course-card-content">
+                          <h5 className="course-card-name">Apa Itu Pencemaran Udara</h5>
+                        </div>
+                      </div>
+                      <div className="course-card-summary">
+                          <p>
+                          Pencemaran udara adalah kondisi di mana udara tercemar oleh zat-zat berbahaya yang dapat membahayakan kesehatan manusia, makhluk hidup, dan lingkungan secara keseluruhan.
+                          </p>
+                        </div>
+                  </a>
+              </div>
+          </div>
+          <div className="progress-container">
+              <div className="user-course-profile">
+                  <a className="course-card-user-progress" href="./">
+                      <div className="course-card-header">
+                        <div className="course-card-logo-wrapper">
+                          <img src = {pencemaran} className="course-card-logo" />
+                        </div>
+                        <div className="course-card-content">
+                          <h5 className="course-card-name">Apa Itu Pencemaran Udara</h5>
+                        </div>
+                      </div>
+                      <div className="course-card-summary">
+                          <p>
+                          Pencemaran udara adalah kondisi di mana udara tercemar oleh zat-zat berbahaya yang dapat membahayakan kesehatan manusia, makhluk hidup, dan lingkungan secara keseluruhan.
+                          </p>
+                        </div>
+                  </a>
+              </div>
+          </div>
+          <div className="progress-container">
+              <div className="user-course-profile">
+                  <a className="course-card-user-progress" href="./">
+                      <div className="course-card-header">
+                        <div className="course-card-logo-wrapper">
+                          <img src = {pencemaran} className="course-card-logo" />
+                        </div>
+                        <div className="course-card-content">
+                          <h5 className="course-card-name">Apa Itu Pencemaran Udara</h5>
+                        </div>
+                      </div>
+                      <div className="course-card-summary">
+                          <p>
+                          Pencemaran udara adalah kondisi di mana udara tercemar oleh zat-zat berbahaya yang dapat membahayakan kesehatan manusia, makhluk hidup, dan lingkungan secara keseluruhan.
+                          </p>
+                        </div>
+                  </a>
+              </div>
+          </div>
+          <div className="progress-container">
+              <div className="user-course-profile">
+                  <a className="course-card-user-progress" href="./">
+                      <div className="course-card-header">
+                        <div className="course-card-logo-wrapper">
+                          <img src = {pencemaran} className="course-card-logo" />
+                        </div>
+                        <div className="course-card-content">
+                          <h5 className="course-card-name">Apa Itu Pencemaran Udara</h5>
+                        </div>
+                      </div>
+                      <div className="course-card-summary">
+                          <p>
+                          Pencemaran udara adalah kondisi di mana udara tercemar oleh zat-zat berbahaya yang dapat membahayakan kesehatan manusia, makhluk hidup, dan lingkungan secara keseluruhan.
+                          </p>
+                        </div>
+                  </a>
+              </div>
+          </div>
+          <div className="progress-container">
+              <div className="user-course-profile">
+                  <a className="course-card-user-progress" href="./">
+                      <div className="course-card-header">
+                        <div className="course-card-logo-wrapper">
+                          <img src = {pencemaran} className="course-card-logo" />
+                        </div>
+                        <div className="course-card-content">
+                          <h5 className="course-card-name">Apa Itu Pencemaran Udara</h5>
+                        </div>
+                      </div>
+                      <div className="course-card-summary">
+                          <p>
+                          Pencemaran udara adalah kondisi di mana udara tercemar oleh zat-zat berbahaya yang dapat membahayakan kesehatan manusia, makhluk hidup, dan lingkungan secara keseluruhan.
+                          </p>
+                        </div>
+                  </a>
+              </div>
+          </div>
+        </div>
+        
 
         </>
       ) : (

@@ -29,7 +29,7 @@ export default function Profile () {
         <div className="User-Profile">
           <div className="User-Photo-Wrapper">
               <div className="User-Photo">
-                  <img src={userIMG} alt="User" />
+                  <img src={user.profile_photo ? user.profile_photo : userIMG} alt="User" />
               </div>
                 <a href="#" className="user-profile-picture-edit-button">
                     <svg

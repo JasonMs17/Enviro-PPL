@@ -1,3 +1,11 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999; /* Supaya tetap di atas elemen lain */
+  background-color: #ffffff;
+}
+
+
 .logo-and-navbar {
     width: 100vw; /* Biar full lebar layar */
     background-color: #ffffff; /* Atur warna latar */
@@ -80,6 +88,7 @@ nav a:hover {
 }
 
 .user-profile{
+  position: relative;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -106,3 +115,22 @@ nav a:hover {
   .logout:active {
     transform: scale(0.98);
   }
+
+  .User-Photo-Navbar{
+    background-color: #1DBC60;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 0px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.User-Photo-Navbar> img{
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    object-fit: cover;
+    max-width: 100%;
+}

@@ -108,7 +108,6 @@ export default function Profile () {
         
         <UserCourse />
         
-
         </>
       ) : (
         <p>Loading...</p>

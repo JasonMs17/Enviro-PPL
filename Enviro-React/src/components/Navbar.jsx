@@ -1,45 +1,58 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import http from "../utils/fetch";
+import userIMG from "../assets/person.svg"
+// import axios from "axios";
 
 import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
+import DropDownPicture from "./DropdownNavbar/DropDownPicture";
+
 
 const Navbar = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const [open , setOpen] = useState (false);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogout = async (event) => {
-    event.preventDefault();
+  const dropdownRef = useRef(null);
+  const timeoutRef = useRef(null);
 
-    try {
-      const response = await http("/api/logout", {
-        method: "POST",
-      });
-
-      console.log(response);
-
-      if (response.status === 200) {
-        setUser(null);
-        localStorage.removeItem("user");
-        window.location.href = "/login";
-      } else {
-        console.error("Failed to logout");
+  useEffect (() => {
+    const handleclick = (event) =>{
+      if(dropdownRef.current && !dropdownRef.current.contains (event.target)){
+          setOpen(false);
       }
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
-  };
+    };
+      document.addEventListener("click", handleclick)
+
+      return () => {
+          document.removeEventListener("click", handleclick)
+      };
+  }, []);
+
+
+  
 
   const imageClick = () => {
     navigate("/profile");
   };
 
+  const handleMouseEnter = () => {
+    setOpen(true); // Menampilkan dropdown saat mouse masuk
+  };
+  
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setOpen(false);
+    }, 200); // Menyembunyikan dropdown saat mouse keluar
+  };
+
+  
+
   return (
     <header className="navbar">
+      
       <div className="enviro-logo">
         <Link to="/">
           <img src={logoEnviro} alt="Website Logo" />
@@ -54,15 +67,19 @@ const Navbar = () => {
 
       <div className="login-signup">
         {user ? (
-          <div className="user-profile">
-            <img
-              src={"path-to-profile-image.jpg"}
+          <div className="user-profile"
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave}
+            ref={dropdownRef}>
+           <div className="User-Photo-Navbar" >
+           <img
+              src={userIMG}
               onClick={() => imageClick()}
               className="profile-image"
             />
-            <button onClick={handleLogout} className="logout">
-              Logout
-            </button>
+           </div>
+           <DropDownPicture open={open} />
+            
           </div>
         ) : (
           <>

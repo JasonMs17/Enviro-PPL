@@ -7,38 +7,42 @@
 
 
 .logo-and-navbar {
-    width: 100vw; /* Biar full lebar layar */
-    background-color: #ffffff; /* Atur warna latar */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem; /* Spasi biar gak nempel */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
-    position: relative; /* Biar gak nempel di atas */
-    margin-bottom: 1rem; /* Biar ada jarak dari konten lain */
-    box-sizing: border-box;
+  width: 100vw; /* Biar full lebar layar */
+  background-color: #ffffff; /* Atur warna latar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem; /* Spasi biar gak nempel */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
+  position: relative; /* Biar gak nempel di atas */
+  margin-bottom: 1rem; /* Biar ada jarak dari konten lain */
+  box-sizing: border-box;
     
-  }
+}
 
-  .navbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: white;
-    box-shadow: 2px 2px 4px grey;
-    height: 80px;
-    font-weight: bold;
-  }
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  box-shadow: 2px 2px 4px grey;
+  height: 80px;
+  font-weight: bold;
+}
+
+.user-control{
+  display: flex;
+}
 .enviro-logo img {
-    width: 150px;
+  width: 150px;
 }
 
 .login-button{
   margin: 0 15px;
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
 }
 
 .login-button:hover {

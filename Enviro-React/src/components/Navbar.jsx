@@ -8,6 +8,7 @@ import userIMG from "../assets/person.svg"
 import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
 import DropDownPicture from "./DropdownNavbar/DropDownPicture";
+import DropDownCourse from "./DropdownNavbar/DropdownCourse";
 
 
 const Navbar = () => {
@@ -59,9 +60,13 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <nav>
-        <a href="">Learn With Us</a>
-        <a href="">Challenge</a>
+      <nav className="user-control">
+        <div className="user-course">
+          <a href="">Learn With Us</a>
+        </div>
+        <div className="user-challenge">
+          <a href="">Challenge</a>
+        </div>
         <a href="">About Us</a>
       </nav>
 
@@ -78,8 +83,7 @@ const Navbar = () => {
               className="profile-image"
             />
            </div>
-           <DropDownPicture open={open} />
-            
+           <DropDownPicture open={open} />  
           </div>
         ) : (
           <>

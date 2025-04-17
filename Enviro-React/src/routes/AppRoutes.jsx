@@ -10,6 +10,7 @@ import ResetPasswordForm from "../pages/ResetPasswordForm";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import Loading from "../components/Loading"; // Import komponen Loading
+import AirMateri1 from "../pages/PencemaranAir/SubBab1/Materi1/AirMateri1";
 
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext); // Ambil loading dari AuthContext
@@ -43,6 +44,7 @@ const AppRoutes = () => {
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/reset-password" element={<ResetPass />} />
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
+      <Route path="/materi-1-pencemaran-air" element = {<AirMateri1 />}/>      
     </Routes>
   );
 };

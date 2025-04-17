@@ -43,7 +43,7 @@
     background-color: #f5f5f5;
   }
 
-  li a {
+  .gap-4 li a {
     text-decoration: none;
     color: inherit;
     display: block;
@@ -51,9 +51,8 @@
     border-radius: 8px;
   }
   
-  li a:hover {
+  .gap-4 li a:hover {
     background-color: #f5f5f5;
   }
   
-
   

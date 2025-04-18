@@ -31,7 +31,7 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
       items: [
         { text: "Apa Itu Polusi Air?", link: "/apa-itu-polusi-air-pencemaran-air" },
         { text: "Penyebab Polusi Air", link: "/penyebab-polusi-air" },
-        { text: "Dampak Umum Polusi Air", link: "/" },
+        { text: "Dampak Umum Polusi Air", link: "/dampak-umum-polusi-air" },
       ],
     },
     {

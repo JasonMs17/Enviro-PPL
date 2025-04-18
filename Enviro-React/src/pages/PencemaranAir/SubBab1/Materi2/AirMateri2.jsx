@@ -1,6 +1,7 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
 import "./AirMateri2.css"
+import { Bold } from "lucide-react";
 export default function AirMateri2 (){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -15,109 +16,135 @@ export default function AirMateri2 (){
                 <div className="course-article">
                     <div className="course-content" >
                         <h2 dir="ltr">
-                            Apa Itu Polusi Air?
+                            Penyebab Polusi Air
                         </h2>
                         <h3>
-                            👋 Tahukah kamu?
+                            🚨 Air tercemar nggak terjadi tiba-tiba...
                         </h3>
                         <p>
-                            Setiap tetes air yang kita minum, gunakan untuk mandi, atau mengairi tanaman, bisa jadi tidak sebersih yang kita bayangkan. Tanpa kita sadari, aktivitas sehari-hari bisa mencemari air dan berdampak langsung pada lingkungan—bahkan pada kesehatan kita sendiri.
-                            Di materi ini, kita akan mulai memahami apa sebenarnya yang disebut sebagai polusi air, dari definisi paling dasar hingga jenis-jenis pencemar yang wajib kita waspadai.
-                        </p>
-                        <h3>
-                            Pengertian Polusi Air 
-                        </h3>
-                        <p>
-                            Polusi air adalah kondisi ketika air di sungai, danau, laut, atau air tanah tercemar oleh zat-zat yang merusak kualitasnya. Secara sederhana, 
-                            ini terjadi saat bahan berbahaya—baik dari makhluk hidup, zat kimia, energi, maupun partikel lain—masuk ke dalam air akibat aktivitas manusia, sehingga air tidak bisa lagi digunakan sebagaimana mestinya.
+                        Bayangin kamu sedang minum segelas air yang terlihat bening—tapi siapa sangka, bisa jadi di dalamnya terkandung bahan kimia, bakteri, bahkan logam berat. Pencemaran air sering kali terjadi secara perlahan tapi pasti, dan seringkali berasal dari kebiasaan manusia sehari-hari yang tampak "sepele".
                         </p>
                         <p>
-                            Contohnya, limbah pabrik yang dibuang langsung ke sungai tanpa pengolahan terlebih dahulu adalah bentuk pencemaran langsung. Sedangkan pencemaran tidak langsung bisa terjadi lewat air hujan yang membawa polutan dari udara atau tanah masuk ke badan air.
-                        </p>
-                        <p>
-                            Namun, tidak semua perubahan kualitas air disebut sebagai pencemaran. Suatu air dikatakan tercemar jika kualitasnya menurun hingga tidak layak lagi untuk digunakan, baik untuk diminum, pertanian, industri, atau menjaga ekosistem air tetap seimbang.
-                        </p>
-                        <h3>
-                            🔍 Ciri-Ciri Air yang Tercemar
-                        </h3>
-                        <p>
-                            Beberapa indikator yang menandakan air telah tercemar antara lain:
-                        </p>
-                        <ul>
-                            <li>Perubahan suhu air secara drastis.</li>
-                            <li>Perubahan warna, bau, atau rasa air.</li>
-                            <li>Air menjadi lebih asam atau terlalu basa. (pH tidak seimbang)</li>
-                            <li>Munculnya endapan atau zat terlarut.</li>
-                            <li>Terdapat mikroorganisme berbahaya.</li>
-                            <li>Meningkatnya zat radioaktif dalam air.</li>
-                        </ul>
-                        <p>
-                            Memahami dasar dari pencemaran air sangat penting agar kita bisa lebih sadar dan bertanggung jawab dalam menjaga sumber air bersih di sekitar kita.
-                        </p>
-                        <h3>
-                            💧 Jenis-Jenis Polusi Air
-                        </h3>
-                        <p>
-                            Polusi air dapat dibedakan berdasarkan jenis pencemarnya. Masing-masing punya sumber, dampak, dan cara penanganan yang berbeda.
+                        Nah, di materi ini kamu akan kenalan dengan penyebab polusi air—dari industri besar hingga hal-hal yang kita lakukan di rumah.
                         </p>
                         <h4>
-                            1. Pencemaran Mikrobiologis
+                        🏭 1. Limbah Industri
                         </h4>
                         <p>
-                        Terjadi karena air terkontaminasi bakteri, virus, atau parasit berbahaya. Biasanya berasal dari limbah rumah tangga yang mengandung tinja manusia atau hewan.   
+                        Industri adalah penyumbang polusi air paling besar. Banyak pabrik—seperti tekstil, logam, atau kimia—menghasilkan limbah cair yang berisi zat berbahaya. Kalau limbah ini dibuang ke sungai tanpa proses pengolahan, hasilnya bisa merusak ekosistem air dan membahayakan kesehatan manusia.                       
+                        </p>
+                        <p className = "paragraf-bold">
+                            Apa saja kandungan limbah industri?                       
                         </p>
                         <ul>
-                            <li style={{ listStyleType: "none" }}>📌 Contoh: E. coli, virus hepatitis A, parasit Giardia</li>
-                            <li style={{ listStyleType: "none" }}>💡 Dampak: diare, kolera, hepatitis A</li>
+                            <li>Logam berat: merkuri, timbal, kadmium</li>
+                            <li>Senyawa organik: pelarut, minyak</li>
+                            <li>Bahan kimia beracun: sianida, fenol</li>
                         </ul>
+                        <p>
+                            Efeknya? Ikan mati, air jadi beracun, dan kualitas hidup masyarakat sekitar ikut terancam.
+                        </p>
                         <h4>
-                            2. Pencemaran Kimia Organik
+                            🏠 2. Limbah Domestik
                         </h4>
                         <p>
-                            Disebabkan oleh senyawa kimia organik seperti pestisida, minyak, atau deterjen yang masuk ke dalam air dari pertanian atau rumah tangga. 
+                            Limbah dari rumah kita—yang kelihatannya biasa aja—juga bisa jadi pencemar serius. Mulai dari air cucian, sabun, hingga sisa makanan, kalau langsung dibuang ke saluran air tanpa penyaringan, bisa jadi masalah besar.
+                        </p>
+                        <p className = "paragraf-bold">
+                            Contohnya:                       
                         </p>
                         <ul>
-                            <li style={{ listStyleType: "none" }}> 💡 Dampak: meracuni ikan dan manusia, mencemari rantai makanan</li>
+                            <li>Air limbah dari dapur dan kamar mandi</li>
+                            <li>Deterjen & pembersih kimiak</li>
+                            <li>Sampah organik</li>
                         </ul>
+                        <p>
+                        Akibatnya? Air jadi sarang bakteri dan virus berbahaya yang bisa menyebar ke mana-mana.
+                        </p>
                         <h4>
-                            3. Pencemaran Kimia Anorganik
+                        🌾 3. Aktivitas Pertanian
                         </h4>
                         <p>
-                            Melibatkan logam berat (timbal, merkuri), asam kuat, dan senyawa pupuk. Sering berasal dari industri atau pertambangan.
+                            Pupuk dan pestisida memang bikin tanaman subur, tapi kalau digunakan berlebihan, bisa ikut terbawa hujan dan mencemari sungai atau danau. Ini yang sering disebut sebagai limpasan pertanian.                        </p>
+                        <p className = "paragraf-bold">
+                        Zat yang sering terbawa:                   
                         </p>
                         <ul>
-                            <li style={{ listStyleType: "none" }}> 💡 Dampak: kerusakan organ tubuh manusia dan kematian biota air</li>
+                            <li>Nitrat & fosfat (dari pupuk)</li>
+                            <li>Pestisida & herbisida</li>
+                            <li>Tanah hasil erosi</li>
                         </ul>
-                        <h4>
-                            4. Pencemaran Termal
-                        </h4>
                         <p>
-                            Terjadi ketika suhu air naik akibat pembuangan air panas dari industri/pembangkit listrik.
+                            Efeknya? Gangguan ekosistem air, pertumbuhan alga berlebih, dan air minum yang tidak lagi aman.                      
                         </p>
-                        <ul>
-                            <li style={{ listStyleType: "none" }}>💡 Dampak: oksigen terlarut menurun, ikan kesulitan bernapas</li>
-                        </ul>
-                        <h4>
-                            5. Pencemaran Sedimen
-                        </h4>
-                        <p>
-                        Partikel tanah dan debu masuk ke air dalam jumlah banyak, sering kali akibat erosi atau deforestasi.
 
-                        </p>
-                        <ul>
-                            <li style={{ listStyleType: "none" }}>💡 Dampak: air jadi keruh, sinar matahari sulit menembus, fotosintesis terganggu</li>
-                        </ul>
                         <h4>
-                            6. Pencemaran Nutrisi (Eutrofikasi)
+                        ⛏️ 4. Pertambangan
                         </h4>
                         <p>
-                            Disebabkan oleh kelebihan pupuk (nitrogen dan fosfor) dari pertanian atau limbah.
+                        Kegiatan tambang nggak cuma menggali tanah, tapi juga menghasilkan limbah berbahaya. Air yang mengalir dari lokasi tambang seringkali mengandung logam berat dan zat kimia lainnya.
+                        </p>
+                        <p className = "paragraf-bold">
+                        Risikonya:                     
                         </p>
                         <ul>
-                            <li style={{ listStyleType: "none" }}>💡 Dampak: pertumbuhan alga berlebihan, kadar oksigen turun, ikan mati massal
-                            </li>
+                            <li>Air asam tambang</li>
+                            <li>Sedimentasi berat</li>
+                            <li>Kontaminasi air tanah</li>
                         </ul>
-
+                        <p>
+                        Yang mengkhawatirkan, efek pencemaran tambang bisa berlangsung bertahun-tahun bahkan setelah tambangnya tutup.                       
+                        </p>
+                        <h4>
+                        🏙️ 5. Urbanisasi dan Pembangunan
+                        </h4>
+                        <p>
+                        Semakin padat sebuah kota, semakin besar pula risiko pencemaran air. Jalanan, gedung, dan area beton luas membuat air hujan nggak bisa terserap ke tanah, dan malah membawa polutan langsung ke sungai.                        </p>
+                        <p className = "paragraf-bold">
+                        Dampaknya:                      
+                        </p>
+                        <ul>
+                            <li>Peningkatan limbah rumah tangga & konstruksi</li>
+                            <li>Erosi dan gangguan aliran air</li>
+                            <li>Limbah bangunan masuk ke drainase</li>
+                        </ul>
+                        <p>
+                            Kalau tidak dikelola, kota besar bisa jadi sumber polusi yang sangat serius.                       
+                        </p>
+                        <h4>
+                        🚢 6. Transportasi Air
+                        </h4>
+                        <p>
+                            Kapal besar bukan cuma bawa barang, tapi kadang juga bawa masalah. Minyak yang bocor, air ballast yang dibuang, atau limbah dari kapal bisa mencemari laut dan pesisir.
+                        </p>
+                        <p className = "paragraf-bold">
+                            Apa aja yang mencemari?
+                        </p>
+                        <ul>
+                            <li>Tumpahan minyak</li>
+                            <li>Limbah bahan bakark</li>
+                            <li>Air ballast dengan organisme asing</li>
+                        </ul>
+                        <p>
+                            Dampaknya bisa merusak terumbu karang, biota laut, dan mencemari perairan tempat nelayan menggantungkan hidup.
+                        </p>
+                        <h4>
+                            🌡️ 7. Perubahan Iklim
+                        </h4>
+                        <p>
+                            Mungkin bukan penyebab langsung, tapi perubahan iklim bisa memperparah polusi air.
+                        </p>
+                        <p className = "paragraf-bold">
+                        Bagaimana caranya?
+                        </p>
+                        <ul>
+                            <li>Suhu air naik → kadar oksigen turun → ikan sulit hidup</li>
+                            <li>Pola hujan berubah → limpasan dan erosi meningkat</li>
+                            <li>Naiknya permukaan laut → air asin mencemari air tawar</li>
+                        </ul>
+                        <p>
+                            Kalau tidak diantisipasi, dampaknya akan sangat luas dan sulit dikendalikan.                        
+                        </p>
                         <div className="infografis-course">
 
                         </div>

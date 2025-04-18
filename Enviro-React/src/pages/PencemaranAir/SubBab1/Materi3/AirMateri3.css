@@ -1,4 +1,4 @@
-.air-materi-2{
+.air-materi-3{
   display: flex;
   margin: 0;
   padding: 0;
@@ -80,5 +80,17 @@
   line-height: 40px;
   font-weight: 400;
   margin-top: 0;
+}
+
+.course-content span {
+  font-weight:bold ;
+}
+
+.course-video{
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 1%;
 }
 

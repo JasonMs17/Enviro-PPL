@@ -44,7 +44,8 @@ const AppRoutes = () => {
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/reset-password" element={<ResetPass />} />
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
-      <Route path="/materi-1-pencemaran-air" element = {<AirMateri1 />}/>      
+      <Route path="/apa-itu-polusi-air-pencemaran-air" element = {<AirMateri1 />}/>      
+      <Route path="/penyebab-polusi-air" element = {<AirMateri1 />}/>      
     </Routes>
   );
 };

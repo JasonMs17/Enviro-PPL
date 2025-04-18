@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
-import "./AirMateri1.css"
-export default function AirMateri1 (){
+import "./AirMateri2.css"
+export default function AirMateri2 (){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
@@ -9,7 +9,7 @@ export default function AirMateri1 (){
     };
     
     return (
-        <div className={`air-materi-1 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+        <div className={`air-materi-2 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
             <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className="course-container">
                 <div className="course-article">

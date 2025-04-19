@@ -1,0 +1,24 @@
+.Bab-1-air-materi-3{
+  display: flex;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+}
+
+
+.course-content .line-bold {
+  font-weight:bold ;
+  color : #1DBC60
+}
+
+.course-video{
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 1%;
+  margin-bottom: 20px;
+}
+

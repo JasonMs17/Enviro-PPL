@@ -38,9 +38,9 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
       key: "kedua",
       title: "Dampak Polusi Air terhadap Kesehatan",
       items: [
-        { text: "Air Tercemar dan Penyakit", link: "/" },
-        { text: "Siapa yang Paling Terdampak?", link: "/" },
-        { text: "Menentukan Air Aman Dikonsumsi", link: "/" },
+        { text: "Air Tercemar dan Penyakit", link: "/air-tercemar-dan-penyakit" },
+        { text: "Siapa yang Paling Terdampak?", link: "/siapa-yang-paling-Terdampak" },
+        { text: "Menentukan Air Aman Dikonsumsi", link: "/menentukan-air-aman-dikonsumsi" },
       ],
     },
     {

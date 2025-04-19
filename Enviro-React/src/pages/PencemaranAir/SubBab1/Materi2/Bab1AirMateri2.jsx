@@ -1,8 +1,8 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
-import "./AirMateri2.css"
+import "./Bab1AirMateri2.css"
 import { Bold } from "lucide-react";
-export default function AirMateri2 (){
+export default function Bab1AirMateri2 (){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
@@ -10,7 +10,7 @@ export default function AirMateri2 (){
     };
     
     return (
-        <div className={`air-materi-2 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+        <div className={`Bab-1-air-materi-2 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
             <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className="course-container">
                 <div className="course-article">

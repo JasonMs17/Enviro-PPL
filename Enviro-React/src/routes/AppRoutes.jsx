@@ -10,9 +10,12 @@ import ResetPasswordForm from "../pages/ResetPasswordForm";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import Loading from "../components/Loading"; // Import komponen Loading
-import AirMateri1 from "../pages/PencemaranAir/SubBab1/Materi1/AirMateri1";
-import AirMateri2 from "../pages/PencemaranAir/SubBab1/Materi2/AirMateri2";
-import AirMateri3 from "../pages/PencemaranAir/SubBab1/Materi3/AirMateri3";
+import Bab1AirMateri1 from "../pages/PencemaranAir/SubBab1/Materi1/Bab1AirMateri1";
+import Bab1AirMateri2 from "../pages/PencemaranAir/SubBab1/Materi2/Bab1AirMateri2";
+import Bab1AirMateri3 from "../pages/PencemaranAir/SubBab1/Materi3/Bab1AirMateri3";
+import Bab2AirMateri1 from "../pages/PencemaranAir/SubBab2/Materi1/Bab2AirMateri1";
+import Bab2AirMateri2 from "../pages/PencemaranAir/SubBab2/Materi2/Bab2AirMateri2";
+import Bab2AirMateri3 from "../pages/PencemaranAir/SubBab2/Materi3/Bab2AirMateri3";
 
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext); // Ambil loading dari AuthContext
@@ -46,9 +49,12 @@ const AppRoutes = () => {
       <Route path="/verify-email" element={<VerifyEmail />} />
       <Route path="/reset-password" element={<ResetPass />} />
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
-      <Route path="/apa-itu-polusi-air-pencemaran-air" element = {<AirMateri1 />}/>      
-      <Route path="/penyebab-polusi-air" element = {<AirMateri2 />}/>      
-      <Route path="/dampak-umum-polusi-air" element = {<AirMateri3 />}/>      
+      <Route path="/apa-itu-polusi-air-pencemaran-air" element = {<Bab1AirMateri1 />}/>      
+      <Route path="/penyebab-polusi-air" element = {<Bab1AirMateri2 />}/>      
+      <Route path="/dampak-umum-polusi-air" element = {<Bab1AirMateri3 />}/>      
+      <Route path="/air-tercemar-dan-penyakit" element = {<Bab2AirMateri1 />}/>      
+      <Route path="/siapa-yang-paling-Terdampak" element = {<Bab2AirMateri2 />}/>      
+      <Route path="/menentukan-air-aman-dikonsumsi" element = {<Bab2AirMateri3 />}/>      
     </Routes>
   );
 };

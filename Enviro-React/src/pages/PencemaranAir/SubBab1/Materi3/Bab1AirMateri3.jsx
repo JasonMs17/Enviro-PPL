@@ -1,8 +1,8 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
-import "./AirMateri3.css"
+import "./bab1AirMateri3.css"
 import { Bold } from "lucide-react";
-export default function AirMateri3 (){
+export default function Bab1AirMateri3 (){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
@@ -10,7 +10,7 @@ export default function AirMateri3 (){
     };
     
     return (
-        <div className={`air-materi-3 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+        <div className={`Bab-1-air-materi-3 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
             <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className="course-container">
                 <div className="course-article">
@@ -32,10 +32,10 @@ export default function AirMateri3 (){
                         Air adalah rumah bagi jutaan makhluk hidup. Tapi saat air tercemar, kehidupan di dalamnya ikut terancam.
                         </p>
                         <ul>
-                            <li><span>Keanekaragaman hayati menurun :</span> Banyak ikan dan tumbuhan air tidak bisa hidup dalam air yang tercemar. Populasi mereka menurun, bahkan bisa punah.</li>
-                            <li><span>Rantai makanan terganggu :</span> Jika satu spesies hilang, seluruh rantai makanan bisa ikut kacau.</li>
-                            <li><span>Ledakan alga (eutrofikasi) : </span> Nutrisi berlebih dari pupuk menciptakan pertumbuhan alga tak terkendali. Alga menyerap oksigen, menyebabkan ikan mati, dan menciptakan “zona mati”.</li>
-                            <li><span>Perubahan habitat : </span>  Endapan lumpur atau bahan kimia bisa mengubah lingkungan alami makhluk air.</li>
+                            <li><span className="line-bold">Keanekaragaman hayati menurun :</span> Banyak ikan dan tumbuhan air tidak bisa hidup dalam air yang tercemar. Populasi mereka menurun, bahkan bisa punah.</li>
+                            <li><span className="line-bold">Rantai makanan terganggu :</span> Jika satu spesies hilang, seluruh rantai makanan bisa ikut kacau.</li>
+                            <li><span className="line-bold">Ledakan alga (eutrofikasi) : </span> Nutrisi berlebih dari pupuk menciptakan pertumbuhan alga tak terkendali. Alga menyerap oksigen, menyebabkan ikan mati, dan menciptakan “zona mati”.</li>
+                            <li><span className="line-bold">Perubahan habitat : </span>  Endapan lumpur atau bahan kimia bisa mengubah lingkungan alami makhluk air.</li>
                         </ul>
 
                         <h4>
@@ -45,10 +45,10 @@ export default function AirMateri3 (){
                         Air yang tercemar bisa jadi pembawa penyakit berbahaya, bahkan racun.
                         </p>
                         <ul>
-                            <li><span>Penyakit menular :</span> Air kotor bisa menyebarkan kolera, hepatitis A, dan tifoid.</li>
-                            <li><span>Keracunan kimia :</span> Minum air yang mengandung logam berat seperti arsenik bisa menyebabkan kerusakan organ.</li>
-                            <li><span>Gangguan hormon : </span>  Beberapa zat pencemar bisa mengacaukan sistem hormonal dalam tubuh.</li>
-                            <li><span>Risiko kanker : </span>  Paparan jangka panjang terhadap bahan kimia tertentu meningkatkan risiko kanker.</li>
+                            <li><span className="line-bold">Penyakit menular :</span> Air kotor bisa menyebarkan kolera, hepatitis A, dan tifoid.</li>
+                            <li><span className="line-bold">Keracunan kimia :</span> Minum air yang mengandung logam berat seperti arsenik bisa menyebabkan kerusakan organ.</li>
+                            <li><span className="line-bold">Gangguan hormon : </span>  Beberapa zat pencemar bisa mengacaukan sistem hormonal dalam tubuh.</li>
+                            <li><span className="line-bold">Risiko kanker : </span>  Paparan jangka panjang terhadap bahan kimia tertentu meningkatkan risiko kanker.</li>
                         </ul>
 
                         <h4>
@@ -58,10 +58,10 @@ export default function AirMateri3 (){
                         Polusi air nggak cuma merusak lingkungan, tapi juga bikin kantong masyarakat dan pemerintah ikut terkuras.
                         </p>
                         <ul>
-                            <li><span>Biaya pengolahan air meningkat :</span> Air yang makin kotor butuh alat dan teknologi lebih mahal untuk dibersihkan.</li>
-                            <li><span>Industri perikanan rugi :</span> Populasi ikan menurun, hasil tangkapan bisa beracun dan tidak aman dikonsumsi.</li>
-                            <li><span>Nilai properti turun : </span>  Wilayah yang dekat sumber air tercemar sering kali ditinggalkan dan nilainya jatuh..</li>
-                            <li><span>Pariwisata merosot : </span>  Pantai, danau, atau sungai yang tercemar kehilangan daya tarik wisata.</li>
+                            <li><span className="line-bold">Biaya pengolahan air meningkat :</span> Air yang makin kotor butuh alat dan teknologi lebih mahal untuk dibersihkan.</li>
+                            <li><span className="line-bold">Industri perikanan rugi :</span> Populasi ikan menurun, hasil tangkapan bisa beracun dan tidak aman dikonsumsi.</li>
+                            <li><span className="line-bold">Nilai properti turun : </span>  Wilayah yang dekat sumber air tercemar sering kali ditinggalkan dan nilainya jatuh..</li>
+                            <li><span className="line-bold">Pariwisata merosot : </span>  Pantai, danau, atau sungai yang tercemar kehilangan daya tarik wisata.</li>
                         </ul>
 
                         <h4>
@@ -71,9 +71,9 @@ export default function AirMateri3 (){
                         Polusi air juga bisa membuat hasil pertanian menjadi berbahaya untuk dikonsumsi.
                         </p>
                         <ul>
-                            <li><span>Tanah ikut tercemar :</span>Irigasi menggunakan air kotor bisa membuat zat berbahaya menumpuk di tanah. </li>
-                            <li><span>Kontaminasi hasil panen :</span> Tanaman bisa menyerap polutan dan jadi berbahaya jika dimakan.</li>
-                            <li><span>Produktivitas menurun : </span> Beberapa bahan pencemar bisa menghambat pertumbuhan tanaman.  </li>
+                            <li><span className="line-bold">Tanah ikut tercemar :</span>Irigasi menggunakan air kotor bisa membuat zat berbahaya menumpuk di tanah. </li>
+                            <li><span className="line-bold">Kontaminasi hasil panen :</span> Tanaman bisa menyerap polutan dan jadi berbahaya jika dimakan.</li>
+                            <li><span className="line-bold">Produktivitas menurun : </span> Beberapa bahan pencemar bisa menghambat pertumbuhan tanaman.  </li>
                         </ul>
 
                         <h4>
@@ -82,8 +82,8 @@ export default function AirMateri3 (){
                         <p>
                         Semakin banyak air yang tercemar, semakin sedikit air yang aman digunakan.                        </p>
                         <ul>
-                            <li><span>Polutan menumpuk :</span> Zat seperti logam berat bisa menetap di sedimen dan tubuh makhluk hidup selama bertahun-tahun..</li>
-                            <li><span>Polutan menumpuk :</span> Suhu air yang berubah bisa memengaruhi cuaca di sekitar wilayah perairan.</li>
+                            <li><span className="line-bold">Krisis air bersih :</span> Banyak daerah kesulitan mendapatkan air yang layak pakai.</li>
+                            <li><span className="line-bold">Potensi konflik :</span> Persaingan mendapatkan air bersih bisa memicu konflik sosial dan politik.</li>
                         </ul>
                         
                         <h4>
@@ -93,8 +93,8 @@ export default function AirMateri3 (){
                         Beberapa efek polusi air tidak terlihat langsung, tapi berlangsung lama dan sulit diperbaiki.
                         </p>
                         <ul>
-                            <li><span>Polutan menumpuk :</span> Zat seperti logam berat bisa menetap di sedimen dan tubuh makhluk hidup selama bertahun-tahun.</li>
-                            <li><span>Polutan menumpuk :</span> Suhu air yang berubah bisa memengaruhi cuaca di sekitar wilayah perairan.</li>
+                            <li><span className="line-bold">Polutan menumpuk :</span> Zat seperti logam berat bisa menetap di sedimen dan tubuh makhluk hidup selama bertahun-tahun.</li>
+                            <li><span className="line-bold">Polutan menumpuk :</span> Suhu air yang berubah bisa memengaruhi cuaca di sekitar wilayah perairan.</li>
                         </ul>
                         <h4>
                         👥 7. Dampak Sosial
@@ -103,8 +103,8 @@ export default function AirMateri3 (){
                         Pencemaran air juga memperbesar kesenjangan sosial dan membuat hidup masyarakat semakin sulit.
                         </p>
                         <ul>
-                            <li><span>Ketimpangan akses air :</span> Komunitas miskin sering kali jadi yang paling terdampak.</li>
-                            <li><span>Migrasi paksa :</span> Jika air sudah tidak layak pakai, masyarakat bisa terpaksa pindah dari tempat tinggalnya</li>
+                            <li><span className="line-bold">Ketimpangan akses air :</span> Komunitas miskin sering kali jadi yang paling terdampak.</li>
+                            <li><span className="line-bold">Migrasi paksa :</span> Jika air sudah tidak layak pakai, masyarakat bisa terpaksa pindah dari tempat tinggalnya</li>
                         </ul>
 
                         <div className="video-course">

@@ -62,7 +62,7 @@ const Navbar = () => {
 
       <nav className="user-control">
         <div className="user-course">
-          <a href="">Learn With Us</a>
+          <a href="/apa-itu-polusi-air-pencemaran-air">Learn With Us</a>
         </div>
         <div className="user-challenge">
           <a href="">Challenge</a>

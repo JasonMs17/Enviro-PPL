@@ -47,9 +47,9 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
       key: "ketiga",
       title: "Solusi Menjaga Kualitas Air",
       items: [
-        { text: "Pengolahan Limbah Air", link: "/" },
-        { text: "Aksi Individu untuk Menjaga Air", link: "/" },
-        { text: "Pengelolaan Air Berkelanjutan", link: "/" },
+        { text: "Pengolahan Limbah Air", link: "/pengolahan-limbah-air" },
+        { text: "Aksi Individu untuk Menjaga Air", link: "/aksi-individu-untuk-menjaga-air" },
+        { text: "Pengelolaan Air Berkelanjutan", link: "/pengelolaan-air-berkelanjutan"},
       ],
     },
   ];

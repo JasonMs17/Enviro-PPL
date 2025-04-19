@@ -16,6 +16,9 @@ import Bab1AirMateri3 from "../pages/PencemaranAir/SubBab1/Materi3/Bab1AirMateri
 import Bab2AirMateri1 from "../pages/PencemaranAir/SubBab2/Materi1/Bab2AirMateri1";
 import Bab2AirMateri2 from "../pages/PencemaranAir/SubBab2/Materi2/Bab2AirMateri2";
 import Bab2AirMateri3 from "../pages/PencemaranAir/SubBab2/Materi3/Bab2AirMateri3";
+import Bab3AirMateri1 from "../pages/PencemaranAir/SubBab3/Materi1/Bab3AirMateri1";
+import Bab3AirMateri2 from "../pages/PencemaranAir/SubBab3/Materi2/Bab3AirMateri2";
+import Bab3AirMateri3 from "../pages/PencemaranAir/SubBab3/Materi3/Bab3AirMateri3";
 
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext); // Ambil loading dari AuthContext
@@ -55,6 +58,9 @@ const AppRoutes = () => {
       <Route path="/air-tercemar-dan-penyakit" element = {<Bab2AirMateri1 />}/>      
       <Route path="/siapa-yang-paling-Terdampak" element = {<Bab2AirMateri2 />}/>      
       <Route path="/menentukan-air-aman-dikonsumsi" element = {<Bab2AirMateri3 />}/>      
+      <Route path="/pengolahan-limbah-air" element = {<Bab3AirMateri1 />}/>      
+      <Route path="/aksi-individu-untuk-menjaga-air" element = {<Bab3AirMateri2 />}/>      
+      <Route path="/pengelolaan-air-berkelanjutan" element = {<Bab3AirMateri3 />}/>      
     </Routes>
   );
 };

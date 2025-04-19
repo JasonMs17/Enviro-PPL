@@ -75,6 +75,10 @@
 .course-content p{
   font-size: 20px;
   line-height: 40px;
-  font-weight: 400;
+  font-weight: 450;
   margin-top: 0;
+}
+
+.course-content li {
+  font-weight: 450;
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MaterialReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ResetPasswordController;
 
@@ -38,3 +39,6 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 
 Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPassword']);
+
+Route::middleware('auth:sanctum')->post('/track-material', [MaterialReportController::class, 'trackProgress']);
+

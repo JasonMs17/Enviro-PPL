@@ -47,9 +47,9 @@ export default function SidebarPencemaranUdara({ done, isOpen, toggleSidebar }) 
       key: "ketiga",
       title: "Solusi dan Upaya Penanggulangan",
       items: [
-        { text: "Inovasi di Kota-Kota Besar untuk Mengatasi Polusi Udara", link: "/" },
-        { text: "Peran Pemerintah dan Regulasi", link: "/" },
-        { text: "Aksi Individu untuk Udara Lebih Bersih", link: "/"},
+        { text: "Inovasi di Kota-Kota Besar untuk Mengatasi Polusi Udara", link: "/inovasi-di-kota-kota-besar-untuk-mengatasi-polusi-udara" },
+        { text: "Peran Pemerintah dan Regulasi", link: "/peran-pemerintah-dan-regulasi" },
+        { text: "Aksi Individu untuk Udara Lebih Bersih", link: "/aksi-individu-untuk-udara-lebih-bersih"},
       ],
     },
   ];

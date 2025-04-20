@@ -1,4 +1,4 @@
-.Bab-3-air-materi-1{
+.bab-3-udara-materi-2{
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -7,7 +7,3 @@
   overflow: hidden;
 }
 
-
-.course-content .italic-line{
-  font-style: italic;
-}

@@ -19,6 +19,12 @@ import Bab2AirMateri3 from "../pages/PencemaranAir/SubBab2/Materi3/Bab2AirMateri
 import Bab3AirMateri1 from "../pages/PencemaranAir/SubBab3/Materi1/Bab3AirMateri1";
 import Bab3AirMateri2 from "../pages/PencemaranAir/SubBab3/Materi2/Bab3AirMateri2";
 import Bab3AirMateri3 from "../pages/PencemaranAir/SubBab3/Materi3/Bab3AirMateri3";
+import Bab1UdaraMateri1 from "../pages/PencemaranUdara/SubBab1/Materi1/Bab1UdaraMateri1";
+import Bab1UdaraMateri2 from "../pages/PencemaranUdara/SubBab1/Materi2/Bab1UdaraMateri2";
+import Bab1UdaraMateri3 from "../pages/PencemaranUdara/SubBab1/Materi3/Bab1UdaraMateri3";
+import Bab2UdaraMateri1 from "../pages/PencemaranUdara/SubBab2/Materi1/Bab2UdaraMateri1";
+import Bab2UdaraMateri2 from "../pages/PencemaranUdara/SubBab2/Materi2/Bab2UdaraMateri2";
+import Bab2UdaraMateri3 from "../pages/PencemaranUdara/SubBab2/Materi3/Bab2UdaraMateri3";
 
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext); // Ambil loading dari AuthContext
@@ -60,7 +66,14 @@ const AppRoutes = () => {
       <Route path="/menentukan-air-aman-dikonsumsi" element = {<Bab2AirMateri3 />}/>      
       <Route path="/pengolahan-limbah-air" element = {<Bab3AirMateri1 />}/>      
       <Route path="/aksi-individu-untuk-menjaga-air" element = {<Bab3AirMateri2 />}/>      
-      <Route path="/pengelolaan-air-berkelanjutan" element = {<Bab3AirMateri3 />}/>      
+      <Route path="/pengelolaan-air-berkelanjutan" element = {<Bab3AirMateri3 />}/>    
+      <Route path="/apa-itu-polusi-udara-dan-sumbernya" element = {<Bab1UdaraMateri1 />}/>    
+      <Route path="/jenis-polutan-di-udara" element = {<Bab1UdaraMateri2 />}/>    
+      <Route path="/dampak-polusi-terhadap-lingkungan" element = {<Bab1UdaraMateri3 />}/>    
+      <Route path="/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" element = {<Bab2UdaraMateri1 />}/>    
+      <Route path="/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" element = {<Bab2UdaraMateri2 />}/>    
+      <Route path="/pencemaran-udara-siapa-yang-paling-Terdampak" element = {<Bab2UdaraMateri3 />}/>    
+
     </Routes>
   );
 };

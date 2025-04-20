@@ -18,9 +18,9 @@ export default function Bab3AirMateri3 (){
                         <h2 dir="ltr">
                         Pengelolaan Air Berkelanjutan
                         </h2>
-                        <h4>
+                        <p>
                         💧 Yuk, Tonton Dulu Videonya Biar Makin Paham!
-                        </h4>
+                        </p>
                         <p>
                         Sebelum kita bahas lebih dalam, saksikan dulu video ini biar kamu makin semangat belajar tentang pengelolaan air :
                         </p>

@@ -108,9 +108,9 @@ export default function Bab1AirMateri3 (){
                         </ul>
 
                         <div className="video-course">
-                        <h2 dir="ltr">
+                        <h3 dir="ltr">
                         📽️ Yuk, Lihat Lebih Jelas Lewat Video Ini:
-                        </h2>
+                        </h3>
                         <p>
                         Masih penasaran seperti apa efek nyata dari pencemaran air? Kamu bisa menonton video singkat ini untuk melihat langsung dampak pencemaran air terhadap lingkungan dan kehidupan di dalamnya:
                         </p>

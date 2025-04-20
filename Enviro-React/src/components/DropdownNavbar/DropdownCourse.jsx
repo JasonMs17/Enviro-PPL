@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import "./DropDownCourse.css";
 
 
 export default function DropDownCourse ({open, onMouseEnter, onMouseLeave }){
@@ -10,8 +10,9 @@ export default function DropDownCourse ({open, onMouseEnter, onMouseLeave }){
         onMouseLeave={onMouseLeave}  // Event hover untuk keluar dari dropdown
       >
         <ul className="gap-4">
-          <li><Link to="/profile">Profil Saya</Link></li>
-          <li><Link to="/settings">Pengaturan</Link></li>
+          <li><Link to="/apa-itu-polusi-air-pencemaran-air">Polusi Air</Link></li>
+          <li><Link to="/apa-itu-polusi-udara-dan-sumbernya">Polusi Udara</Link></li>
+          <li><Link to="/settings">Polusi Tanah</Link></li>
         </ul>
       </div>
     );

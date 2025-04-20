@@ -1,4 +1,4 @@
-.Bab-2-air-materi-3{
+.Bab-1-udara-materi-2{
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -6,7 +6,6 @@
   box-sizing: border-box;
   overflow: hidden;
 }
-
-
-
-
+.course-content p.paragraf-bold {
+  font-weight: bold;
+} 

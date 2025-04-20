@@ -1,4 +1,4 @@
-.Bab-1-air-materi-3{
+.Bab-1-udara-materi-3{
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -20,5 +20,21 @@
   overflow: hidden;
   border-radius: 1%;
   margin-bottom: 20px;
+}
+
+.infografis-course-udara-bab1{
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 1%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.infografis-course-udara-bab1 img{
+  width: 85%;
 }
 

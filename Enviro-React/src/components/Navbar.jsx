@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -12,25 +12,34 @@ import DropDownCourse from "./DropdownNavbar/DropdownCourse";
 
 
 const Navbar = () => {
-  const [open , setOpen] = useState (false);
+  const [openCourse, setOpenCourse] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const dropdownRef = useRef(null);
-  const timeoutRef = useRef(null);
+  const courseTimeoutRef = useRef(null);
+  const profileTimeoutRef = useRef(null);
 
-  useEffect (() => {
-    const handleclick = (event) =>{
-      if(dropdownRef.current && !dropdownRef.current.contains (event.target)){
-          setOpen(false);
-      }
-    };
-      document.addEventListener("click", handleclick)
+  const handleCourseEnter = () => {
+    clearTimeout(courseTimeoutRef.current);
+    setOpenCourse(true);
+  };
+  const handleCourseLeave = () => {
+    courseTimeoutRef.current = setTimeout(() => {
+      setOpenCourse(false);
+    }, 200);
+  };
 
-      return () => {
-          document.removeEventListener("click", handleclick)
-      };
-  }, []);
+  // Fungsi hover untuk Profile
+  const handleProfileEnter = () => {
+    clearTimeout(profileTimeoutRef.current);
+    setOpenProfile(true);
+  };
+  const handleProfileLeave = () => {
+    profileTimeoutRef.current = setTimeout(() => {
+      setOpenProfile(false);
+    }, 200);
+  };
 
 
   
@@ -38,18 +47,6 @@ const Navbar = () => {
   const imageClick = () => {
     navigate("/profile");
   };
-
-  const handleMouseEnter = () => {
-    setOpen(true); // Menampilkan dropdown saat mouse masuk
-  };
-  
-  const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setOpen(false);
-    }, 200); // Menyembunyikan dropdown saat mouse keluar
-  };
-
-  
 
   return (
     <header className="navbar">
@@ -61,11 +58,19 @@ const Navbar = () => {
       </div>
 
       <nav className="user-control">
-        <div className="user-course">
-          <a href="/apa-itu-polusi-air-pencemaran-air">Learn With Us</a>
+        <div className="user-course"
+        onMouseEnter={handleCourseEnter}
+        onMouseLeave={handleCourseLeave}>
+        <a to="/" className="leaa">Learn With Us</a>
+        <DropDownCourse 
+        open = {openCourse}
+        onMouseEnter={handleCourseEnter}
+        onMouseLeave={handleCourseLeave}
+        />
+
         </div>
         <div className="user-challenge">
-          <a href="">Challenge</a>
+          <a to= '/'>Challenge</a>
         </div>
         <a href="">About Us</a>
       </nav>
@@ -73,17 +78,16 @@ const Navbar = () => {
       <div className="login-signup">
         {user ? (
           <div className="user-profile"
-            onMouseEnter={handleMouseEnter} 
-            onMouseLeave={handleMouseLeave}
-            ref={dropdownRef}>
+          onMouseEnter={handleProfileEnter}
+          onMouseLeave={handleProfileLeave}>
            <div className="User-Photo-Navbar" >
-           <img
-              src={userIMG}
-              onClick={() => imageClick()}
-              className="profile-image"
-            />
+              <img
+                  src={userIMG}
+                  onClick={() => imageClick()}
+                  className="profile-image"
+                />
            </div>
-           <DropDownPicture open={open} />  
+           <DropDownPicture open={openProfile} />  
           </div>
         ) : (
           <>

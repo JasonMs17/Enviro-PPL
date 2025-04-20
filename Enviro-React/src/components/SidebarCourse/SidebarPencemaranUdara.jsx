@@ -1,4 +1,4 @@
-import "./SidebarPencemaranAir.css";
+import "./SidebarPencemaranUdara.css";
 import { Link, useLocation } from "react-router-dom";
 import { CircleCheck } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,7 +7,7 @@ import {faCircle,faCircleChevronRight,faCircleChevronLeft,faChevronDown,faChevro
 import { useState } from "react";
 
 
-export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
+export default function SidebarPencemaranUdara({ done, isOpen, toggleSidebar }) {
   // dropdown untuk tiap subbab
   const location = useLocation();
 
@@ -27,29 +27,29 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
   const subbabs = [
     {
       key: "pertama",
-      title: "Pengenalan Polusi Air & Dampak Umum",
+      title: "Pengenalan Polusi Udara & Dampaknya terhadap Lingkungan",
       items: [
-        { text: "Apa Itu Polusi Air?", link: "/apa-itu-polusi-air-pencemaran-air" },
-        { text: "Penyebab Polusi Air", link: "/penyebab-polusi-air" },
-        { text: "Dampak Umum Polusi Air", link: "/dampak-umum-polusi-air" },
+        { text: "Apa Itu Polusi Udara dan Sumbernya?", link: "/apa-itu-polusi-udara-dan-sumbernya" },
+        { text: "Jenis Polutan di Udara", link: "/jenis-polutan-di-udara" },
+        { text: "Dampak Polusi terhadap Lingkungan", link: "/dampak-polusi-terhadap-lingkungan" },
       ],
     },
     {
       key: "kedua",
-      title: "Dampak Polusi Air terhadap Kesehatan",
+      title: "Dampak Polusi Udara terhadap Kesehatan",
       items: [
-        { text: "Air Tercemar dan Penyakit", link: "/air-tercemar-dan-penyakit" },
-        { text: "Siapa yang Paling Terdampak?", link: "/siapa-yang-paling-Terdampak" },
-        { text: "Menentukan Air Aman Dikonsumsi", link: "/menentukan-air-aman-dikonsumsi" },
+        { text: "Bagaimana Polusi Udara Mempengaruhi Tubuh Kita", link: "/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" },
+        { text: "Pencegahan & Penanganan Risiko Kesehatan Akibat Polusi", link: "/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" },
+        { text: "Siapa yang Paling Terdampak?", link: "/pencemaran-udara-siapa-yang-paling-Terdampak" },
       ],
     },
     {
       key: "ketiga",
-      title: "Solusi Menjaga Kualitas Air",
+      title: "Solusi dan Upaya Penanggulangan",
       items: [
-        { text: "Pengolahan Limbah Air", link: "/pengolahan-limbah-air" },
-        { text: "Aksi Individu untuk Menjaga Air", link: "/aksi-individu-untuk-menjaga-air" },
-        { text: "Pengelolaan Air Berkelanjutan", link: "/pengelolaan-air-berkelanjutan"},
+        { text: "Inovasi di Kota-Kota Besar untuk Mengatasi Polusi Udara", link: "/" },
+        { text: "Peran Pemerintah dan Regulasi", link: "/" },
+        { text: "Aksi Individu untuk Udara Lebih Bersih", link: "/"},
       ],
     },
   ];
@@ -60,9 +60,9 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
       <div className="progress-bar">
 
       </div>
-      
+
       <h1 className="judul-bab">
-        {isOpen && "💦POLUSI AIR"}
+        {isOpen && "💨 POLUSI UDARA"}
         {isOpen ? (
           <FontAwesomeIcon
             icon={faCircleChevronLeft}

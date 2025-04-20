@@ -1,4 +1,4 @@
-.Bab-1-air-materi-3{
+.Bab-2-udara-materi-3{
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -7,18 +7,23 @@
   overflow: hidden;
 }
 
-
-.course-content .line-bold {
-  font-weight:550 ;
-  color: #1DBC60;
-}
-
-.course-video{
+.infografis-course-udara-bab2{
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   border-radius: 1%;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.infografis-course-udara-bab2 img{
+  width: 40%;
+
+}
+
+
+
 

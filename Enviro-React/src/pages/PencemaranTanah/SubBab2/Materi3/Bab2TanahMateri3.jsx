@@ -3,6 +3,9 @@ import Infografis  from "../../../../assets/Course/Polusi-Tanah/TANAH-SUB-BAB-2-
 import "./bab2TanahMateri3.css"
 import { Bold } from "lucide-react";
 import SidebarPencemaranTanah from "../../../../components/SidebarCourse/SidebarPencemaranTanah";
+import { http } from "../../../../utils/fetch";
+let isProgressTracked = false; // supaya hanya dipanggil sekali
+
 export default function Bab2TanahMateri3 (){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -10,6 +13,44 @@ export default function Bab2TanahMateri3 (){
         setIsSidebarOpen(prev => !prev);
     };
     
+    const trackProgress = async () => {
+        try {
+        await http("/sanctum/csrf-cookie", {
+            method: "GET",
+            credentials: "include",
+        });
+    
+        const response = await http("/api/progress", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+            material_id: 24, // Ganti sesuai ID materi
+            progress: 100,
+            }),
+        });
+    
+         if (!response.ok) {
+            const errData = await response.json();
+            console.error("Gagal simpan progress:", errData);
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Progress berhasil disimpan:", data);
+        } catch (error) {
+        console.error("Error saat simpan progress:", error);
+        }
+    };
+    
+    if (!isProgressTracked) {
+        isProgressTracked = true;
+        trackProgress();
+    }
+
     return (
         <div className={`Bab-2-tanah-materi-3 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
             <SidebarPencemaranTanah isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />

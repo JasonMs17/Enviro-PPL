@@ -1,25 +1,63 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
-import "./Bab1AirMateri1.css"
-export default function Bab1AirMateri1 (){
+import { http } from "../../../../utils/fetch";
+import "./Bab1AirMateri1.css";
+
+let isProgressTracked = false; // supaya hanya dipanggil sekali
+
+export default function Bab1AirMateri1() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
-        setIsSidebarOpen(prev => !prev);
+        setIsSidebarOpen((prev) => !prev);
     };
-    
-    return (
-        <div className={`bab-1-air-materi-1 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-            <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-            <div className="course-container">
-                <div className="course-article">
-                    <div className="course-content" >
-                        <h2 dir="ltr">
-                            Apa Itu Polusi Air?
-                        </h2>
-                        <h3>
-                            👋 Tahukah kamu?
-                        </h3>
+
+    const trackProgress = async () => {
+        try {
+        await http("/sanctum/csrf-cookie", {
+            method: "GET",
+            credentials: "include",
+        });
+
+        const response = await http("/api/progress", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+            material_id: 1, // Ganti sesuai ID materi
+            progress: 100,
+            }),
+        });
+
+        if (!response.ok) {
+            const errData = await response.json();
+            console.error("Gagal simpan progress:", errData);
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Progress berhasil disimpan:", data);
+        } catch (error) {
+        console.error("Error saat simpan progress:", error);
+        }
+    };
+
+    if (!isProgressTracked) {
+        isProgressTracked = true;
+        trackProgress();
+    }
+
+  return (
+    <div className={`bab-1-air-materi-1 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
+      <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className="course-container">
+        <div className="course-article">
+          <div className="course-content">
+            <h2 dir="ltr">Apa Itu Polusi Air?</h2>
+            <h3>👋 Tahukah kamu?</h3>
                         <p>
                             Setiap tetes air yang kita minum, gunakan untuk mandi, atau mengairi tanaman, bisa jadi tidak sebersih yang kita bayangkan. Tanpa kita sadari, aktivitas sehari-hari bisa mencemari air dan berdampak langsung pada lingkungan—bahkan pada kesehatan kita sendiri.
                             Di materi ini, kita akan mulai memahami apa sebenarnya yang disebut sebagai polusi air, dari definisi paling dasar hingga jenis-jenis pencemar yang wajib kita waspadai.
@@ -119,7 +157,6 @@ export default function Bab1AirMateri1 (){
                         </ul>
 
                         <div className="infografis-course">
-
                         </div>
                     </div>
                 </div>

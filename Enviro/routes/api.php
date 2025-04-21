@@ -40,5 +40,6 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPassword']);
 
-Route::middleware('auth:sanctum')->post('/track-material', [MaterialReportController::class, 'trackProgress']);
+Route::middleware('auth:sanctum')->post('/progress', [MaterialReportController::class, 'trackProgress']);
+Route::middleware('auth:sanctum')->get('/overall-progress', [MaterialReportController::class, 'getOverallProgress']);
 

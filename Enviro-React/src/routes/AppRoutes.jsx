@@ -13,12 +13,15 @@ import Loading from "../components/Loading"; // Import komponen Loading
 import Bab1AirMateri1 from "../pages/PencemaranAir/SubBab1/Materi1/Bab1AirMateri1";
 import Bab1AirMateri2 from "../pages/PencemaranAir/SubBab1/Materi2/Bab1AirMateri2";
 import Bab1AirMateri3 from "../pages/PencemaranAir/SubBab1/Materi3/Bab1AirMateri3";
+import Bab1AirKuis1 from "../pages/PencemaranAir/SubBab1/Kuis1/Bab1AirKuis1";
 import Bab2AirMateri1 from "../pages/PencemaranAir/SubBab2/Materi1/Bab2AirMateri1";
 import Bab2AirMateri2 from "../pages/PencemaranAir/SubBab2/Materi2/Bab2AirMateri2";
 import Bab2AirMateri3 from "../pages/PencemaranAir/SubBab2/Materi3/Bab2AirMateri3";
+import Bab1AirKuis2 from "../pages/PencemaranAir/SubBab2/Kuis2/Bab1AirKuis2";
 import Bab3AirMateri1 from "../pages/PencemaranAir/SubBab3/Materi1/Bab3AirMateri1";
 import Bab3AirMateri2 from "../pages/PencemaranAir/SubBab3/Materi2/Bab3AirMateri2";
 import Bab3AirMateri3 from "../pages/PencemaranAir/SubBab3/Materi3/Bab3AirMateri3";
+import Bab1AirKuis3 from "../pages/PencemaranAir/SubBab3/Kuis3/Bab1AirKuis3";
 import Bab1UdaraMateri1 from "../pages/PencemaranUdara/SubBab1/Materi1/Bab1UdaraMateri1";
 import Bab1UdaraMateri2 from "../pages/PencemaranUdara/SubBab1/Materi2/Bab1UdaraMateri2";
 import Bab1UdaraMateri3 from "../pages/PencemaranUdara/SubBab1/Materi3/Bab1UdaraMateri3";
@@ -73,12 +76,15 @@ const AppRoutes = () => {
       <Route path="/apa-itu-polusi-air-pencemaran-air" element = {<Bab1AirMateri1 />}/>      
       <Route path="/penyebab-polusi-air" element = {<Bab1AirMateri2 />}/>      
       <Route path="/dampak-umum-polusi-air" element = {<Bab1AirMateri3 />}/>      
+      <Route path="/kuis-apa-itu-polusi-air" element={<Bab1AirKuis1 />} /> 
       <Route path="/air-tercemar-dan-penyakit" element = {<Bab2AirMateri1 />}/>      
       <Route path="/siapa-yang-paling-Terdampak" element = {<Bab2AirMateri2 />}/>      
       <Route path="/menentukan-air-aman-dikonsumsi" element = {<Bab2AirMateri3 />}/>      
+      <Route path="/kuis-penyebab-dan-dampak-polusi-air" element={<Bab1AirKuis2 />} />
       <Route path="/pengolahan-limbah-air" element = {<Bab3AirMateri1 />}/>      
       <Route path="/aksi-individu-untuk-menjaga-air" element = {<Bab3AirMateri2 />}/>      
       <Route path="/pengelolaan-air-berkelanjutan" element = {<Bab3AirMateri3 />}/>    
+      <Route path="/kuis-solusi-menjaga-kualitas-air" element={<Bab1AirKuis3 />} />
       <Route path="/apa-itu-polusi-udara-dan-sumbernya" element = {<Bab1UdaraMateri1 />}/>    
       <Route path="/jenis-polutan-di-udara" element = {<Bab1UdaraMateri2 />}/>    
       <Route path="/dampak-polusi-terhadap-lingkungan" element = {<Bab1UdaraMateri3 />}/>    

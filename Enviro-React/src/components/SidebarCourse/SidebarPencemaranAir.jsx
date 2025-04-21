@@ -32,6 +32,7 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
         { text: "Apa Itu Polusi Air?", link: "/apa-itu-polusi-air-pencemaran-air" },
         { text: "Penyebab Polusi Air", link: "/penyebab-polusi-air" },
         { text: "Dampak Umum Polusi Air", link: "/dampak-umum-polusi-air" },
+        { text: "Quiz: Apa Itu Polusi Air?", link: "/kuis-apa-itu-polusi-air" },
       ],
     },
     {
@@ -41,6 +42,7 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
         { text: "Air Tercemar dan Penyakit", link: "/air-tercemar-dan-penyakit" },
         { text: "Siapa yang Paling Terdampak?", link: "/siapa-yang-paling-Terdampak" },
         { text: "Menentukan Air Aman Dikonsumsi", link: "/menentukan-air-aman-dikonsumsi" },
+        { text: "Quiz: Penyebab dan Dampak Polusi Air", link: "/kuis-penyebab-dan-dampak-polusi-air" },
       ],
     },
     {
@@ -50,6 +52,7 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
         { text: "Pengolahan Limbah Air", link: "/pengolahan-limbah-air" },
         { text: "Aksi Individu untuk Menjaga Air", link: "/aksi-individu-untuk-menjaga-air" },
         { text: "Pengelolaan Air Berkelanjutan", link: "/pengelolaan-air-berkelanjutan"},
+        { text: "Quiz: Solusi Menjaga Kualitas Air", link: "/kuis-solusi-menjaga-kualitas-air" },
       ],
     },
   ];

@@ -32,6 +32,7 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar }) 
         { text: "Apa Itu Polusi Tanah & Penyebabnya", link: "/apa-itu-polusi-tanah-dan-penyebabnya" },
         { text: "Dampak Polusi Tanah terhadap Lingkungan", link: "/dampak-polusi-tanah-terhadap-lingkungan" },
         { text: "Jenis-Jenis Limbah Penyebab Polusi Tanah", link: "/jenis-jenis-limbah-penyebab-polusi-tanah" },
+        { text: "Quiz: Polusi Tanah & Penyebabnya", link: "/kuis-polusi-tanah-dan-penyebabnya" },
       ],
     },
     {
@@ -41,6 +42,7 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar }) 
         { text: "Zat Berbahaya yang Terkandung dalam Tanah Tercemar", link: "/zat-berbahaya-yang-terkandung-dalam-tanah-tercemar" },
         { text: "Risiko Kesehatan Akibat Polusi Tanah", link: "/risiko-kesehatan-akibat-polusi-tanah" },
         { text: "Kontaminasi pada Tanaman & Dampaknya ke Manusia", link: "/kontaminasi-pada-tanaman-dan-dampaknya-ke-manusia" },
+        { text: "Quiz: Dampak Polusi Tanah terhadap Kesehatan", link: "/kuis-dampak-polusi-tanah-terhadap-kesehatan" },
       ],
     },
     {
@@ -50,6 +52,7 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar }) 
         { text: "Pengelolaan Sampah & Limbah Rumah Tangga", link: "/pengelolaan-sampah-dan-limbah-rumah-tangga" },
         { text: "Teknologi Pengendalian & Pemulihan Tanah", link: "/teknologi-pengendalian-dan-pemulihan-tanah" },
         { text: "Peran Masyarakat & Edukasi Lingkungan", link: "/peran-masyarakat-dan-edukasi-lingkungan"},
+        { text: "Quiz: Quiz: Solusi Mengatasi Polusi Tanah", link: "/kuis-solusi-mengatasi-polusi-tanah" },
       ],
     },
   ];

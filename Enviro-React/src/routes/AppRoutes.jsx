@@ -25,21 +25,27 @@ import Bab1AirKuis3 from "../pages/PencemaranAir/SubBab3/Kuis3/Bab1AirKuis3";
 import Bab1UdaraMateri1 from "../pages/PencemaranUdara/SubBab1/Materi1/Bab1UdaraMateri1";
 import Bab1UdaraMateri2 from "../pages/PencemaranUdara/SubBab1/Materi2/Bab1UdaraMateri2";
 import Bab1UdaraMateri3 from "../pages/PencemaranUdara/SubBab1/Materi3/Bab1UdaraMateri3";
+import Bab1UdaraKuis1 from "../pages/PencemaranUdara/SubBab1/Kuis1/Bab2UdaraKuis1";
 import Bab2UdaraMateri1 from "../pages/PencemaranUdara/SubBab2/Materi1/Bab2UdaraMateri1";
 import Bab2UdaraMateri2 from "../pages/PencemaranUdara/SubBab2/Materi2/Bab2UdaraMateri2";
 import Bab2UdaraMateri3 from "../pages/PencemaranUdara/SubBab2/Materi3/Bab2UdaraMateri3";
+import Bab1UdaraKuis2 from "../pages/PencemaranUdara/SubBab2/Kuis2/Bab2UdaraKuis2";
 import Bab3UdaraMateri1 from "../pages/PencemaranUdara/SubBab3/Materi1/Bab3UdaraMateri1";
 import Bab3udaraMateri2 from "../pages/PencemaranUdara/SubBab3/Materi2/Bab3UdaraMateri2";
 import Bab3UdaraMateri3 from "../pages/PencemaranUdara/SubBab3/Materi3/Bab3UdaraMateri3";
+import Bab1UdaraKuis3 from "../pages/PencemaranUdara/SubBab3/Kuis3/Bab2UdaraKuis3";
 import Bab1TanahMateri1 from "../pages/PencemaranTanah/SubBab1/Materi1/Bab1TanahMateri1";
 import Bab1TanahMateri2 from "../pages/PencemaranTanah/SubBab1/Materi2/Bab1TanahMateri2";
 import Bab1TanahMateri3 from "../pages/PencemaranTanah/SubBab1/Materi3/Bab1TanahMateri3";
+import Bab3TanahKuis1 from "../pages/PencemaranTanah/SubBab1/Kuis1/Bab3TanahKuis1";
 import Bab2TanahMateri1 from "../pages/PencemaranTanah/SubBab2/Materi1/Bab2TanahMateri1";
 import Bab2TanahMateri2 from "../pages/PencemaranTanah/SubBab2/Materi2/Bab2TanahMateri2";
 import Bab2TanahMateri3 from "../pages/PencemaranTanah/SubBab2/Materi3/Bab2TanahMateri3";
+import Bab3TanahKuis2 from "../pages/PencemaranTanah/SubBab2/Kuis2/Bab3TanahKuis2";
 import Bab3TanahMateri1 from "../pages/PencemaranTanah/SubBab3/Materi1/Bab3TanahMateri1";
 import Bab3TanahMateri2 from "../pages/PencemaranTanah/SubBab3/Materi2/Bab3TanahMateri2";
 import Bab3TanahMateri3 from "../pages/PencemaranTanah/SubBab3/Materi3/Bab3TanahMateri3";
+import Bab3TanahKuis3 from "../pages/PencemaranTanah/SubBab3/Kuis3/Bab3TanahKuis3";
 
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext); // Ambil loading dari AuthContext
@@ -88,21 +94,27 @@ const AppRoutes = () => {
       <Route path="/apa-itu-polusi-udara-dan-sumbernya" element = {<Bab1UdaraMateri1 />}/>    
       <Route path="/jenis-polutan-di-udara" element = {<Bab1UdaraMateri2 />}/>    
       <Route path="/dampak-polusi-terhadap-lingkungan" element = {<Bab1UdaraMateri3 />}/>    
+      <Route path="/kuis-pengenalan-dan-dampak-polusi-udara" element = {<Bab1UdaraKuis1 />}/>
       <Route path="/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" element = {<Bab2UdaraMateri1 />}/>    
       <Route path="/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" element = {<Bab2UdaraMateri2 />}/>    
       <Route path="/pencemaran-udara-siapa-yang-paling-Terdampak" element = {<Bab2UdaraMateri3 />}/>    
+      <Route path="//kuis-dampak-polusi-udara-terhadap-kesehatan" element = {<Bab1UdaraKuis3 />}/>
       <Route path="/inovasi-di-kota-kota-besar-untuk-mengatasi-polusi-udara" element = {<Bab3UdaraMateri1 />}/>    
       <Route path="/peran-pemerintah-dan-regulasi" element = {<Bab3udaraMateri2 />}/>    
       <Route path="/aksi-individu-untuk-udara-lebih-bersih" element = {<Bab3UdaraMateri3 />}/>    
+      <Route path="/kuis-solusi-dan-upaya-penanggulangan" element = {<Bab1UdaraKuis3 />}/>
       <Route path="/apa-itu-polusi-tanah-dan-penyebabnya" element = {<Bab1TanahMateri1 />}/>    
       <Route path="/dampak-polusi-tanah-terhadap-lingkungan" element = {<Bab1TanahMateri2 />}/>    
       <Route path="/jenis-jenis-limbah-penyebab-polusi-tanah" element = {<Bab1TanahMateri3 />}/>    
+      <Route path="/kuis-polusi-tanah-dan-penyebabnya" element = {<Bab3TanahKuis1 />}/>
       <Route path="/zat-berbahaya-yang-terkandung-dalam-tanah-tercemar"element = {<Bab2TanahMateri1 />}/>    
       <Route path="/risiko-kesehatan-akibat-polusi-tanah" element = {<Bab2TanahMateri2 />}/>    
       <Route path="/kontaminasi-pada-tanaman-dan-dampaknya-ke-manusia" element = {<Bab2TanahMateri3 />}/>    
+      <Route path="/kuis-dampak-polusi-tanah-terhadap-kesehatan" element = {<Bab3TanahKuis2 />}/>
       <Route path="/pengelolaan-sampah-dan-limbah-rumah-tangga" element = {<Bab3TanahMateri1 />}/>    
       <Route path="/teknologi-pengendalian-dan-pemulihan-tanah" element = {<Bab3TanahMateri2 />}/>    
       <Route path="/peran-masyarakat-dan-edukasi-lingkungan" element = {<Bab3TanahMateri3 />}/>    
+      <Route path="/kuis-solusi-mengatasi-polusi-tanah" element = {<Bab3TanahKuis3 />}/>
 
     </Routes>
   );

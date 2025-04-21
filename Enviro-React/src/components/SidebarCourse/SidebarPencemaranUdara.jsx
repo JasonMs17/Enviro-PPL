@@ -32,6 +32,7 @@ export default function SidebarPencemaranUdara({ done, isOpen, toggleSidebar }) 
         { text: "Apa Itu Polusi Udara dan Sumbernya?", link: "/apa-itu-polusi-udara-dan-sumbernya" },
         { text: "Jenis Polutan di Udara", link: "/jenis-polutan-di-udara" },
         { text: "Dampak Polusi terhadap Lingkungan", link: "/dampak-polusi-terhadap-lingkungan" },
+        { text: "Quiz: Pengenalan dan Dampak Polusi Udara", link: "/kuis-pengenalan-dan-dampak-polusi-udara" },
       ],
     },
     {
@@ -41,6 +42,7 @@ export default function SidebarPencemaranUdara({ done, isOpen, toggleSidebar }) 
         { text: "Bagaimana Polusi Udara Mempengaruhi Tubuh Kita", link: "/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" },
         { text: "Pencegahan & Penanganan Risiko Kesehatan Akibat Polusi", link: "/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" },
         { text: "Siapa yang Paling Terdampak?", link: "/pencemaran-udara-siapa-yang-paling-Terdampak" },
+        { text: "Quiz: Dampak Polusi Udara terhadap Kesehatan", link: "/kuis-dampak-polusi-udara-terhadap-kesehatan" },
       ],
     },
     {
@@ -50,6 +52,7 @@ export default function SidebarPencemaranUdara({ done, isOpen, toggleSidebar }) 
         { text: "Inovasi di Kota-Kota Besar untuk Mengatasi Polusi Udara", link: "/inovasi-di-kota-kota-besar-untuk-mengatasi-polusi-udara" },
         { text: "Peran Pemerintah dan Regulasi", link: "/peran-pemerintah-dan-regulasi" },
         { text: "Aksi Individu untuk Udara Lebih Bersih", link: "/aksi-individu-untuk-udara-lebih-bersih"},
+        { text: "Quiz: Solusi dan Upaya Penanggulangan", link: "/kuis-solusi-dan-upaya-penanggulangan" },
       ],
     },
   ];

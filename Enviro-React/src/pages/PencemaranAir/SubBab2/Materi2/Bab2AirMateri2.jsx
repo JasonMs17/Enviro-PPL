@@ -1,13 +1,56 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import Infografis  from "../../../../assets/Course/Polusi-Air/AIR-SUB-BAB-2-MATERI-2.png";
 import "./Bab2AirMateri2.css"
+import { http } from "../../../../utils/fetch";
+let isProgressTracked = false; // supaya hanya dipanggil sekali
+
 export default function Bab2AirMateri2 (){
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev);
     };
+
+    const trackProgress = async () => {
+        try {
+        await http("/sanctum/csrf-cookie", {
+            method: "GET",
+            credentials: "include",
+        });
     
+        const response = await http("/api/progress", {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+            material_id: 5, // Ganti sesuai ID materi
+            progress: 100,
+            }),
+        });
+    
+         if (!response.ok) {
+            const errData = await response.json();
+            console.error("Gagal simpan progress:", errData);
+            return;
+        }
+
+        const data = await response.json();
+        console.log("Progress berhasil disimpan:", data);
+        } catch (error) {
+        console.error("Error saat simpan progress:", error);
+        }
+    };
+    
+    if (!isProgressTracked) {
+        isProgressTracked = true;
+        trackProgress();
+    }
+
+
     return (
         <div className={`bab-2-air-materi-2 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
             <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -51,8 +94,8 @@ export default function Bab2AirMateri2 (){
                         
                         
 
-                        <div className="infografis-course">
-
+                        <div className="infografis-course-air-bab1">
+                            <img src={Infografis} alt="" />
                         </div>
                     </div>
                 </div>

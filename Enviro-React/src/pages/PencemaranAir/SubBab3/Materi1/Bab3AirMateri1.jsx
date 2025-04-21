@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import Infografis  from "../../../../assets/Course/Polusi-Air/AIR-SUB-BAB-3-MATERI-1.png";
 import "./Bab3AirMateri1.css"
 import { http } from "../../../../utils/fetch";
 let isProgressTracked = false; // supaya hanya dipanggil sekali
@@ -126,8 +127,8 @@ export default function Bab3AirMateri1 (){
                         Selain itu, monitoring juga dilakukan terhadap <span className="line-bold">air sungai dan laut di sekitar titik pembuangan</span>air sungai dan laut di sekitar titik pembuangan untuk mengevaluasi apakah ada dampak lingkungan yang timbul.                        
                         </p>
                        
-                        <div className="infografis-course">
-
+                        <div className="infografis-course-tanah-bab1">
+                            <img src={Infografis} alt="" />
                         </div>
                     </div>
                 </div>

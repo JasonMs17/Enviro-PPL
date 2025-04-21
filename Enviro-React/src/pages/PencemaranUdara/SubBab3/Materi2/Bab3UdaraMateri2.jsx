@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SidebarPencemaranUdara from "../../../../components/SidebarCourse/SidebarPencemaranUdara";
+import Infografis  from "../../../../assets/Course/Polusi-Udara/UDARA-SUB-BAB-3-MATERI-2.png";
 import "./Bab3UdaraMateri2.css"
 import { http } from "../../../../utils/fetch";
 let isProgressTracked = false; // supaya hanya dipanggil sekali
@@ -59,8 +60,8 @@ export default function Bab3udaraMateri2 (){
                         Peran Pemerintah dan Regulasi
                         </h2>
                         
-                        <div className="infografis-course-udara-bab3">
-                                                   
+                        <div className="infografis-course-udara-bab2">
+                            <img src={Infografis} alt="" />
                         </div>
                        
                         <h4>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import Infografis  from "../../../../assets/Course/Polusi-Air/AIR-SUB-BAB-3-MATERI-2.png";
 import "./Bab3AirMateri2.css"
 import { http } from "../../../../utils/fetch";
 let isProgressTracked = false; // supaya hanya dipanggil sekali
@@ -120,8 +121,9 @@ export default function Bab3AirMateri2 (){
                             <li> 👨‍👩‍👧‍👦 Ajarkan anak-anak kebiasaan baik</li>
                         </ul>
 
-                        <div className="infografis-course">
 
+                        <div className="infografis-course-tanah-bab1">
+                            <img src={Infografis} alt="" />
                         </div>
                     </div>
                 </div>

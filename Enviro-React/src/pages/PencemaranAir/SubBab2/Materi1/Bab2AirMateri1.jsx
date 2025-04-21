@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import Infografis  from "../../../../assets/Course/Polusi-Air/AIR-SUB-BAB-2-MATERI-1.png";
 import "./Bab2AirMateri1.css"
 import { http } from "../../../../utils/fetch";
 let isProgressTracked = false; // supaya hanya dipanggil sekali
@@ -151,8 +152,8 @@ export default function Bab2AirMateri1 (){
                         <p>
                         Selain itu, bahan kimia seperti <span className="line-bold">BPA</span> pada kemasan plastik yang mencemari air juga dikaitkan dengan peningkatan risiko kanker.
                         </p>
-                        <div className="infografis-course">
-
+                        <div className="infografis-course-tanah-bab1">
+                            <img src={Infografis} alt="" />
                         </div>
                     </div>
                 </div>

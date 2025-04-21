@@ -1,5 +1,6 @@
 import { useState } from "react";
-import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import SidebarPencemaranAir from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import Infografis  from "../../../../assets/Course/Polusi-Air/AIR-SUB-BAB-1-MATERI-1.png";
 import { http } from "../../../../utils/fetch";
 import "./Bab1AirMateri1.css";
 
@@ -52,7 +53,7 @@ export default function Bab1AirMateri1() {
 
   return (
     <div className={`bab-1-air-materi-1 ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
-      <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <SidebarPencemaranAir isOpen={isSidebarOpen} toggleSidebar={toggleSidebar}  className={`sidebar-course ${isSidebarOpen ? "open" : "closed"}`} />
       <div className="course-container">
         <div className="course-article">
           <div className="course-content">
@@ -156,7 +157,8 @@ export default function Bab1AirMateri1() {
                             </li>
                         </ul>
 
-                        <div className="infografis-course">
+                        <div className="infografis-course-tanah-bab1">
+                            <img src={Infografis} alt="" />
                         </div>
                     </div>
                 </div>

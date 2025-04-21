@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SidebarPencemaranUdara from "../../../../components/SidebarCourse/SidebarPencemaranUdara";
+import Infografis  from "../../../../assets/Course/Polusi-Udara/UDARA-SUB-BAB-3-MATERI-3.png";
 import "./bab3UdaraMateri3.css"
 import { Bold } from "lucide-react";
 import { http } from "../../../../utils/fetch";
@@ -60,8 +61,8 @@ export default function Bab3UdaraMateri3 (){
                         Peran Pemerintah dan Regulasi
                         </h2>
                         
-                        <div className="infografis-course-udara-bab3">
-                                                   
+                        <div className="infografis-course-udara-bab2">
+                            <img src={Infografis} alt="" />
                         </div>
                        
                         <h4>

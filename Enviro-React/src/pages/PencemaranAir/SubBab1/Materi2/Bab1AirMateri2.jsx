@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SidebarCourse from "../../../../components/SidebarCourse/SidebarPencemaranAir";
+import Infografis  from "../../../../assets/Course/Polusi-Air/AIR-SUB-BAB-1-MATERI-2.png";
 import "./Bab1AirMateri2.css"
 import { http } from "../../../../utils/fetch";
 import { Bold } from "lucide-react";
@@ -187,8 +188,8 @@ export default function Bab1AirMateri2 (){
                         <p>
                             Kalau tidak diantisipasi, dampaknya akan sangat luas dan sulit dikendalikan.                        
                         </p>
-                        <div className="infografis-course">
-
+                        <div className="infografis-course-tanah-bab1">
+                            <img src={Infografis} alt="" />
                         </div>
                     </div>
                 </div>

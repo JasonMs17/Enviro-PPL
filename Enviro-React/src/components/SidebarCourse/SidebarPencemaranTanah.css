@@ -1,0 +1,13 @@
+.SidebarCourse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #333333;
+    color: white;
+    height: 100vh;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+

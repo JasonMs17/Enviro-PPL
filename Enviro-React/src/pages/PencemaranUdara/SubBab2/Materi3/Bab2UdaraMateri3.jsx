@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SidebarPencemaranUdara from "../../../../components/SidebarCourse/SidebarPencemaranUdara";
-import Infografis  from "../../../../assets/Course/Polusi-Udara/UDARA-SUB-BAB-2-MATERI-3.png";
+import Infografis  from "../../../../assets/Course/Polusi-Udara/UDARA-SUB-BAB 2-MATERI-3.png";
 import "./bab2UdaraMateri3.css"
 import { Bold } from "lucide-react";
 export default function Bab2UdaraMateri3 (){

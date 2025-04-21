@@ -1,0 +1,12 @@
+.Bab-3-tanah-materi-3{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+
+

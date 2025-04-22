@@ -23,7 +23,7 @@
 .SidebarCourse {
   background-color: #333333;
   color: white;
-  height: 100vh;
+  height: calc(100vh - 80px);
   overflow-y: auto;
   transition: all 0.3s ease;
   flex-shrink: 0;

@@ -1,53 +1,124 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./SendEmail.css";
+import logoEnviro from "../assets/logoEnviro.png";
 
 axios.defaults.withCredentials = true;
 
 function SendEmail() {
-  const [message, setMessage] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
+  const [status, setStatus] = useState({
+    success: true,
+    message: "",
+    loading: true,
+  });
 
-  // Fungsi untuk memeriksa status verifikasi email saat halaman pertama kali dimuat
   useEffect(() => {
     const checkVerificationStatus = async () => {
       try {
         const response = await axios.get("/api/email/verify");
-
-        console.log(response);
-
         if (response.status === 200) {
-          setMessage("Silakan cek email Anda untuk tautan verifikasi.");
+          setStatus({
+            success: true,
+            message: "Verifikasi Email Berhasil Dikirim",
+            loading: false,
+          });
         }
       } catch (error) {
-        setMessage(
-          "Email belum diverifikasi. Silakan kirim ulang tautan verifikasi."
-        );
+        setStatus({
+          success: false,
+          message: "Verifikasi Email Gagal Dikirim",
+          loading: false,
+        });
       }
     };
 
     checkVerificationStatus();
   }, []);
 
-  // Fungsi untuk mengirim ulang email verifikasi
   const handleResend = async () => {
+    setStatus((prev) => ({ ...prev, loading: true }));
     try {
       const response = await axios.post("/api/email/verify");
-      console.log(response);
       if (response.ok) {
-        setMessage("Tautan verifikasi telah dikirim ulang ke email Anda.");
+        setStatus({
+          success: true,
+          message: "Verifikasi Email Berhasil Dikirim",
+          loading: false,
+        });
       }
     } catch (error) {
-      setMessage("Gagal mengirim ulang email verifikasi.");
+      setStatus({
+        success: false,
+        message: "Verifikasi Email Gagal Dikirim",
+        loading: false,
+      });
     }
   };
 
+  const renderIcon = () => {
+    if (status.loading) {
+      return (
+        <svg className="spinner" viewBox="0 0 50 50">
+          <circle
+            cx="25"
+            cy="25"
+            r="20"
+            fill="none"
+            strokeWidth="5"
+            stroke="currentColor"
+          />
+        </svg>
+      );
+    }
+
+    if (status.success) {
+      return (
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+            fill="currentColor"
+          />
+        </svg>
+      );
+    }
+
+    return (
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+          fill="currentColor"
+        />
+      </svg>
+    );
+  };
+
   return (
-    <div style={{ textAlign: "center", padding: "2rem" }}>
-      <h2>Verifikasi Email</h2>
-      <p>{message}</p>
-      {!isVerified && (
-        <button onClick={handleResend}>Kirim Ulang Email Verifikasi</button>
-      )}
+    <div className="send-email-container">
+      <div className="send-email-card">
+        <div className="logo-container">
+          <img src={logoEnviro} alt="Enviro Logo" />
+        </div>
+
+        <h2 className="send-email-title">
+          {status.loading ? "Memverifikasi Email..." : status.message}
+        </h2>
+
+        <div
+          className={`status-icon ${
+            status.loading ? "loading" : status.success ? "success" : "error"
+          }`}
+        >
+          {renderIcon()}
+        </div>
+
+        <button
+          className="resend-button"
+          onClick={handleResend}
+          disabled={status.loading}
+        >
+          {status.loading ? "Mengirim..." : "Kirim Ulang"}
+        </button>
+      </div>
     </div>
   );
 }

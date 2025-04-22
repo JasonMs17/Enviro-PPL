@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Run React Dev Server",
+        "type": "shell",
+        "command": "npm run dev",
+        "options": {
+          "cwd": "C:\\codes\\Project\\Enviro\\Enviro-React"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Run Laravel Server",
+        "type": "shell",
+        "command": "php artisan serve",
+        "options": {
+          "cwd": "C:\\codes\\Project\\Enviro\\Enviro"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Run Both",
+        "dependsOn": [
+          "Run React Dev Server",
+          "Run Laravel Server"
+        ],
+        "dependsOrder": "parallel"
+      }
+    ]
+  }
+  

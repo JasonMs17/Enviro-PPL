@@ -1,23 +1,30 @@
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 999; /* Supaya tetap di atas elemen lain */
+  z-index: 999;
+  /* Supaya tetap di atas elemen lain */
   background-color: #ffffff;
 }
 
 
 .logo-and-navbar {
-  width: 100vw; /* Biar full lebar layar */
-  background-color: #ffffff; /* Atur warna latar */
+  width: 100vw;
+  /* Biar full lebar layar */
+  background-color: #ffffff;
+  /* Atur warna latar */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem; /* Spasi biar gak nempel */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sedikit bayangan */
-  position: relative; /* Biar gak nempel di atas */
-  margin-bottom: 1rem; /* Biar ada jarak dari konten lain */
+  padding: 1rem 2rem;
+  /* Spasi biar gak nempel */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Sedikit bayangan */
+  position: relative;
+  /* Biar gak nempel di atas */
+  margin-bottom: 1rem;
+  /* Biar ada jarak dari konten lain */
   box-sizing: border-box;
-    
+
 }
 
 .navbar {
@@ -31,14 +38,15 @@
   font-weight: bold;
 }
 
-.user-control{
+.user-control {
   display: flex;
 }
+
 .enviro-logo img {
   width: 150px;
 }
 
-.login-button{
+.login-button {
   margin: 0 15px;
   text-decoration: none;
   color: black;
@@ -58,85 +66,86 @@ nav a {
   z-index: 10;
 }
 
-nav a:hover {
-    color: #1DBC60;
-}
+/* nav a:hover,
+nav a.active {
+  color: #1DBC60;
+} */
 
 .login-signup {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .login {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    font-weight: bold;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .signup {
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    padding-top: 17px;
-    padding-bottom: 17px;
-    padding-right: 18px;
-    padding-left: 18px;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: 0.3s;
-    font-size: 18px;
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  padding-right: 18px;
+  padding-left: 18px;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: 0.3s;
+  font-size: 18px;
 }
 
 .signup:hover {
-    background-color: #1DBC60;
+  background-color: #1DBC60;
 }
 
-.user-profile{
+.user-profile {
   position: relative;
-    display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .logout {
-    background-color: #1dbc60;
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .logout:hover {
-    background-color: #16a34a;
-    transform: translateY(-2px);
-  }
-  
-  .logout:active {
-    transform: scale(0.98);
-  }
-
-  .User-Photo-Navbar{
-    background-color: #1DBC60;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin-right: 0px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
+  background-color: #1dbc60;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.User-Photo-Navbar> img{
-    width: inherit;
-    height: inherit;
-    border-radius: 50%;
-    object-fit: cover;
-    max-width: 100%;
+.logout:hover {
+  background-color: #16a34a;
+  transform: translateY(-2px);
+}
+
+.logout:active {
+  transform: scale(0.98);
+}
+
+.User-Photo-Navbar {
+  background-color: #1DBC60;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 0px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.User-Photo-Navbar>img {
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  object-fit: cover;
+  max-width: 100%;
 }

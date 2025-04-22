@@ -2,14 +2,13 @@ import React, { useContext, useState, useRef } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import userIMG from "../assets/person.svg"
+import userIMG from "../assets/person.svg";
 // import axios from "axios";
 
 import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
 import DropDownPicture from "./DropdownNavbar/DropDownPicture";
 import DropDownCourse from "./DropdownNavbar/DropdownCourse";
-
 
 const Navbar = () => {
   const [openCourse, setOpenCourse] = useState(false);
@@ -21,9 +20,11 @@ const Navbar = () => {
   const profileTimeoutRef = useRef(null);
 
   const handleCourseEnter = () => {
+    if (!user) return; // Only show dropdown if user is logged in
     clearTimeout(courseTimeoutRef.current);
     setOpenCourse(true);
   };
+
   const handleCourseLeave = () => {
     courseTimeoutRef.current = setTimeout(() => {
       setOpenCourse(false);
@@ -41,8 +42,12 @@ const Navbar = () => {
     }, 200);
   };
 
-
-  
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const imageClick = () => {
     navigate("/profile");
@@ -50,7 +55,6 @@ const Navbar = () => {
 
   return (
     <header className="navbar">
-      
       <div className="enviro-logo">
         <Link to="/">
           <img src={logoEnviro} alt="Website Logo" />
@@ -58,41 +62,77 @@ const Navbar = () => {
       </div>
 
       <nav className="user-control">
-        <div className="user-course"
-        onMouseEnter={handleCourseEnter}
-        onMouseLeave={handleCourseLeave}>
-        <a to="/" className="leaa">Learn With Us</a>
-        <DropDownCourse 
-        open = {openCourse}
-        onMouseEnter={handleCourseEnter}
-        onMouseLeave={handleCourseLeave}
-        />
-
+        <div
+          className="user-course"
+          onMouseEnter={handleCourseEnter}
+          onMouseLeave={handleCourseLeave}
+        >
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+              setTimeout(() => scrollToSection("explore-section"), 100);
+            }}
+          >
+            Learn With Us
+          </a>
+          {user && (
+            <DropDownCourse
+              open={openCourse}
+              onMouseEnter={handleCourseEnter}
+              onMouseLeave={handleCourseLeave}
+            />
+          )}
         </div>
         <div className="user-challenge">
-          <a to= '/'>Challenge</a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/");
+              setTimeout(() => scrollToSection("challenge-section"), 100);
+            }}
+          >
+            Challenge
+          </a>
         </div>
-        <a href="">About Us</a>
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+            setTimeout(() => scrollToSection("about-section"), 100);
+          }}
+        >
+          About Us
+        </a>
       </nav>
 
       <div className="login-signup">
         {user ? (
-          <div className="user-profile"
-          onMouseEnter={handleProfileEnter}
-          onMouseLeave={handleProfileLeave}>
-           <div className="User-Photo-Navbar" >
+          <div
+            className="user-profile"
+            onMouseEnter={handleProfileEnter}
+            onMouseLeave={handleProfileLeave}
+          >
+            <div className="User-Photo-Navbar">
               <img
-                  src={userIMG}
-                  onClick={() => imageClick()}
-                  className="profile-image"
-                />
-           </div>
-           <DropDownPicture open={openProfile} />  
+                src={userIMG}
+                onClick={() => imageClick()}
+                className="profile-image"
+              />
+            </div>
+            <DropDownPicture open={openProfile} />
           </div>
         ) : (
           <>
-            <Link className="login-button" to="/login">Masuk</Link>
-            <Link className="signup" to="/register">Sign Up</Link>
+            <Link className="login-button" to="/login">
+              Masuk
+            </Link>
+            <Link className="signup" to="/register">
+              Sign Up
+            </Link>
           </>
         )}
       </div>

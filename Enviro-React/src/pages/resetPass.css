@@ -30,7 +30,7 @@
   object-fit: contain;
 }
 
-.reset-pass .reset-form > header,
+.reset-pass .reset-form>header,
 .reset-pass #form {
   font-size: 24px;
   font-weight: bold;
@@ -39,7 +39,7 @@
   align-items: center;
 }
 
-.reset-pass .reset-form > header > p {
+.reset-pass .reset-form>header>p {
   margin-top: 0;
 }
 
@@ -75,7 +75,8 @@
 .reset-pass .signup-lupapassword {
   display: flex;
   justify-content: left;
-  align-items: center; /* Align vertically */
+  align-items: center;
+  /* Align vertically */
   margin-top: 20px;
   font-size: 0.9rem;
 }
@@ -92,7 +93,7 @@
   text-decoration: none;
 }
 
-.reset-pass .imageLogin > img {
+.reset-pass .imageLogin>img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -105,14 +106,20 @@
   color: red;
   font-size: 0.95rem;
   margin-top: 10px;
-  text-align: left; /* Align error messages to the left */
-  width: 100%; /* Ensure it stretches across the available space */
+  text-align: left;
+  /* Align error messages to the left */
+  width: 100%;
+  /* Ensure it stretches across the available space */
 }
 
 .reset-pass .message {
   font-size: 0.95rem;
   margin-top: 15px;
   text-align: left;
+  max-width: 450px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .reset-pass .message.success {
@@ -156,7 +163,7 @@
     border-radius: 20px;
   }
 
-  .reset-pass .imageLogin > img {
+  .reset-pass .imageLogin>img {
     display: none;
   }
 }

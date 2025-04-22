@@ -4,11 +4,14 @@ import "./Register.css";
 import logoEnviro from "../assets/logoEnviro.png";
 import background from "../assets/Background-login.jpg";
 import { http } from "../utils/fetch";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns"; // Import format dari date-fns
 
 function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [birth_date, setBirthDate] = useState("");
+  const [birth_date, setBirthDate] = useState(null); // Menggunakan null sebagai nilai awal
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -24,13 +27,12 @@ function RegisterForm() {
     }
 
     try {
-      // Kirim objek JavaScript menggunakan JSON.stringify untuk request body
       const response = await http("/api/register", {
         method: "POST",
         body: JSON.stringify({
           name,
           email,
-          birth_date,
+          birth_date: birth_date ? format(birth_date, "yyyy-MM-dd") : null, // Format tanggal ke ISO
           password,
           password_confirmation: confirmPassword,
         }),
@@ -39,7 +41,7 @@ function RegisterForm() {
       if (!response.ok) {
         if (response.status === 422) {
           const errData = await response.json();
-          setErrors(errData.errors); // Set errors dari response
+          setErrors(errData.errors);
         } else {
           const errData = await response.json();
           console.error("Pendaftaran gagal:", errData);
@@ -49,8 +51,9 @@ function RegisterForm() {
       }
 
       const resData = await response.json();
+      localStorage.setItem("user", JSON.stringify(resData));
       console.log("Pendaftaran berhasil!");
-      window.location.href = "/send-email"; // Redirect ke halaman lain setelah pendaftaran berhasil
+      window.location.href = "/send-email";
     } catch (error) {
       console.error("Pendaftaran error:", error);
       setErrorMessage("Terjadi kesalahan. Coba lagi.");
@@ -94,16 +97,16 @@ function RegisterForm() {
           </div>
           {errors.email && <p className="error">{errors.email[0]}</p>}
 
-          <div className="inputgroup">
-            <input
-              type="date"
-              id="birth_date"
-              required
-              value={birth_date}
-              onChange={(e) => setBirthDate(e.target.value)}
-              className={errors.birth_date ? "input-error" : ""}
-            />
-          </div>
+          <DatePicker
+            selected={birth_date}
+            onChange={(date) => setBirthDate(date)}
+            dateFormat="dd-MM-yyyy"
+            placeholderText="Tanggal lahir"
+            inputClassName={`custom-datepicker-input ${
+              errors.birth_date ? "input-error" : ""
+            }`}
+            required
+          />
 
           {errors.birth_date && <p className="error">{errors.birth_date[0]}</p>}
 

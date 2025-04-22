@@ -1,14 +1,29 @@
 /* App.css */
 body {
-  margin: 0; /* Pastikan tidak ada margin default */
-  padding: 0; /* Pastikan tidak ada padding default */
-  box-sizing: border-box; /* Terapkan box-sizing pada seluruh elemen */
-  min-height: 100vh; /* Agar body mengambil setidaknya 100% tinggi layar */
+  margin: 0;
+  /* Pastikan tidak ada margin default */
+  padding: 0;
+  /* Pastikan tidak ada padding default */
+  box-sizing: border-box;
+  /* Terapkan box-sizing pada seluruh elemen */
+  min-height: 100vh;
+  /* Agar body mengambil setidaknya 100% tinggi layar */
   color: black;
-    background-color: #ffffff;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    margin: 0;
+  background-color: #ffffff;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin: 0;
 
 }
 
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
+/* This ensures the main content takes remaining height */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

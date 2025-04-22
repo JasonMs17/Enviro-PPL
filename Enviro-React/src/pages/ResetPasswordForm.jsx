@@ -15,8 +15,7 @@ function ResetPasswordForm() {
 
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState({});
+  const [message, setMessage] = useState({ text: "", type: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,14 +33,22 @@ function ResetPasswordForm() {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage("Password berhasil diubah. Silakan login.");
+        setMessage({
+          text: "Password berhasil diubah. Silakan login.",
+          type: "success",
+        });
         setTimeout(() => navigate("/login"), 2000);
       } else {
-        setErrors(data.errors || {});
-        setMessage(data.message || "Terjadi kesalahan saat reset password.");
+        setMessage({
+          text: data.message || "Terjadi kesalahan saat reset password.",
+          type: "error",
+        });
       }
     } catch (error) {
-      setMessage("Terjadi kesalahan saat reset password.");
+      setMessage({
+        text: "Terjadi kesalahan saat reset password.",
+        type: "error",
+      });
     }
   };
 
@@ -76,10 +83,14 @@ function ResetPasswordForm() {
             />
           </div>
 
-          <button type="submit" id="submitReset">Ubah Password</button>
-        </form>
+          {message.text && (
+            <p className={`message ${message.type}`}>{message.text}</p>
+          )}
 
-        {message && <p className="message">{message}</p>}
+          <div className="inputgroup">
+            <input type="submit" id="submitReset" value="Ubah Password" />
+          </div>
+        </form>
       </div>
 
       <div className="imageLogin">

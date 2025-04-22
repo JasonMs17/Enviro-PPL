@@ -57,64 +57,71 @@ const AppRoutes = () => {
     return null;
   }
 
+  // Protected Route Component
+  const ProtectedRoute = ({ element: Element }) => {
+    return user ? Element : <Navigate to="/login" />;
+  };
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
 
-      {/* Redirect jika sudah login ke halaman profile */}
+      {/* Auth Routes */}
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
       <Route
         path="/register"
         element={user ? <Navigate to="/" /> : <Register />}
       />
-
-      {/* Halaman profile, redirect ke home jika user tidak ada */}
       <Route
         path="/profile"
         element={user ? <Profile /> : <Navigate to="/" />}
       />
-
-      {/* Halaman verifikasi email */}
-      <Route path="/send-email" element={<SendEmail />} />
-      <Route path="/verify-email" element={<VerifyEmail />} />
-      <Route path="/reset-password" element={<ResetPass />} />
-      <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
-      <Route path="/apa-itu-polusi-air-pencemaran-air" element = {<Bab1AirMateri1 />}/>      
-      <Route path="/penyebab-polusi-air" element = {<Bab1AirMateri2 />}/>      
-      <Route path="/dampak-umum-polusi-air" element = {<Bab1AirMateri3 />}/>      
-      <Route path="/kuis-apa-itu-polusi-air" element={<Bab1AirKuis1 />} /> 
-      <Route path="/air-tercemar-dan-penyakit" element = {<Bab2AirMateri1 />}/>      
-      <Route path="/siapa-yang-paling-Terdampak" element = {<Bab2AirMateri2 />}/>      
-      <Route path="/menentukan-air-aman-dikonsumsi" element = {<Bab2AirMateri3 />}/>      
-      <Route path="/kuis-penyebab-dan-dampak-polusi-air" element={<Bab1AirKuis2 />} />
-      <Route path="/pengolahan-limbah-air" element = {<Bab3AirMateri1 />}/>      
-      <Route path="/aksi-individu-untuk-menjaga-air" element = {<Bab3AirMateri2 />}/>      
-      <Route path="/pengelolaan-air-berkelanjutan" element = {<Bab3AirMateri3 />}/>    
-      <Route path="/kuis-solusi-menjaga-kualitas-air" element={<Bab1AirKuis3 />} />
-      <Route path="/apa-itu-polusi-udara-dan-sumbernya" element = {<Bab1UdaraMateri1 />}/>    
-      <Route path="/jenis-polutan-di-udara" element = {<Bab1UdaraMateri2 />}/>    
-      <Route path="/dampak-polusi-terhadap-lingkungan" element = {<Bab1UdaraMateri3 />}/>    
-      <Route path="/kuis-pengenalan-dan-dampak-polusi-udara" element = {<Bab1UdaraKuis1 />}/>
-      <Route path="/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" element = {<Bab2UdaraMateri1 />}/>    
-      <Route path="/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" element = {<Bab2UdaraMateri2 />}/>    
-      <Route path="/pencemaran-udara-siapa-yang-paling-Terdampak" element = {<Bab2UdaraMateri3 />}/>    
-      <Route path="//kuis-dampak-polusi-udara-terhadap-kesehatan" element = {<Bab1UdaraKuis3 />}/>
-      <Route path="/inovasi-di-kota-kota-besar-untuk-mengatasi-polusi-udara" element = {<Bab3UdaraMateri1 />}/>    
-      <Route path="/peran-pemerintah-dan-regulasi" element = {<Bab3udaraMateri2 />}/>    
-      <Route path="/aksi-individu-untuk-udara-lebih-bersih" element = {<Bab3UdaraMateri3 />}/>    
-      <Route path="/kuis-solusi-dan-upaya-penanggulangan" element = {<Bab1UdaraKuis3 />}/>
-      <Route path="/apa-itu-polusi-tanah-dan-penyebabnya" element = {<Bab1TanahMateri1 />}/>    
-      <Route path="/dampak-polusi-tanah-terhadap-lingkungan" element = {<Bab1TanahMateri2 />}/>    
-      <Route path="/jenis-jenis-limbah-penyebab-polusi-tanah" element = {<Bab1TanahMateri3 />}/>    
-      <Route path="/kuis-polusi-tanah-dan-penyebabnya" element = {<Bab3TanahKuis1 />}/>
-      <Route path="/zat-berbahaya-yang-terkandung-dalam-tanah-tercemar"element = {<Bab2TanahMateri1 />}/>    
-      <Route path="/risiko-kesehatan-akibat-polusi-tanah" element = {<Bab2TanahMateri2 />}/>    
-      <Route path="/kontaminasi-pada-tanaman-dan-dampaknya-ke-manusia" element = {<Bab2TanahMateri3 />}/>    
-      <Route path="/kuis-dampak-polusi-tanah-terhadap-kesehatan" element = {<Bab3TanahKuis2 />}/>
-      <Route path="/pengelolaan-sampah-dan-limbah-rumah-tangga" element = {<Bab3TanahMateri1 />}/>    
-      <Route path="/teknologi-pengendalian-dan-pemulihan-tanah" element = {<Bab3TanahMateri2 />}/>    
-      <Route path="/peran-masyarakat-dan-edukasi-lingkungan" element = {<Bab3TanahMateri3 />}/>    
-      <Route path="/kuis-solusi-mengatasi-polusi-tanah" element = {<Bab3TanahKuis3 />}/>
+      <Route
+        path="/send-email"
+        element={<ProtectedRoute element={<SendEmail />} />}
+      />
+      <Route
+        path="/verify-email"
+        element={<ProtectedRoute element={<VerifyEmail />} />}
+      />
+      <Route path="/reset-password" element={<ProtectedRoute element={<ResetPass />} />} />
+      <Route path="/reset-password/:token" element={<ProtectedRoute element={<ResetPasswordForm />} />} />
+      <Route path="/apa-itu-polusi-air-pencemaran-air" element={<ProtectedRoute element={<Bab1AirMateri1 />} />} />
+      <Route path="/penyebab-polusi-air" element={<ProtectedRoute element={<Bab1AirMateri2 />} />} />
+      <Route path="/dampak-umum-polusi-air" element={<ProtectedRoute element={<Bab1AirMateri3 />} />} />
+      <Route path="/kuis-apa-itu-polusi-air" element={<ProtectedRoute element={<Bab1AirKuis1 />} />} />
+      <Route path="/air-tercemar-dan-penyakit" element={<ProtectedRoute element={<Bab2AirMateri1 />} />} />
+      <Route path="/siapa-yang-paling-Terdampak" element={<ProtectedRoute element={<Bab2AirMateri2 />} />} />
+      <Route path="/menentukan-air-aman-dikonsumsi" element={<ProtectedRoute element={<Bab2AirMateri3 />} />} />
+      <Route path="/kuis-penyebab-dan-dampak-polusi-air" element={<ProtectedRoute element={<Bab1AirKuis2 />} />} />
+      <Route path="/pengolahan-limbah-air" element={<ProtectedRoute element={<Bab3AirMateri1 />} />} />
+      <Route path="/aksi-individu-untuk-menjaga-air" element={<ProtectedRoute element={<Bab3AirMateri2 />} />} />
+      <Route path="/pengelolaan-air-berkelanjutan" element={<ProtectedRoute element={<Bab3AirMateri3 />} />} />
+      <Route path="/kuis-solusi-menjaga-kualitas-air" element={<ProtectedRoute element={<Bab1AirKuis3 />} />} />
+      <Route path="/apa-itu-polusi-udara-dan-sumbernya" element={<ProtectedRoute element={<Bab1UdaraMateri1 />} />} />
+      <Route path="/jenis-polutan-di-udara" element={<ProtectedRoute element={<Bab1UdaraMateri2 />} />} />
+      <Route path="/dampak-polusi-terhadap-lingkungan" element={<ProtectedRoute element={<Bab1UdaraMateri3 />} />} />
+      <Route path="/kuis-pengenalan-dan-dampak-polusi-udara" element={<ProtectedRoute element={<Bab1UdaraKuis1 />} />} />
+      <Route path="/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" element={<ProtectedRoute element={<Bab2UdaraMateri1 />} />} />
+      <Route path="/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" element={<ProtectedRoute element={<Bab2UdaraMateri2 />} />} />
+      <Route path="/pencemaran-udara-siapa-yang-paling-Terdampak" element={<ProtectedRoute element={<Bab2UdaraMateri3 />} />} />
+      <Route path="/kuis-dampak-polusi-udara-terhadap-kesehatan" element={<ProtectedRoute element={<Bab1UdaraKuis3 />} />} />
+      <Route path="/inovasi-di-kota-kota-besar-untuk-mengatasi-polusi-udara" element={<ProtectedRoute element={<Bab3UdaraMateri1 />} />} />
+      <Route path="/peran-pemerintah-dan-regulasi" element={<ProtectedRoute element={<Bab3udaraMateri2 />} />} />
+      <Route path="/aksi-individu-untuk-udara-lebih-bersih" element={<ProtectedRoute element={<Bab3UdaraMateri3 />} />} />
+      <Route path="/kuis-solusi-dan-upaya-penanggulangan" element={<ProtectedRoute element={<Bab1UdaraKuis3 />} />} />
+      <Route path="/apa-itu-polusi-tanah-dan-penyebabnya" element={<ProtectedRoute element={<Bab1TanahMateri1 />} />} />
+      <Route path="/dampak-polusi-tanah-terhadap-lingkungan" element={<ProtectedRoute element={<Bab1TanahMateri2 />} />} />
+      <Route path="/jenis-jenis-limbah-penyebab-polusi-tanah" element={<ProtectedRoute element={<Bab1TanahMateri3 />} />} />
+      <Route path="/kuis-polusi-tanah-dan-penyebabnya" element={<ProtectedRoute element={<Bab3TanahKuis1 />} />} />
+      <Route path="/zat-berbahaya-yang-terkandung-dalam-tanah-tercemar" element={<ProtectedRoute element={<Bab2TanahMateri1 />} />} />
+      <Route path="/risiko-kesehatan-akibat-polusi-tanah" element={<ProtectedRoute element={<Bab2TanahMateri2 />} />} />
+      <Route path="/kontaminasi-pada-tanaman-dan-dampaknya-ke-manusia" element={<ProtectedRoute element={<Bab2TanahMateri3 />} />} />
+      <Route path="/kuis-dampak-polusi-tanah-terhadap-kesehatan" element={<ProtectedRoute element={<Bab3TanahKuis2 />} />} />
+      <Route path="/pengelolaan-sampah-dan-limbah-rumah-tangga" element={<ProtectedRoute element={<Bab3TanahMateri1 />} />} />
+      <Route path="/teknologi-pengendalian-dan-pemulihan-tanah" element={<ProtectedRoute element={<Bab3TanahMateri2 />} />} />
+      <Route path="/peran-masyarakat-dan-edukasi-lingkungan" element={<ProtectedRoute element={<Bab3TanahMateri3 />} />} />
+      <Route path="/kuis-solusi-mengatasi-polusi-tanah" element={<ProtectedRoute element={<Bab3TanahKuis3 />} />} />
 
     </Routes>
   );

@@ -49,9 +49,7 @@ class RegisterController extends Controller
         // $cookie = cookie('auth_token', $token, 60 * 24, null, null, secure: true, httpOnly: false, raw: false, sameSite: 'None'); // SameSite=None
 
         // Mengembalikan response dengan data pengguna dan token, serta cookie
-        return response()->json([
-            'user' => $user,
-        ]);
+        return response()->json(['user' => Auth::user()]);
     }
 
     public function verifyEmail()

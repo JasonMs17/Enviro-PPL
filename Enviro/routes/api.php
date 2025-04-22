@@ -9,6 +9,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MaterialReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizReportController;
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -17,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [RegisterController::class, 'store']);
 Route::post('/login', [LoginController::class, 'authenticate']);
 // Route::get('/user', [UserController::class, 'getUser']);
-Route::middleware('auth:sanctum')->post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show']);
@@ -40,6 +44,20 @@ Route::get('/verify-email/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']);
 Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPassword']);
 
+// chatbot
+// Route::post('/chat', [ChatController::class, 'kirimChat']);
+
 Route::middleware('auth:sanctum')->post('/progress', [MaterialReportController::class, 'trackProgress']);
 Route::middleware('auth:sanctum')->get('/overall-progress', [MaterialReportController::class, 'getOverallProgress']);
 
+// kuis
+Route::get('/quizzes', [QuizController::class, 'index']);
+Route::get('/quizzes', [QuizController::class, 'index'])
+    ->where('pollution_type_id', '[0-9]+')
+    ->where('subbab', '[0-9]+');
+
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/quiz-reports', [QuizReportController::class, 'index']);
+        Route::post('/quiz-reports', [QuizReportController::class, 'store']);
+    });
+    

@@ -9,9 +9,15 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+
+    console.log("Stored user:", storedUser);
+
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser.user); // Set the nested user directly
       setLoading(false);
+
+      console.log("User:", user);
     } else {
       fetchUserFromSession();
     }
@@ -23,13 +29,22 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
       });
 
-      if (!response.ok) {1
+      console.log("Response received:", response);
+
+      if (!response.ok) {
         throw new Error("Failed to fetch user data");
       }
 
-      const data = await response.json();
-      setUser(data);
-      localStorage.setItem("user", JSON.stringify(data));
+      const text = await response.text(); // Get the raw response text
+      console.log("Raw response text:", text);
+
+      if (text) {
+        const data = JSON.parse(text); // Parse the response as JSON
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
+      } else {
+        throw new Error("Empty response body");
+      }
     } catch (error) {
       console.error("Error fetching user from session:", error);
       setUser(null);

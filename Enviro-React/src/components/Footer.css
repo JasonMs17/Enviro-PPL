@@ -1,37 +1,140 @@
 .footer {
-    background-color: #ffffff;
+  background-color: #1DBC60;
+  color: white;
+  padding: 60px 0 20px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-logo h2 {
+  font-size: 2rem;
+  margin: 0;
+  color: white;
+}
+
+.footer-logo p {
+  margin: 10px 0 0;
+  opacity: 0.9;
+}
+
+.footer-social {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-social a {
+  color: white;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #19a352;
+  transform: translateY(-3px);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-column h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: white;
+  padding-left: 5px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  opacity: 0.8;
+}
+
+.footer-legal {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-legal a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-legal a:hover {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 20px;
+  }
+
+  .footer-top {
+    flex-direction: column;
     text-align: center;
   }
-  
-  .footer-container {
-    width: fit-content;
-    margin: 0 auto;
-    padding: 0 20px; /* jaga agar ada jarak di sisi kiri-kanan */
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
-  
-  .footer-divider {
-    width: 100%;
-    height: 1px;
-    background-color: grey;
-    margin-bottom: 16px;
-    border: none;
+
+  .footer-column {
+    text-align: center;
   }
-  
-  .footer-container > p {
-    color: black;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
   }
-  
-  /* Responsive tweak */
-  @media (max-width: 600px) {
-    .footer-container > p {
-      font-size: 1rem;
-    }
-  
-    .footer-container {
-      padding: 0 10px;
-    }
+
+  .footer-legal {
+    justify-content: center;
   }
-  
+}

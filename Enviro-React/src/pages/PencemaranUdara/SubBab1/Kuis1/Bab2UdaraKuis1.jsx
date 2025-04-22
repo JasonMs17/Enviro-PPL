@@ -1,11 +1,11 @@
 import React from "react";
 import QuizComponent from "../../../../components/Kuis/Kuis";
-import SidebarPencemaranTanah from "../../../../components/SidebarCourse/SidebarPencemaranTanah";
+import SidebarPencemaranUdara from "../../../../components/SidebarCourse/SidebarPencemaranUdara";
 
 const Kuis = () => {
   return (
     <QuizComponent
-      SidebarCourse={SidebarPencemaranTanah}
+      SidebarCourse={SidebarPencemaranUdara}
       title="Quiz: Pengenalan dan Dampak Polusi Udara"
       pollutionTypeId={2}
       subbab={1}

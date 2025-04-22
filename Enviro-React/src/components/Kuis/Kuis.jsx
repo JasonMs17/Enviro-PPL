@@ -176,7 +176,7 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
         isSidebarOpen ? "sidebar-open" : "sidebar-closed"
       }`}
     >
-      <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+      <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} isQuizOngoing={!showResults} />
       <div className="course-container">
         <div className="course-article">
           <div className="course-content">

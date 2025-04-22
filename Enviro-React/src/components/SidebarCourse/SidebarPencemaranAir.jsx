@@ -5,9 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faCircle,faCircleChevronRight,faCircleChevronLeft,faChevronDown,faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
-export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, progress }) {
+export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, progress, isQuizOngoing }) {
+  const navigate = useNavigate();
+
   // dropdown untuk tiap subbab
   const location = useLocation();
 
@@ -101,37 +104,53 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
               </div>
               {dropdownStates[subbab.key] && (
                 <ul className="course-list">
-                  {subbab.items.map((item, index) => (
-                    <li key={index}>
-                    <Link
-                      to={item.link}
-                      style={{
-                        color: location.pathname === item.link ? "#1DBC60" : "white",
-                        fontWeight: location.pathname === item.link ? "bold" : "normal",
-                      }}
-                    >
-                      {done ? (
-                        <CircleCheck
-                          className="sudah-dipelajari"
-                          size={20}
-                          style={{
-                            color: location.pathname === item.link ? "#1DBC60" : "white",
+                  {subbab.items.map((item, index) => {
+                    const isQuiz = item.link.includes("kuis");
+                    const isActive = location.pathname === item.link;
+
+                    return (
+                      <li key={index}>
+                        <Link
+                          to={item.link}
+                          onClick={(e) => {
+                            if (!isQuiz && isQuizOngoing) {
+                              e.preventDefault();
+                              alert("Tidak boleh menyontek!");
+                            } else if (!isActive) {
+                              // biar tidak reload kalau klik yang sudah aktif
+                              e.preventDefault();
+                              navigate(item.link);
+                            }
                           }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="belum-dipelajari"
-                          icon={faCircle}
                           style={{
-                            fontSize: "20px",
-                            color: location.pathname === item.link ? "#1DBC60" : "white",
+                            color: isActive ? "#1DBC60" : "white",
+                            fontWeight: isActive ? "bold" : "normal",
+                            cursor: (!isQuiz && isQuizOngoing) ? "not-allowed" : "pointer",
                           }}
-                        />
-                      )}
-                      {item.text}
-                    </Link>
-                  </li>
-                  ))}
+                        >
+                          {done ? (
+                            <CircleCheck
+                              className="sudah-dipelajari"
+                              size={20}
+                              style={{
+                                color: isActive ? "#1DBC60" : "white",
+                              }}
+                            />
+                          ) : (
+                            <FontAwesomeIcon
+                              className="belum-dipelajari"
+                              icon={faCircle}
+                              style={{
+                                fontSize: "20px",
+                                color: isActive ? "#1DBC60" : "white",
+                              }}
+                            />
+                          )}
+                          {item.text}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </div>

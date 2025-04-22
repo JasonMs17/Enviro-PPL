@@ -7,7 +7,7 @@ import {faCircle,faCircleChevronRight,faCircleChevronLeft,faChevronDown,faChevro
 import { useState } from "react";
 
 
-export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
+export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, progress }) {
   // dropdown untuk tiap subbab
   const location = useLocation();
 
@@ -60,9 +60,16 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar }) {
   return (
     
     <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
-      <div className="progress-bar">
-
-      </div>
+        {isOpen ? (
+          <div className="progress-bar-container">
+            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+            <span className="progress-text">{progress}% selesai</span>
+          </div>
+        ) : (
+          <div className="progress-bar-mini">
+            <div className="progress-bar-mini-fill" style={{ height: `${progress}%` }}></div>
+          </div>
+        )}
       
       <h1 className="judul-bab">
         {isOpen && "💦POLUSI AIR"}

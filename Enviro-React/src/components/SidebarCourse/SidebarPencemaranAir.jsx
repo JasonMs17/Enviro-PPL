@@ -127,9 +127,8 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
                             navigate(item.link);
                           }
                         }}
+                        className={`link-item ${location.pathname === item.link ? "active" : ""}`}
                         style={{
-                          color: isActive ? "#1DBC60" : "white",
-                          fontWeight: isActive ? "bold" : "normal",
                           cursor: (!isQuiz && isQuizOngoing) ? "not-allowed" : "pointer",
                         }}
                       >

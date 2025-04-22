@@ -42,6 +42,11 @@
   display: flex;
 }
 
+.relative-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .enviro-logo img {
   width: 150px;
 }

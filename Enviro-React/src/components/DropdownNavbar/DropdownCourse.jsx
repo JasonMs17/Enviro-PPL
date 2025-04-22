@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./DropDownCourse.css";
+import "./DropdownCourse.css";
 
 
 export default function DropDownCourse ({open, onMouseEnter, onMouseLeave }){

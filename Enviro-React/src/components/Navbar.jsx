@@ -63,7 +63,7 @@ const Navbar = () => {
 
       <nav className="user-control">
         <div
-          className="user-course"
+          className="user-course relative-wrapper"
           onMouseEnter={handleCourseEnter}
           onMouseLeave={handleCourseLeave}
         >

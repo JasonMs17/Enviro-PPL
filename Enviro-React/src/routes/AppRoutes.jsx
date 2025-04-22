@@ -84,8 +84,9 @@ const AppRoutes = () => {
         path="/verify-email"
         element={<ProtectedRoute element={<VerifyEmail />} />}
       />
-      <Route path="/reset-password" element={<ProtectedRoute element={<ResetPass />} />} />
-      <Route path="/reset-password/:token" element={<ProtectedRoute element={<ResetPasswordForm />} />} />
+      <Route path="/reset-password" element={<ResetPass />} />
+      <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
+      
       <Route path="/apa-itu-polusi-air-pencemaran-air" element={<ProtectedRoute element={<Bab1AirMateri1 />} />} />
       <Route path="/penyebab-polusi-air" element={<ProtectedRoute element={<Bab1AirMateri2 />} />} />
       <Route path="/dampak-umum-polusi-air" element={<ProtectedRoute element={<Bab1AirMateri3 />} />} />

@@ -2,20 +2,57 @@ import "./SidebarPencemaranAir.css";
 import { Link, useLocation } from "react-router-dom";
 import { CircleCheck } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCircle,faCircleChevronRight,faCircleChevronLeft,faChevronDown,faChevronUp,
+import {
+  faCircle,
+  faCircleChevronRight,
+  faCircleChevronLeft,
+  faChevronDown,
+  faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-
-export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, progress }) {
-  // dropdown untuk tiap subbab
+export default function SidebarPencemaranAir({ isOpen, toggleSidebar }) {
   const location = useLocation();
-
   const [dropdownStates, setDropdownStates] = useState({
     pertama: true,
     kedua: true,
     ketiga: true,
   });
+
+  const [completedMaterials, setCompletedMaterials] = useState([]);
+  const [progress, setProgress] = useState(0);
+
+  // Ambil daftar materi yang sudah diselesaikan
+  useEffect(() => {
+    fetch("http://localhost:8000/api/completed-materials", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Gagal ambil data materi selesai");
+        }
+        return res.json();
+      })
+      .then((data) => setCompletedMaterials(data))
+      .catch((err) => console.error("Gagal fetch:", err));
+  }, []);
+
+  // Ambil progress keseluruhan dari controller
+  useEffect(() => {
+    fetch("http://localhost:8000/api/overall-progress", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Gagal ambil data progress");
+        }
+        return res.json();
+      })
+      .then((data) => setProgress(data.progress))
+      .catch((err) => console.error("Gagal fetch progress:", err));
+  }, []);
 
   const toggleDropDown = (subbabKey) => {
     setDropdownStates((prev) => ({
@@ -29,63 +66,54 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
       key: "pertama",
       title: "Pengenalan Polusi Air & Dampak Umum",
       items: [
-        { text: "Apa Itu Polusi Air?", link: "/apa-itu-polusi-air-pencemaran-air" },
-        { text: "Penyebab Polusi Air", link: "/penyebab-polusi-air" },
-        { text: "Dampak Umum Polusi Air", link: "/dampak-umum-polusi-air" },
-        { text: "Quiz: Apa Itu Polusi Air?", link: "/kuis-apa-itu-polusi-air" },
+        { text: "Apa Itu Polusi Air?", link: "/apa-itu-polusi-air-pencemaran-air", materialId: 1 },
+        { text: "Penyebab Polusi Air", link: "/penyebab-polusi-air", materialId: 2 },
+        { text: "Dampak Umum Polusi Air", link: "/dampak-umum-polusi-air", materialId: 3 },
+        { text: "Quiz: Apa Itu Polusi Air?", link: "/kuis-apa-itu-polusi-air", materialId: 28 },
       ],
     },
     {
       key: "kedua",
       title: "Dampak Polusi Air terhadap Kesehatan",
       items: [
-        { text: "Air Tercemar dan Penyakit", link: "/air-tercemar-dan-penyakit" },
-        { text: "Siapa yang Paling Terdampak?", link: "/siapa-yang-paling-Terdampak" },
-        { text: "Menentukan Air Aman Dikonsumsi", link: "/menentukan-air-aman-dikonsumsi" },
-        { text: "Quiz: Penyebab dan Dampak Polusi Air", link: "/kuis-penyebab-dan-dampak-polusi-air" },
+        { text: "Air Tercemar dan Penyakit", link: "/air-tercemar-dan-penyakit", materialId: 4 },
+        { text: "Siapa yang Paling Terdampak?", link: "/siapa-yang-paling-Terdampak", materialId: 5 },
+        { text: "Menentukan Air Aman Dikonsumsi", link: "/menentukan-air-aman-dikonsumsi", materialId: 6 },
+        { text: "Quiz: Penyebab dan Dampak Polusi Air", link: "/kuis-penyebab-dan-dampak-polusi-air", materialId: 29 },
       ],
     },
     {
       key: "ketiga",
       title: "Solusi Menjaga Kualitas Air",
       items: [
-        { text: "Pengolahan Limbah Air", link: "/pengolahan-limbah-air" },
-        { text: "Aksi Individu untuk Menjaga Air", link: "/aksi-individu-untuk-menjaga-air" },
-        { text: "Pengelolaan Air Berkelanjutan", link: "/pengelolaan-air-berkelanjutan"},
-        { text: "Quiz: Solusi Menjaga Kualitas Air", link: "/kuis-solusi-menjaga-kualitas-air" },
+        { text: "Pengolahan Limbah Air", link: "/pengolahan-limbah-air", materialId: 7 },
+        { text: "Aksi Individu untuk Menjaga Air", link: "/aksi-individu-untuk-menjaga-air", materialId: 8 },
+        { text: "Pengelolaan Air Berkelanjutan", link: "/pengelolaan-air-berkelanjutan", materialId: 9 },
+        { text: "Quiz: Solusi Menjaga Kualitas Air", link: "/kuis-solusi-menjaga-kualitas-air", materialId: 30 },
       ],
     },
   ];
 
   return (
-    
     <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
-        {isOpen ? (
-          <div className="progress-bar-container">
-            <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
-            <span className="progress-text">{progress}% selesai</span>
-          </div>
-        ) : (
-          <div className="progress-bar-mini">
-            <div className="progress-bar-mini-fill" style={{ height: `${progress}%` }}></div>
-          </div>
-        )}
-      
+      {isOpen ? (
+        <div className="progress-bar-container">
+          <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
+          <span className="progress-text">{progress}% selesai</span>
+        </div>
+      ) : (
+        <div className="progress-bar-mini">
+          <div className="progress-bar-mini-fill" style={{ height: `${progress}%` }}></div>
+        </div>
+      )}
+
       <h1 className="judul-bab">
         {isOpen && "💦POLUSI AIR"}
-        {isOpen ? (
-          <FontAwesomeIcon
-            icon={faCircleChevronLeft}
-            style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
-            onClick={toggleSidebar}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faCircleChevronRight}
-            style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
-            onClick={toggleSidebar}
-          />
-        )}
+        <FontAwesomeIcon
+          icon={isOpen ? faCircleChevronLeft : faCircleChevronRight}
+          style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
+          onClick={toggleSidebar}
+        />
       </h1>
 
       {isOpen && (
@@ -103,34 +131,34 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
                 <ul className="course-list">
                   {subbab.items.map((item, index) => (
                     <li key={index}>
-                    <Link
-                      to={item.link}
-                      style={{
-                        color: location.pathname === item.link ? "#1DBC60" : "white",
-                        fontWeight: location.pathname === item.link ? "bold" : "normal",
-                      }}
-                    >
-                      {done ? (
-                        <CircleCheck
-                          className="sudah-dipelajari"
-                          size={20}
-                          style={{
-                            color: location.pathname === item.link ? "#1DBC60" : "white",
-                          }}
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          className="belum-dipelajari"
-                          icon={faCircle}
-                          style={{
-                            fontSize: "20px",
-                            color: location.pathname === item.link ? "#1DBC60" : "white",
-                          }}
-                        />
-                      )}
-                      {item.text}
-                    </Link>
-                  </li>
+                      <Link
+                        to={item.link}
+                        style={{
+                          color: location.pathname === item.link ? "#1DBC60" : "white",
+                          fontWeight: location.pathname === item.link ? "bold" : "normal",
+                        }}
+                      >
+                        {completedMaterials.includes(item.materialId) ? (
+                          <CircleCheck
+                            className="sudah-dipelajari"
+                            size={20}
+                            style={{
+                              color: location.pathname === item.link ? "#1DBC60" : "white",
+                            }}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            className="belum-dipelajari"
+                            icon={faCircle}
+                            style={{
+                              fontSize: "20px",
+                              color: location.pathname === item.link ? "#1DBC60" : "white",
+                            }}
+                          />
+                        )}
+                        {item.text}
+                      </Link>
+                    </li>
                   ))}
                 </ul>
               )}

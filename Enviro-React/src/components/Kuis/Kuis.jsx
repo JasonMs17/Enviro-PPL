@@ -27,6 +27,22 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
     );
   };
 
+  const getMaterialId = (pollutionTypeId, subbab) => {
+    const map = {
+      '1-1': 28,
+      '1-2': 29,
+      '1-3': 30,
+      '2-1': 31,
+      '2-2': 32,
+      '2-3': 33,
+      '3-1': 34,
+      '3-2': 35,
+      '3-3': 36,
+    };
+  
+    return map[`${pollutionTypeId}-${subbab}`];
+  };
+
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
@@ -142,7 +158,7 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
                 questions.map(async (q) => {
                   const userAnswer = answers[q.questionId];
                   const isCorrect = userAnswer === q.correct;
-
+          
                   await http("/api/quiz-reports", {
                     method: "POST",
                     body: JSON.stringify({
@@ -154,11 +170,23 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
                   });
                 })
               );
-
+          
+              // Kirim progress setelah submit semua jawaban
+              const materialId = getMaterialId(pollutionTypeId, subbab);
+              if (materialId) {
+                await http("/api/progress", {
+                  method: "POST",
+                  body: JSON.stringify({ material_id: materialId }),
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                });
+              }
+          
               setShowResults(true);
               window.location.reload();
             } catch (error) {
-              console.error("Error submitting answers:", error);
+              console.error("Error submitting answers or progress:", error);
             }
           },
         },

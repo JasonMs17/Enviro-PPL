@@ -56,6 +56,16 @@ return new class extends Migration
             ['title' => 'Sub bab 3 Materi 1', 'pollution_type_id' => 3, 'content' => 'Pengelolaan Sampah & Limbah Rumah Tangga', 'created_at' => now(), 'updated_at' => now()],
             ['title' => 'Sub bab 3 Materi 2', 'pollution_type_id' => 3, 'content' => 'Teknologi Pengendalian & Pemulihan Tanah', 'created_at' => now(), 'updated_at' => now()],
             ['title' => 'Sub bab 3 Materi 3', 'pollution_type_id' => 3, 'content' => 'Peran Masyarakat & Edukasi Lingkungan', 'created_at' => now(), 'updated_at' => now()],
+
+            ['title' => 'Sub bab 1 Kuis 1', 'pollution_type_id' => 1, 'content' => 'Pengenalan Polusi Air & Dampak Umum', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 2 Kuis 1', 'pollution_type_id' => 1, 'content' => 'Penyebab Polusi Air & Dampaknya terhadap Kesehatan', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 3 Kuis 1', 'pollution_type_id' => 1, 'content' => 'Solusi Menjaga Kualitas Air', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 1 Kuis 2', 'pollution_type_id' => 2, 'content' => 'Pengenalan Polusi Udara & Dampaknya terhadap Lingkungan', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 2 Kuis 2', 'pollution_type_id' => 2, 'content' => 'Dampak Polusi Udara terhadap Kesehatan', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 3 Kuis 2', 'pollution_type_id' => 2, 'content' => 'Solusi dan Upaya Penanggulangan', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 1 Kuis 3', 'pollution_type_id' => 3, 'content' => 'Pengenalan Polusi Tanah & Penyebabnya', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 2 Kuis 3', 'pollution_type_id' => 3, 'content' => 'Dampak Polusi Tanah terhadap Kesehatan', 'created_at' => now(), 'updated_at' => now()],
+            ['title' => 'Sub bab 3 Kuis 3', 'pollution_type_id' => 3, 'content' => 'Solusi Mengatasi Polusi Tanah', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
     

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { AuthContext } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -13,8 +13,27 @@ import DropDownCourse from "./DropdownNavbar/DropdownCourse";
 const Navbar = () => {
   const [openCourse, setOpenCourse] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("/api/user", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data user");
+        }
+        return response.json();
+      })
+      .then(data => {
+        setUser(data);
+      })
+      .catch(error => {
+        console.error("Gagal ambil data user:", error);
+      });
+  }, []);
 
   const courseTimeoutRef = useRef(null);
   const profileTimeoutRef = useRef(null);
@@ -118,7 +137,7 @@ const Navbar = () => {
           >
             <div className="User-Photo-Navbar">
               <img
-                src={userIMG}
+                src={user.profile_photo ? user.profile_photo : userIMG} alt="User"
                 onClick={() => imageClick()}
                 className="profile-image"
               />

@@ -57,4 +57,15 @@ class MaterialReportController extends Controller
             'message' => 'Progress keseluruhan berhasil dihitung.',
         ]);
     }
+
+    public function getCompletedMaterials()
+    {
+        $user = Auth::user();
+
+        $completed = MaterialReport::where('user_id', $user->id)
+            ->where('progress', 100)
+            ->pluck('material_id');
+
+        return response()->json($completed);
+    }
 }

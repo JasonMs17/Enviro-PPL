@@ -157,3 +157,33 @@
     border-radius: 4px;
     transition: height 0.3s ease-in-out;
   }
+
+  .link-item {
+    text-decoration: none;
+    color: white;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    width: 100%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .link-item:hover {
+    background-color: #1dbc6022;
+    color: #1DBC60;
+  }
+  
+  .link-item svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .link-item.active {
+    color: #1DBC60;
+    font-weight: bold;
+  }
+  

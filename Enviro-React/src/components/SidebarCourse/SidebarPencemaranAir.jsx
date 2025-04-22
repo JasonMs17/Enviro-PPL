@@ -1,9 +1,8 @@
 import "./SidebarPencemaranAir.css";
 import { Link, useLocation } from "react-router-dom";
-import { CircleCheck } from "lucide-react";
+import { Circle, CircleCheck } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCircle,
   faCircleChevronRight,
   faCircleChevronLeft,
   faChevronDown,
@@ -133,10 +132,7 @@ export default function SidebarPencemaranAir({ isOpen, toggleSidebar }) {
                     <li key={index}>
                       <Link
                         to={item.link}
-                        style={{
-                          color: location.pathname === item.link ? "#1DBC60" : "white",
-                          fontWeight: location.pathname === item.link ? "bold" : "normal",
-                        }}
+                        className={`link-item ${location.pathname === item.link ? "active" : ""}`}
                       >
                         {completedMaterials.includes(item.materialId) ? (
                           <CircleCheck
@@ -147,11 +143,10 @@ export default function SidebarPencemaranAir({ isOpen, toggleSidebar }) {
                             }}
                           />
                         ) : (
-                          <FontAwesomeIcon
+                          <Circle
                             className="belum-dipelajari"
-                            icon={faCircle}
+                            size={20}
                             style={{
-                              fontSize: "20px",
                               color: location.pathname === item.link ? "#1DBC60" : "white",
                             }}
                           />

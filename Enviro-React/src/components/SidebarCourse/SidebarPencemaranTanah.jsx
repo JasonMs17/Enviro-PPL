@@ -1,5 +1,5 @@
 import "./SidebarPencemaranTanah.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Circle, CircleCheck } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,14 +9,10 @@ import {
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-
-export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar, progress, isQuizOngoing }) {
-  const navigate = useNavigate();
-
-  // dropdown untuk tiap subbab
+export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar, isQuizOngoing }) {
   const location = useLocation();
+  const navigate = useNavigate();
   const [dropdownStates, setDropdownStates] = useState({
     pertama: true,
     kedua: true,
@@ -115,12 +111,13 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar, pr
               </div>
               {dropdownStates[subbab.key] && (
                 <ul className="course-list">
-                  {subbab.items.map((item, index) => {
+                  {subbab.items.map((item) => {
                     const isQuiz = item.link.includes("kuis");
                     const isActive = location.pathname === item.link;
+                    const isDone = completedMaterials.includes(item.id);
 
                     return (
-                      <li key={index}>
+                      <li key={item.id}>
                         <Link
                           to={item.link}
                           onClick={(e) => {
@@ -128,7 +125,6 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar, pr
                               e.preventDefault();
                               alert("Tidak boleh menyontek!");
                             } else if (!isActive) {
-                              // biar tidak reload kalau klik yang sudah aktif
                               e.preventDefault();
                               navigate(item.link);
                             }
@@ -139,7 +135,7 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar, pr
                             cursor: (!isQuiz && isQuizOngoing) ? "not-allowed" : "pointer",
                           }}
                         >
-                          {done ? (
+                          {isDone ? (
                             <CircleCheck
                               className="sudah-dipelajari"
                               size={20}
@@ -148,11 +144,10 @@ export default function SidebarPencemaranTanah({ done, isOpen, toggleSidebar, pr
                               }}
                             />
                           ) : (
-                            <FontAwesomeIcon
+                            <Circle
                               className="belum-dipelajari"
-                              icon={faCircle}
+                              size={20}
                               style={{
-                                fontSize: "20px",
                                 color: isActive ? "#1DBC60" : "white",
                               }}
                             />

@@ -1,5 +1,5 @@
 import "./SidebarPencemaranAir.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Circle, CircleCheck } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,14 +9,11 @@ import {
   faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-
 
 export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, progress, isQuizOngoing }) {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  // dropdown untuk tiap subbab
-  const location = useLocation();
   const [dropdownStates, setDropdownStates] = useState({
     pertama: true,
     kedua: true,
@@ -24,38 +21,18 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
   });
 
   const [completedMaterials, setCompletedMaterials] = useState([]);
-  const [progress, setProgress] = useState(0);
 
-  // Ambil daftar materi yang sudah diselesaikan
   useEffect(() => {
     fetch("http://localhost:8000/api/completed-materials", {
       method: "GET",
       credentials: "include",
     })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Gagal ambil data materi selesai");
-        }
+        if (!res.ok) throw new Error("Gagal ambil data materi selesai");
         return res.json();
       })
       .then((data) => setCompletedMaterials(data))
       .catch((err) => console.error("Gagal fetch:", err));
-  }, []);
-
-  // Ambil progress keseluruhan dari controller
-  useEffect(() => {
-    fetch("http://localhost:8000/api/overall-progress", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Gagal ambil data progress");
-        }
-        return res.json();
-      })
-      .then((data) => setProgress(data.progress))
-      .catch((err) => console.error("Gagal fetch progress:", err));
   }, []);
 
   const toggleDropDown = (subbabKey) => {
@@ -120,72 +97,64 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
         />
       </h1>
 
-      {isOpen && (
-        <>
-          {subbabs.map((subbab) => (
-            <div className={`subbab ${subbab.key}`} key={subbab.key}>
-              <div className="dropdown-header" onClick={() => toggleDropDown(subbab.key)}>
-                <span className="dropdown-title">{subbab.title}</span>
-                <FontAwesomeIcon
-                  icon={dropdownStates[subbab.key] ? faChevronUp : faChevronDown}
-                  style={{ marginLeft: "10px", cursor: "pointer" }}
-                />
-              </div>
-              {dropdownStates[subbab.key] && (
-                <ul className="course-list">
-                  {subbab.items.map((item, index) => {
-                    const isQuiz = item.link.includes("kuis");
-                    const isActive = location.pathname === item.link;
-
-                    return (
-                      <li key={index}>
-                        <Link
-                          to={item.link}
-                          onClick={(e) => {
-                            if (!isQuiz && isQuizOngoing) {
-                              e.preventDefault();
-                              alert("Tidak boleh menyontek!");
-                            } else if (!isActive) {
-                              // biar tidak reload kalau klik yang sudah aktif
-                              e.preventDefault();
-                              navigate(item.link);
-                            }
-                          }}
-                          style={{
-                            color: isActive ? "#1DBC60" : "white",
-                            fontWeight: isActive ? "bold" : "normal",
-                            cursor: (!isQuiz && isQuizOngoing) ? "not-allowed" : "pointer",
-                          }}
-                        >
-                          {done ? (
-                            <CircleCheck
-                              className="sudah-dipelajari"
-                              size={20}
-                              style={{
-                                color: isActive ? "#1DBC60" : "white",
-                              }}
-                            />
-                          ) : (
-                            <FontAwesomeIcon
-                              className="belum-dipelajari"
-                              icon={faCircle}
-                              style={{
-                                fontSize: "20px",
-                                color: isActive ? "#1DBC60" : "white",
-                              }}
-                            />
-                          )}
-                          {item.text}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
+      {isOpen &&
+        subbabs.map((subbab) => (
+          <div className={`subbab ${subbab.key}`} key={subbab.key}>
+            <div className="dropdown-header" onClick={() => toggleDropDown(subbab.key)}>
+              <span className="dropdown-title">{subbab.title}</span>
+              <FontAwesomeIcon
+                icon={dropdownStates[subbab.key] ? faChevronUp : faChevronDown}
+                style={{ marginLeft: "10px", cursor: "pointer" }}
+              />
             </div>
-          ))}
-        </>
-      )}
+            {dropdownStates[subbab.key] && (
+              <ul className="course-list">
+                {subbab.items.map((item, index) => {
+                  const isQuiz = item.link.includes("kuis");
+                  const isActive = location.pathname === item.link;
+                  const isDone = completedMaterials.includes(item.materialId);
+
+                  return (
+                    <li key={index}>
+                      <Link
+                        to={item.link}
+                        onClick={(e) => {
+                          if (!isQuiz && isQuizOngoing) {
+                            e.preventDefault();
+                            alert("Tidak boleh menyontek!");
+                          } else if (!isActive) {
+                            e.preventDefault();
+                            navigate(item.link);
+                          }
+                        }}
+                        style={{
+                          color: isActive ? "#1DBC60" : "white",
+                          fontWeight: isActive ? "bold" : "normal",
+                          cursor: (!isQuiz && isQuizOngoing) ? "not-allowed" : "pointer",
+                        }}
+                      >
+                        {isDone ? (
+                          <CircleCheck
+                            className="sudah-dipelajari"
+                            size={20}
+                            style={{ color: isActive ? "#1DBC60" : "white" }}
+                          />
+                        ) : (
+                          <Circle
+                            className="belum-dipelajari"
+                            size={20}
+                            style={{ color: isActive ? "#1DBC60" : "white" }}
+                          />
+                        )}
+                        {item.text}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        ))}
     </div>
   );
 }

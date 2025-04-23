@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 
-export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, progress, isQuizOngoing }) {
+export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, isQuizOngoing }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
   });
 
   const [completedMaterials, setCompletedMaterials] = useState([]);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:8000/api/completed-materials", {
@@ -33,6 +34,14 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
       })
       .then((data) => setCompletedMaterials(data))
       .catch((err) => console.error("Gagal fetch:", err));
+
+    fetch("http://localhost:8000/api/overall-progress", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => setProgress(data.progress))
+      .catch((err) => console.error("Gagal ambil progress:", err));
   }, []);
 
   const toggleDropDown = (subbabKey) => {
@@ -127,7 +136,7 @@ export default function SidebarPencemaranAir({ done, isOpen, toggleSidebar, prog
                             navigate(item.link);
                           }
                         }}
-                        className={`link-item ${location.pathname === item.link ? "active" : ""}`}
+                        className={`link-item ${isActive ? "active" : ""}`}
                         style={{
                           cursor: (!isQuiz && isQuizOngoing) ? "not-allowed" : "pointer",
                         }}

@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(PollutionTypeSeeder::class);
+        $this->call(MaterialSeeder::class);
         $this->call(QuizSeeder::class);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MaterialReportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ResetPasswordController;
@@ -46,6 +47,8 @@ Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPa
 
 // chatbot
 // Route::post('/chat', [ChatController::class, 'kirimChat']);
+
+Route::get('/materials', [MaterialController::class, 'Index']);
 
 Route::middleware('auth:sanctum')->post('/progress', [MaterialReportController::class, 'trackProgress']);
 Route::middleware('auth:sanctum')->get('/overall-progress', [MaterialReportController::class, 'getOverallProgress']);

@@ -7,24 +7,24 @@ use App\Models\PollutionType;
 use App\Models\Material;
 
 class MaterialController extends Controller
-{
-    public function index()
+{public function index(Request $request)
     {
-        $pollutionTypes = PollutionType::all();
-        $materials = Material::all();
-
-        $pollutionMaterials = $pollutionTypes->map(function ($pollutionType) use ($materials) {
-            $material = $materials->where('pollution_type_id', $pollutionType->pollution_type_id)->first();
-
-            return [
-                'photo' => $pollutionType->photo,
-                'title' => $material ? $material->title : '-',
-                'content' => $material ? $material->content : '-',
-            ];
-        });
-
-        return response()->json([
-            'data' => $pollutionMaterials,
-        ]);
+        $materialId = $request->query('material_id');
+    
+        $material = Material::find($materialId);
+    
+        if (!$material) {
+            return response()->json(['message' => 'Material not found'], 404);
+        }
+    
+        $pollutionType = PollutionType::find($material->pollution_type_id);
+    
+        $pollutionMaterial = [
+            'photo' => $pollutionType ? $pollutionType->photo : null,
+            'title' => $material->title,
+            'content' => $material->content,
+        ];
+    
+        return response()->json($pollutionMaterial);
     }
 }

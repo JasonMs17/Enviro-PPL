@@ -3,28 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\PollutionType;
-use App\Models\Material;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MaterialController extends Controller
-{public function index(Request $request)
+{
+    public function userCompletedMaterials()
     {
-        $materialId = $request->query('material_id');
-    
-        $material = Material::find($materialId);
-    
-        if (!$material) {
-            return response()->json(['message' => 'Material not found'], 404);
-        }
-    
-        $pollutionType = PollutionType::find($material->pollution_type_id);
-    
-        $pollutionMaterial = [
-            'photo' => $pollutionType ? $pollutionType->photo : null,
-            'title' => $material->title,
-            'content' => $material->content,
-        ];
-    
-        return response()->json($pollutionMaterial);
+        $userId = Auth::id();
+
+        $materials = DB::table('user_completed_materials')
+            ->where('user_id', $userId)
+            ->orderBy('material_id', 'asc')
+            ->get()
+            ->map(function ($material) {
+                return [
+                    'material_id' => $material->material_id,
+                    'title' => $material->title,
+                    'content' => $material->content,
+                    'photo' => $material->photo,
+                ];
+            });
+
+        return response()->json($materials);
     }
 }

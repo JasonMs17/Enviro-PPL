@@ -84,20 +84,26 @@
     margin-right: 300px;
     margin-left: 300px;
 }
-
-.navbar-course-button > a{
-    padding: 8px;
-    text-decoration: unset;
-    font-weight: 400;
-    color: #18181b;
-    display: inline-block;
+.navbar-course-button > a,
+.navbar-challenge-button > a {
+  padding: 8px;
+  text-decoration: unset;
+  font-weight: 400;
+  color: #18181b;
+  display: inline-block;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  transition: color 0.3s ease;
 }
-.navbar-challenge-button > a{
-    padding: 8px;
-    text-decoration: unset;
-    font-weight: 400;
-    color: #18181b;
-    display: inline-block;
+
+.navbar-course-button.active-tab > a,
+.navbar-challenge-button.active-tab > a {
+  color: #1DBC60;
+  font-weight: 600;
+  border-bottom: 2px solid #1DBC60;
 }
 
 .user-progress{
@@ -130,3 +136,61 @@
 .dropdown-shown{
     position: relative;
 }
+@media (max-width: 1200px) {
+    .profile-navbar-control {
+      margin: 0 100px;
+    }
+    .user-progress {
+      margin-right: 100px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .profile-navbar-control {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 0 50px;
+    }
+    
+    .User-Profile {
+      padding: 2rem 1rem;
+    }
+  
+    .profile-headline-name {
+      font-size: 32px;
+      line-height: 40px;
+    }
+  
+    .User-Photo {
+      width: 150px;
+      height: 150px;
+    }
+  
+    .user-progress {
+      justify-content: center;
+      margin: 0;
+      padding-right: 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .User-Photo {
+      width: 120px;
+      height: 120px;
+    }
+  
+    .profile-headline-name {
+      font-size: 24px;
+    }
+  
+    .User-Information > p {
+      font-size: 16px;
+    }
+  
+    .profile-navbar-control {
+      margin: 0 20px;
+      gap: 8px;
+    }
+  }
+  

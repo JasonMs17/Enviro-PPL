@@ -33,7 +33,8 @@ export default function LoginUser() {
       }
 
       const resData = await response.json();
-      localStorage.setItem("user", JSON.stringify(resData));
+      localStorage.setItem("token", resData.access_token);
+      localStorage.setItem("user", JSON.stringify(resData.user));
       console.log("Login berhasil!");
       window.location.href = "/";
     } catch (error) {

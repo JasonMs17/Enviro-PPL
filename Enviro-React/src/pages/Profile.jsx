@@ -5,10 +5,12 @@ import "./Profile.css";
 import Dropdown from "../components/DropdownUserProfile/Dropdown/Dropdown";
 import DropdownItems from "../components/DropdownUserProfile/DropdownItem/DropdownItem";
 import UserCourse from "./ProfileLayout/userCourseLayout/userCourse";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Profile () {
+  const location = useLocation();
   const [user, setUser] = useState(null);
-
+  const [activeTab, setActiveTab] = useState("course");
   useEffect(() => {
     axios.get("/api/user", { withCredentials: true })
       .then(response => {
@@ -70,12 +72,12 @@ export default function Profile () {
         <div className="Header-Content">
             <nav className="navbar-Control">
               <ul className="profile-navbar-control">
-                <li className="navbar-course-button">
-                  <a href="#"> Course</a>
-                </li>
-                <li className="navbar-challenge-button">
-                  <a href="#">Challenge</a>
-                </li>
+              <li className={location.pathname.includes("/profile/course") ? "navbar-course-button active-tab" : "navbar-course-button"}>
+              <Link to="/profile/course">Course</Link> {/* Pake Link */}
+            </li>
+            <li className={location.pathname.includes("/profile/challenge") ? "navbar-challenge-button active-tab" : "navbar-challenge-button"}>
+              <Link to="/profile/challenge">Challenge</Link> {/* Pake Link */}
+            </li>
               </ul>
             </nav>
         </div>

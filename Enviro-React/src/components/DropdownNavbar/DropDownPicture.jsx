@@ -38,7 +38,7 @@ export default function DropDownPicture({ open, onMouseEnter, onMouseLeave }) {
       onMouseLeave={onMouseLeave}  // Event hover untuk keluar dari dropdown
     >
       <ul className="gap-4">
-        <li><Link to="/profile">Profil Saya</Link></li>
+        <li><Link to="/profile/course">Profil Saya</Link></li>
         <li><Link to="/settings">Pengaturan</Link></li>
         <li><button onClick={handleLogout} className="logout">
               Logout

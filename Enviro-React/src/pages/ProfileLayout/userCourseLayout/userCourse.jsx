@@ -8,28 +8,23 @@ export default function UserCourse() {
 
   useEffect(() => {
     const fetchMaterials = async () => {
-      const materialIds = [1, 2, 3, 4, 5, 6, 7]; // <-- ini ID-ID yang mau lu ambil dari tabel materials
-      const fetchedMaterials = [];
-
       try {
-        for (const id of materialIds) {
-          const response = await fetch(`http://localhost:8000/api/materials?material_id=${id}`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
-              "Content-Type": "application/json",
-            },
-          });
+        const response = await fetch("http://localhost:8000/api/user-materials", {
+          method: "GET",
+          credentials: "include", 
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type": "application/json",
+          },
+        });
 
-          if (!response.ok) {
-            throw new Error(`Failed to fetch material with ID ${id}`);
-          }
-
-          const data = await response.json();
-          console.log("Fetched material:", data); // Debug data dari API
-          fetchedMaterials.push(data.data ?? data);
+        if (!response.ok) {
+          throw new Error("Gagal ambil data materi selesai");
         }
 
-        setMaterials(fetchedMaterials);
+        const data = await response.json();
+        console.log("Fetched materials:", data);
+        setMaterials(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching materials:", error);
       } finally {

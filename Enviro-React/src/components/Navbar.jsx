@@ -69,7 +69,7 @@ const Navbar = () => {
   };
 
   const imageClick = () => {
-    navigate("/profile");
+    navigate("/profile/course");
   };
 
   return (

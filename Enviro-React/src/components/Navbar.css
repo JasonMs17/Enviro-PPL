@@ -154,3 +154,64 @@ nav a.active {
   object-fit: cover;
   max-width: 100%;
 }
+
+@media (max-width: 1024px) {
+  .user-control {
+    gap: 16px;
+  }
+
+  .login-signup {
+    gap: 15px;
+  }
+
+  .enviro-logo img {
+    width: 120px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .user-control {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .login-signup {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .user-profile {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .enviro-logo img {
+    width: 100px;
+  }
+
+  .user-control a, .login-button, .signup {
+    font-size: 16px;
+  }
+
+  .signup {
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-control a, .login-button, .signup {
+    font-size: 14px;
+  }
+
+  .signup {
+    padding: 8px 12px;
+  }
+}

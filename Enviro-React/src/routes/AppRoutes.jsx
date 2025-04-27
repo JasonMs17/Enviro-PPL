@@ -73,7 +73,7 @@ const AppRoutes = () => {
         element={user ? <Navigate to="/" /> : <Register />}
       />
       <Route
-        path="/profile"
+        path="/profile/course"
         element={user ? <Profile /> : <Navigate to="/" />}
       />
       <Route

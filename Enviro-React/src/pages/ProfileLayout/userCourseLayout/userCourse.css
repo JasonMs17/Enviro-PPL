@@ -1,5 +1,6 @@
 
 .row-section{
+    grid-template-columns: repeat(2);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

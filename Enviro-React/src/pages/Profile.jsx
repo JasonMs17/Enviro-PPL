@@ -8,10 +8,7 @@ import UserCourse from "./ProfileLayout/userCourseLayout/userCourse";
 
 export default function Profile () {
   const [user, setUser] = useState(null);
-  const dropdownData = [
-    { label: "Sudah lulus", href: "/profile" },
-    { label: "Semua Kelas", href: "/profile" }
-  ];
+
   useEffect(() => {
     axios.get("/api/user", { withCredentials: true })
       .then(response => {
@@ -83,29 +80,6 @@ export default function Profile () {
             </nav>
         </div>
 
-        <div className="user-progress">
-          <div className="container">
-            <div className="profile-tab-content">
-              <div className="dropdown-and-content">
-                <div className="dropdown">
-                  <p className="dropdown-label">Tampilkan : </p>
-                  <div className="dropdown-shown">
-                    <Dropdown  buttonText ="Sedang dipelajari" content = {
-                      <>
-                      {dropdownData.map((item, index) => (
-                          <DropdownItems key={index} href={item.href}>
-                            {item.label}
-                          </DropdownItems>
-                        ))}
-                      </>
-                      }/>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
         <UserCourse />
         
         </>

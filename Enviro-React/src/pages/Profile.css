@@ -33,10 +33,16 @@
     object-fit: cover;
     max-width: 100%;
 }
+.User-Photo-Wrapper {
+    position: relative; /* TAMBAHKAN ini */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .user-profile-picture-edit-button{
     position: absolute;
-    top: 17rem;
-    left: 61rem;
+    bottom: 0;
+    right: 0;
 }
 
 .User-Information{

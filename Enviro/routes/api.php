@@ -53,6 +53,7 @@ Route::get('/materials', [MaterialController::class, 'Index']);
 Route::middleware('auth:sanctum')->post('/progress', [MaterialReportController::class, 'trackProgress']);
 Route::middleware('auth:sanctum')->get('/overall-progress', [MaterialReportController::class, 'getOverallProgress']);
 Route::middleware('auth:sanctum')->get('/completed-materials', [MaterialReportController::class, 'getCompletedMaterials']);
+Route::middleware('auth:sanctum')->get('/completed-materials-details', [MaterialReportController::class, 'getCompletedMaterials']);
 
 // kuis
 Route::get('/quizzes', [QuizController::class, 'index']);

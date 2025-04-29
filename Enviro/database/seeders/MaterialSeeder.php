@@ -39,6 +39,16 @@ class MaterialSeeder extends Seeder
             ['bab' => 'Sub bab 3 Materi 1', 'pollution_type_id' => 3, 'title' => 'Pengelolaan Sampah & Limbah Rumah Tangga', 'content' => 'Pemilahan sampah (organik, anorganik, B3) penting untuk mengurangi pencemaran tanah. Daur ulang dan hindari membuang sampah sembarangan.', 'created_at' => now(), 'updated_at' => now()],
             ['bab' => 'Sub bab 3 Materi 2', 'pollution_type_id' => 3, 'title' => 'Teknologi Pengendalian & Pemulihan Tanah', 'content' => 'Metode pemulihan tanah seperti bioremediasi (mikroorganisme), fitoremediasi (tanaman), dan remediasi termal dapat mengurangi pencemaran tanah.', 'created_at' => now(), 'updated_at' => now()],
             ['bab' => 'Sub bab 3 Materi 3', 'pollution_type_id' => 3, 'title' => 'Peran Masyarakat & Edukasi Lingkungan', 'content' => 'Masyarakat berperan penting dalam mengatasi polusi tanah melalui urban farming, kampanye di sekolah, dan bank sampah.', 'created_at' => now(), 'updated_at' => now()],
+            // --- Quiz
+            ['bab' => 'Sub bab 1 Kuis 1', 'pollution_type_id' => 1, 'title' => 'Pengenalan Polusi Air & Dampak Umum', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 2 Kuis 1', 'pollution_type_id' => 1, 'title' => 'Penyebab Polusi Air & Dampaknya terhadap Kesehatan', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 3 Kuis 1', 'pollution_type_id' => 1, 'title' => 'Solusi Menjaga Kualitas Air', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 1 Kuis 2', 'pollution_type_id' => 2, 'title' => 'Pengenalan Polusi Udara & Dampaknya terhadap Lingkungan', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 2 Kuis 2', 'pollution_type_id' => 2, 'title' => 'Dampak Polusi Udara terhadap Kesehatan', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 3 Kuis 2', 'pollution_type_id' => 2, 'title' => 'Solusi dan Upaya Penanggulangan', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 1 Kuis 3', 'pollution_type_id' => 3, 'title' => 'Pengenalan Polusi Tanah & Penyebabnya', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 2 Kuis 3', 'pollution_type_id' => 3, 'title' => 'Dampak Polusi Tanah terhadap Kesehatan', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
+            ['bab' => 'Sub bab 3 Kuis 3', 'pollution_type_id' => 3, 'title' => 'Solusi Mengatasi Polusi Tanah', 'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

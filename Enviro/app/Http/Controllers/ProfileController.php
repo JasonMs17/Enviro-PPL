@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -21,27 +23,52 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
+        try {
+            /** @var \App\Models\User $user */
+            $user = Auth::user();
+    
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'profile_photo' => 'nullable|image|max:2048',
+            ]);
+    
+            $user->name = $validated['name'];
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'birth_date' => 'required|date',
-            'profile_photo' => 'nullable|image|max:2048',
-        ]);
+            // Hapus foto lama di Cloudinary jika ada
+            if ($request->hasFile('profile_photo') && $user->profile_photo) {
+                // Ambil public_id dari URL sebelumnya
+                $parts = explode('/', parse_url($user->profile_photo, PHP_URL_PATH));
+                $filename = end($parts);
+                $publicId = 'profile_photos/' . pathinfo($filename, PATHINFO_FILENAME);
 
-        if ($request->hasFile('profile_photo')) {
-            $uploadedFileUrl = Cloudinary::upload($request->file('profile_photo')->getRealPath(), [
-                'folder' => 'profile_photos',
-            ])->getSecurePath();
+                Cloudinary::uploadApi()->destroy($publicId);
+            }
 
-            $user->profile_photo = $uploadedFileUrl;
+            // Upload baru
+            if ($request->hasFile('profile_photo')) {
+                $uploadedFile = Cloudinary::uploadApi()->upload(
+                    $request->file('profile_photo')->getRealPath(),
+                    [
+                        'folder' => 'profile_photos',
+                        'public_id' => 'user_' . $user->id . '_' . time(),
+                        'overwrite' => true,
+                        'resource_type' => 'image'
+                    ]
+                );
+
+                $user->profile_photo = $uploadedFile['secure_url'];
+            }
+    
+            $user->save();
+    
+            return response()->json($user);
+        } catch (Exception $e) {
+            Log::error('Upload error: ' . $e->getMessage());
+    
+            return response()->json([
+                'message' => 'Update gagal',
+                'error' => $e->getMessage(),
+            ], 500);
         }
-
-        $user->name = $request->name;
-        $user->birth_date = $request->birth_date;
-        $user->save();
-
-        return response()->json($user);
     }
 }

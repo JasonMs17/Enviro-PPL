@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { http } from "../utils/fetch";
 import userIMG from "../assets/person.svg";
 import { Link, useLocation } from "react-router-dom";
 import UserCourse from "./ProfileLayout/userCourseLayout/userCourse";
@@ -40,18 +41,44 @@ export default function Profile() {
     if (newPhoto) {
       formData.append("profile_photo", newPhoto);
     }
-
+  
     try {
-      await axios.post("/api/user/update", formData, {
-        withCredentials: true,
-        headers: { 'Content-Type': 'multipart/form-data' }
+      const response = await http("/api/profile", {
+        method: "POST",
+        body: formData,
       });
-      setShowModal(false);
+  
+      const contentType = response.headers.get("content-type");
+  
+      if (!response.ok) {
+        if (contentType && contentType.includes("application/json")) {
+          const errData = await response.json();
+          console.error("Update gagal:", errData);
+        } else {
+          const text = await response.text();
+          console.error("Update gagal. Response bukan JSON:", text);
+        }
+        return;
+      }
+  
+      const resData = await response.json();
+      console.log("Update sukses:", resData);
       window.location.reload();
+      setShowModal(false);
+  
+      setUser((prev) => ({
+        ...prev,
+        name: resData.name,
+        profile_photo: resData.profile_photo,
+      }));
+      setPreviewPhoto(resData.profile_photo);
+      setNewPhoto(null);
     } catch (error) {
-      console.error("Gagal update profil:", error);
+      console.error("Error saat update:", error);
     }
   };
+  
+  
 
   return (
     <div className="content-wrapper">

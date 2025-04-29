@@ -8,7 +8,7 @@ export const fetchCSRFToken = async () => {
     // Fetch CSRF token dari Sanctum
     const response = await fetch("http://localhost:8000/sanctum/csrf-cookie", {
       method: "GET",
-      credentials: "include", // Pastikan kredensial termasuk cookies
+      credentials: "include",
     });
     if (!response.ok) {
       throw new Error("Failed to fetch CSRF token");
@@ -19,17 +19,20 @@ export const fetchCSRFToken = async () => {
 };
 
 export const http = async (url, options = {}) => {
-  // Cek apakah XSRF-TOKEN sudah ada di cookies
   let token = getCookie("XSRF-TOKEN");
 
   if (!token) {
-    // Jika token tidak ditemukan, fetch dulu CSRF token dari Sanctum
     await fetchCSRFToken();
-    token = getCookie("XSRF-TOKEN"); // Ambil token setelah CSRF cookie didapat
+    token = getCookie("XSRF-TOKEN");
   }
 
+  // Kalau body adalah FormData, jangan set Content-Type manual
+  const isFormData = options.body instanceof FormData;
+
   const defaultHeaders = {
-    "Content-Type": "application/json",
+    ...(isFormData
+      ? {} // Tidak set Content-Type
+      : { "Content-Type": "application/json" }),
     "X-XSRF-TOKEN": token,
     Accept: "application/json",
     "X-Requested-With": "XMLHttpRequest",

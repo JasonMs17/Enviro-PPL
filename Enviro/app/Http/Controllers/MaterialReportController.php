@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\MaterialReport;
 use App\Models\Material;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MaterialReportController extends Controller
 {
@@ -32,31 +33,47 @@ class MaterialReportController extends Controller
         ]);
     }
 
-    public function getOverallProgress()
+    public function overallProgress()
     {
         $user = Auth::user();
-
-        $totalMaterials = Material::count();
-
-        if ($totalMaterials === 0) {
-            return response()->json([
-                'progress' => 0,
-                'message' => 'Belum ada materi tersedia.',
-            ]);
+    
+        // Ambil total materi per jenis polusi
+        $totalByType = Material::select('pollution_type_id')
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('pollution_type_id')
+            ->pluck('total', 'pollution_type_id');
+    
+        // Ambil jumlah materi selesai per jenis polusi
+        $completedByType = MaterialReport::where('material_reports.user_id', $user->id)
+            ->where('material_reports.progress', '>=', 100)
+            ->join('materials', 'material_reports.material_id', '=', 'materials.material_id')
+            ->select('materials.pollution_type_id')
+            ->selectRaw('COUNT(*) as completed')
+            ->groupBy('materials.pollution_type_id')
+            ->pluck('completed', 'pollution_type_id');
+    
+        // Ambil data photo dari tabel pollution_types
+        $photos = DB::table('pollution_types')
+            ->select('pollution_type_id', 'photo')
+            ->pluck('photo', 'pollution_type_id');
+    
+        $progressByType = [];
+    
+        foreach ($totalByType as $typeId => $total) {
+            $done = $completedByType[$typeId] ?? 0;
+            $progress = round(($done / $total) * 100);
+    
+            $progressByType[$typeId] = [
+                'progress' => $progress,
+                'photo' => $photos[$typeId] ?? null,
+            ];
         }
-
-        $userReports = MaterialReport::where('user_id', $user->id)->get();
-        $totalProgress = $userReports->sum('progress');
-        $maxProgress = $totalMaterials * 100;
-
-        // Hitung persentase progress keseluruhan
-        $percentage = round(($totalProgress / $maxProgress) * 100);
-
+    
         return response()->json([
-            'progress' => $percentage,
-            'message' => 'Progress keseluruhan berhasil dihitung.',
+            'progress_by_type' => $progressByType,
         ]);
     }
+    
 
     public function getCompletedMaterials()
     {
@@ -68,6 +85,4 @@ class MaterialReportController extends Controller
 
         return response()->json($completed);
     }
-
-    
 }

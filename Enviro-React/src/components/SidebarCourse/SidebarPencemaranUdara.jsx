@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from "./Sidebar"; // Komponen reusable
+import Sidebar from "./Sidebar";
 
 export default function SidebarPencemaranUdara() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -70,6 +70,7 @@ export default function SidebarPencemaranUdara() {
       title="Polusi Udara"
       subbabs={dataSubbab}
       basePath="/pencemaran-udara"
+      pollutionTypeId={2}
     />
   );
 }

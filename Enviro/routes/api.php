@@ -51,7 +51,7 @@ Route::post('/chat', [ChatController::class, 'kirimChat']);
 Route::middleware('auth:sanctum')->get('/user-materials', [MaterialController::class, 'userCompletedMaterials']);
 
 Route::middleware('auth:sanctum')->post('/progress', [MaterialReportController::class, 'trackProgress']);
-Route::middleware('auth:sanctum')->get('/overall-progress', [MaterialReportController::class, 'getOverallProgress']);
+Route::middleware('auth:sanctum')->get('/overall-progress', [MaterialReportController::class, 'overallProgress']);
 Route::middleware('auth:sanctum')->get('/completed-materials', [MaterialReportController::class, 'getCompletedMaterials']);
 Route::middleware('auth:sanctum')->get('/completed-materials-details', [MaterialReportController::class, 'getCompletedMaterials']);
 

@@ -11,10 +11,8 @@ import {
 import { http } from "@/utils/fetch";
 import "./Sidebar.css";
 
-// Komponen Skeleton Item
 const SkeletonItem = () => <div className="skeleton-item"></div>;
 
-// Komponen Skeleton Dropdown
 const SkeletonDropdown = () => (
   <div className="skeleton-dropdown">
     <div className="skeleton-dropdown-header"></div>
@@ -33,6 +31,7 @@ export default function SidebarCourseModule({
   title = "TOPIK",
   basePath = "/modul",
   subbabs = [],
+  pollutionTypeId = 1,
 }) {
   const params = useParams();
   const location = useLocation();
@@ -40,8 +39,8 @@ export default function SidebarCourseModule({
 
   const [dropdownStates, setDropdownStates] = useState({});
   const [completedMaterials, setCompletedMaterials] = useState([]);
-  const [progress, setProgress] = useState(0);
-  const [loading, setLoading] = useState(true); // State untuk menandakan loading
+  const [progressByType, setProgressByType] = useState({});
+  const [loading, setLoading] = useState(true);
   const trackedRef = useRef(new Set());
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export default function SidebarCourseModule({
 
   useEffect(() => {
     const loadProgress = async () => {
-      setLoading(true); // Set loading menjadi true saat mulai fetch data
+      setLoading(true);
       try {
         const [resDone, resProg] = await Promise.all([
           fetch("/api/completed-materials", { credentials: "include" }),
@@ -61,12 +60,12 @@ export default function SidebarCourseModule({
         const doneData = await resDone.json();
         const progData = await resProg.json();
         setCompletedMaterials(doneData);
-        setProgress(progData.progress);
+        setProgressByType(progData.progress_by_type || {});
         doneData.forEach((id) => trackedRef.current.add(id));
       } catch (err) {
         console.error("Error loading progress:", err);
       } finally {
-        setLoading(false); // Set loading menjadi false setelah fetch selesai (berhasil atau gagal)
+        setLoading(false);
       }
     };
     loadProgress();
@@ -98,7 +97,7 @@ export default function SidebarCourseModule({
           credentials: "include",
         });
         const progData = await progRes.json();
-        setProgress(progData.progress);
+        setProgressByType(progData.progress_by_type || {});
       } else {
         const errData = await response.json();
         console.error("Gagal simpan progress:", errData);
@@ -112,6 +111,8 @@ export default function SidebarCourseModule({
     setDropdownStates((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const progress = progressByType[pollutionTypeId]?.progress || 0;
+
   return (
     <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
       {isOpen ? (
@@ -119,12 +120,12 @@ export default function SidebarCourseModule({
           <div
             className="progress-bar-fill"
             style={{
-              width: loading ? "0%" : `${progress}%`, // Set width ke 0 atau sembunyikan saat loading
-              backgroundColor: loading ? "#888" : "#1DBC60", // Ubah warna saat loading (opsional)
+              width: loading ? "0%" : `${progress}%`,
+              backgroundColor: loading ? "#888" : "#1DBC60",
             }}
           />
           <span className="progress-text">
-            {loading ? "Loading..." : `${progress}% selesai`} {/* Teks loading */}
+            {loading ? "Loading..." : `${progress}% selesai`}
           </span>
         </div>
       ) : (
@@ -132,8 +133,8 @@ export default function SidebarCourseModule({
           <div
             className="progress-bar-mini-fill"
             style={{
-              height: loading ? "0%" : `${progress}%`, // Set height ke 0 atau sembunyikan saat loading
-              backgroundColor: loading ? "#888" : "#1DBC60", // Ubah warna saat loading (opsional)
+              height: loading ? "0%" : `${progress}%`,
+              backgroundColor: loading ? "#888" : "#1DBC60",
             }}
           />
         </div>
@@ -148,14 +149,10 @@ export default function SidebarCourseModule({
         />
       </h1>
 
-      {isOpen && (
-        loading ? (
-          // Tampilkan skeleton saat loading
-          subbabs.map((subbab) => (
-            <SkeletonDropdown key={subbab.key} />
-          ))
+      {isOpen &&
+        (loading ? (
+          subbabs.map((subbab) => <SkeletonDropdown key={subbab.key} />)
         ) : (
-          // Tampilkan data asli jika tidak sedang loading
           subbabs.map((subbab) => (
             <div className={`subbab ${subbab.key}`} key={subbab.key}>
               <div
@@ -243,8 +240,7 @@ export default function SidebarCourseModule({
               )}
             </div>
           ))
-        )
-      )}
+        ))}
     </div>
   );
 }

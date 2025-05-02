@@ -65,6 +65,7 @@ export default function SidebarPencemaranTanah() {
       title="Polusi Tanah"
       basePath="/pencemaran-tanah"
       subbabs={dataSubbab}
+      pollutionTypeId={3}
     />
   );
 }

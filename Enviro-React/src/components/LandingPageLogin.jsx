@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa";
 import PollutionCard from "./PollutionCard";
 import LoginModal from "./LoginModal";
+import UserProgress from "./userProgress/UserProgress";
 
 const LandingPageLogin = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -169,7 +170,8 @@ const LandingPageLogin = () => {
             </div>
           </div>
         </div> */}
-
+        <UserProgress />
+        
         <div className="explore-section" id="explore-section">
           <h2>More to explore</h2>
           <div className="pollution-types">

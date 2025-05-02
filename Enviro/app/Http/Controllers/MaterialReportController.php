@@ -68,4 +68,6 @@ class MaterialReportController extends Controller
 
         return response()->json($completed);
     }
+
+    
 }

@@ -1,0 +1,39 @@
+.container-progress{
+    background-color: #F0F0F0;
+    border-radius: 20px;
+    padding: 20px;
+    width: 1200px;
+    margin-top: 100px;
+}
+.status-user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-progress{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 20px
+}
+.progress-detail{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+h4{
+    margin:0
+}
+.course-name{
+    padding-top: 20px;
+    margin: 0;
+}
+
+.progress-bar{
+    padding-top: 20px;
+    margin:0;
+}
+
+.progress-text-landing-page{
+    color: black;
+}

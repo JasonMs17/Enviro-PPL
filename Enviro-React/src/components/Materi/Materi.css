@@ -1,0 +1,247 @@
+.materi {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: calc(100vh - 80px);
+    /* PENTING */
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* SIDEBAR OPEN */
+.sidebar-open .SidebarCourse {
+    width: 400px;
+    padding: 30px;
+}
+
+/* SIDEBAR CLOSED */
+.sidebar-closed .SidebarCourse {
+    width: 60px;
+    padding: 20px 0;
+}
+
+/* Sidebar General */
+.SidebarCourse {
+    background-color: #333333;
+    color: white;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+}
+
+/* Kontainer utama */
+.course-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0px 15px 15px 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+/* Artikel & Konten */
+.course-article {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 10rem !important;
+}
+
+.course-article::after {
+    content: '';
+    display: block;
+    height: 60px;
+}
+
+.course-content {
+    font-size: 20px;
+    line-height: 40px;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 15px;
+}
+
+/* Heading Style */
+.course-content h2,
+.course-content h3,
+.course-content h4 {
+    color: #3f3f46;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+.course-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.course-content h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.course-content h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Paragraph & List */
+.course-content p,
+.course-content li {
+    font-size: 20px;
+    line-height: 40px;
+    font-weight: 450;
+    margin-top: 0;
+}
+
+.course-content p.paragraf-bold {
+    font-weight: bold;
+}
+
+/* Bab1AIrMateri3 */
+
+.course-content .line-bold {
+    font-weight: 550;
+    color: #1DBC60;
+}
+
+.course-video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 1%;
+    margin-bottom: 20px;
+}
+
+.course-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.infografis-course-air-bab1 {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 1%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infografis-course-air-bab1 img {
+    width: 100%;
+}
+
+
+.infografis-course-udara-bab1 {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 1%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infografis-course-udara-bab1 img {
+    width: 85%;
+}
+
+
+.infografis-course-udara-bab2 {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 1%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infografis-course-udara-bab2 img {
+    width: 80%;
+}
+
+.course-content .italic-line {
+    font-style: italic;
+}
+
+/* ========== RESPONSIVE ========== */
+
+/* Mobile */
+@media (max-width: 768px) {
+    .bab-1-air-materi-1 {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .SidebarCourse {
+        width: 100% !important;
+        height: auto;
+        padding: 15px;
+    }
+
+    .course-container {
+        padding: 15px;
+    }
+
+    .course-content {
+        padding: 0;
+        max-width: 100%;
+    }
+
+    .course-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .course-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .course-content h4 {
+        font-size: 1.1rem;
+    }
+
+    .course-content p {
+        font-size: 18px;
+        line-height: 32px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .sidebar-open .SidebarCourse {
+        width: 250px;
+        padding: 20px;
+    }
+
+    .course-content {
+        max-width: 90%;
+    }
+}
+
+/* Desktop Medium */
+@media (min-width: 1025px) and (max-width: 1400px) {
+    .sidebar-open .SidebarCourse {
+        width: 300px;
+        padding: 25px;
+    }
+
+    .course-content {
+        max-width: 800px;
+    }
+}

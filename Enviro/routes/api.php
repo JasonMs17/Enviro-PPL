@@ -46,7 +46,7 @@ Route::post('/reset-password', [ResetPasswordController::class, 'sendResetLink']
 Route::post('/reset-password/confirm', [ResetPasswordController::class, 'resetPassword']);
 
 // chatbot
-// Route::post('/chat', [ChatController::class, 'kirimChat']);
+Route::post('/chat', [ChatController::class, 'kirimChat']);
 
 Route::middleware('auth:sanctum')->get('/user-materials', [MaterialController::class, 'userCompletedMaterials']);
 
@@ -61,8 +61,10 @@ Route::get('/quizzes', [QuizController::class, 'index'])
     ->where('pollution_type_id', '[0-9]+')
     ->where('subbab', '[0-9]+');
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/quiz-reports', [QuizReportController::class, 'index']);
-        Route::post('/quiz-reports', [QuizReportController::class, 'store']);
-    });
-    
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/quiz-reports', [QuizReportController::class, 'index']);
+    Route::post('/quiz-reports', [QuizReportController::class, 'store']);
+});
+
+
+Route::get('/materials/{id}', [MaterialController::class, 'show']);

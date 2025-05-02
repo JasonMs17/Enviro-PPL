@@ -16,13 +16,15 @@ return new class extends Migration
             $table->string('bab');
             $table->string('title');
             $table->unsignedBigInteger('pollution_type_id');
+            $table->integer('sub_bab');
             $table->text('content');
+            $table->text('detail');
             $table->timestamps();
-        
+
             $table->foreign('pollution_type_id')
-                  ->references('pollution_type_id')
-                  ->on('pollution_types')
-                  ->onDelete('cascade');
+                ->references('pollution_type_id')
+                ->on('pollution_types')
+                ->onDelete('cascade');
         });
     }
 

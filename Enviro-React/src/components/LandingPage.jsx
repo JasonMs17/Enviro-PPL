@@ -32,7 +32,7 @@ const LandingPage = () => {
       description:
         "Pencemaran tanah adalah keadaan di mana bahan kimia buatan manusia masuk dan mengubah lingkungan tanah alami.",
       image: soilPollutionImg,
-      route: "/apa-itu-polusi-tanah-dan-penyebabnya",
+      route: "/pencemaran-tanah/19",
     },
     {
       icon: FaWater,
@@ -40,7 +40,7 @@ const LandingPage = () => {
       description:
         "Pencemaran air adalah suatu perubahan keadaan di suatu tempat penampungan air seperti danau, sungai, lautan dan air tanah akibat aktivitas manusia.",
       image: waterPollutionImg,
-      route: "/apa-itu-polusi-air-pencemaran-air",
+      route: "/pencemaran-air/1",
     },
     {
       icon: FaCloudSun,
@@ -48,7 +48,7 @@ const LandingPage = () => {
       description:
         "Pencemaran udara adalah kehadiran satu atau lebih substansi fisik, kimia, atau biologi di atmosfer dalam jumlah yang dapat membahayakan kesehatan manusia, hewan, dan tumbuhan.",
       image: airPollutionImg,
-      route: "/apa-itu-polusi-udara-dan-sumbernya",
+      route: "/pencemaran-udara/10",
     },
   ];
 

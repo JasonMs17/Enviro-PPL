@@ -1,70 +1,75 @@
+// Kuis.jsx (Direfaktor)
 import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../../AuthContext"; // Import AuthContext
-import "./kuis.css";
+import { useParams } from "react-router-dom";
+import { AuthContext } from "../../AuthContext";
+import "./QuizComponent.css";
 import { http } from "../../utils/fetch";
-import { confirmAlert } from "react-confirm-alert"; // Import confirmAlert
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
-  const { user } = useContext(AuthContext); // Ambil user dari context
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
+const QuizComponent = ({ setIsQuizActive }) => {
+  const { pollutionTypeId, subbab } = useParams();
+  const parsedPollutionTypeId = parseInt(pollutionTypeId, 10);
+  const parsedSubbab = parseInt(subbab, 10);
+
+  const { user } = useContext(AuthContext);
 
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [score, setScore] = useState(null); // State baru untuk skor
+  const [score, setScore] = useState(null);
 
-  const QuizSkeleton = () => {
-    return (
-      <div className="kuis-question skeleton">
-        <div className="skeleton-line skeleton-title" />
-        {[1, 2, 3, 4].map((_, i) => (
-          <div key={i} className="skeleton-line skeleton-option" />
-        ))}
-      </div>
-    );
-  };
+  const QuizSkeleton = () => (
+    <div className="kuis-question skeleton">
+      <div className="skeleton-line skeleton-title" />
+      {[1, 2, 3, 4].map((_, i) => (
+        <div key={i} className="skeleton-line skeleton-option" />
+      ))}
+    </div>
+  );
 
   const getMaterialId = (pollutionTypeId, subbab) => {
     const map = {
-      '1-1': 28,
-      '1-2': 29,
-      '1-3': 30,
-      '2-1': 31,
-      '2-2': 32,
-      '2-3': 33,
-      '3-1': 34,
-      '3-2': 35,
-      '3-3': 36,
+      "1-1": 28,
+      "1-2": 29,
+      "1-3": 30,
+      "2-1": 31,
+      "2-2": 32,
+      "2-3": 33,
+      "3-1": 34,
+      "3-2": 35,
+      "3-3": 36,
     };
-  
     return map[`${pollutionTypeId}-${subbab}`];
   };
+
+  useEffect(() => {
+    setAnswers({});
+    setShowResults(false);
+    setQuestions([]);
+    setLoading(true);
+    setScore(null);
+  }, [parsedPollutionTypeId, parsedSubbab]);
 
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
         const res = await http(
-          `/api/quizzes?pollution_type_id=${pollutionTypeId}&sub_bab=${subbab}`,
+          `/api/quizzes?pollution_type_id=${parsedPollutionTypeId}&sub_bab=${parsedSubbab}`,
           { method: "GET" }
         );
         const data = await res.json();
-
         const formatted = data.map((item, index) => {
           const options = JSON.parse(item.options);
           return {
             id: index + 1,
             questionId: item.quiz_id,
             question: item.question,
-            options: options,
-            correct: options.findIndex(
-              (option) => option === item.correct_answer
-            ),
+            options,
+            correct: options.findIndex((opt) => opt === item.correct_answer),
           };
         });
-
         setQuestions(formatted);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
@@ -72,15 +77,15 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
     };
 
     fetchQuizzes();
-  }, [pollutionTypeId, subbab]);
+  }, [parsedPollutionTypeId, parsedSubbab]);
 
   useEffect(() => {
-    if (!user || !user.id) return;
+    if (!user?.id) return;
 
     const fetchUserAnswers = async () => {
       try {
         const resAnswers = await http(
-          `/api/quiz-reports?user_id=${user.id}&pollution_type_id=${pollutionTypeId}&subbab=${subbab}`,
+          `/api/quiz-reports?user_id=${user.id}&pollution_type_id=${parsedPollutionTypeId}&subbab=${parsedSubbab}`,
           { method: "GET" }
         );
         const reports = await resAnswers.json();
@@ -96,8 +101,9 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
           });
 
           setAnswers(restoredAnswers);
-          setScore(correctCount); // ← hitung skor dari hasil laporan
+          setScore(correctCount);
           setShowResults(true);
+          setIsQuizActive(false); // Sinyal bahwa quiz selesai
         }
       } catch (error) {
         console.error("Error fetching user answers:", error);
@@ -106,7 +112,7 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
     };
 
     fetchUserAnswers();
-  }, [user, pollutionTypeId, subbab]);
+  }, [user, parsedPollutionTypeId, parsedSubbab, setIsQuizActive]);
 
   const handleChange = (questionId, optionIndex) => {
     setAnswers((prev) => ({
@@ -124,10 +130,7 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
   };
 
   const handleSubmit = async () => {
-    if (!user || !user.id) {
-      console.error("User information is not available. ", user);
-      return;
-    }
+    if (!user?.id) return;
 
     const unanswered = questions.filter(
       (q) => answers[q.questionId] === undefined
@@ -136,12 +139,7 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
       confirmAlert({
         title: "Peringatan",
         message: "Harap jawab semua pertanyaan sebelum mengumpulkan!",
-        buttons: [
-          {
-            label: "OK",
-            onClick: () => console.log("OK"),
-          },
-        ],
+        buttons: [{ label: "OK", onClick: () => {} }],
       });
       return;
     }
@@ -158,7 +156,7 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
                 questions.map(async (q) => {
                   const userAnswer = answers[q.questionId];
                   const isCorrect = userAnswer === q.correct;
-          
+
                   await http("/api/quiz-reports", {
                     method: "POST",
                     body: JSON.stringify({
@@ -170,9 +168,11 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
                   });
                 })
               );
-          
-              // Kirim progress setelah submit semua jawaban
-              const materialId = getMaterialId(pollutionTypeId, subbab);
+
+              const materialId = getMaterialId(
+                parsedPollutionTypeId,
+                parsedSubbab
+              );
               if (materialId) {
                 await http("/api/progress", {
                   method: "POST",
@@ -182,105 +182,97 @@ const QuizComponent = ({ SidebarCourse, title, pollutionTypeId, subbab }) => {
                   },
                 });
               }
-          
+
               setShowResults(true);
+              setScore(
+                questions.reduce(
+                  (acc, q) =>
+                    acc + (answers[q.questionId] === q.correct ? 1 : 0),
+                  0
+                )
+              );
+              setIsQuizActive(false);
+
               window.location.reload();
+
             } catch (error) {
               console.error("Error submitting answers or progress:", error);
             }
           },
         },
-        {
-          label: "Tidak",
-          onClick: () => console.log("Cancel"),
-        },
+        { label: "Tidak", onClick: () => {} },
       ],
     });
   };
 
   return (
-    <div
-      className={`bab-1-air-materi-1 ${
-        isSidebarOpen ? "sidebar-open" : "sidebar-closed"
-      }`}
-    >
-      <SidebarCourse isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} isQuizOngoing={!showResults} />
-      <div className="course-container">
-        <div className="course-article">
-          <div className="course-content">
-            <h2>{title}</h2>
-            {showResults && score !== null && (
-              <div className="kuis-score">
-                <h3>
-                  Skor: {score}/{questions.length}
-                </h3>
-              </div>
+    <div className="kuis-wrapper">
+      <h2>Kuis</h2>
+      {showResults && score !== null && (
+        <div className="kuis-score">
+          <h3>
+            Skor: {score}/{questions.length}
+          </h3>
+        </div>
+      )}
+      {loading ? (
+        <>
+          <QuizSkeleton />
+          <QuizSkeleton />
+        </>
+      ) : (
+        questions.map((q) => (
+          <div key={`question-${q.questionId}`} className="kuis-question">
+            <p>
+              <strong>
+                {q.id}. {q.question}
+              </strong>
+            </p>
+            {q.options.map((opt, i) => (
+              <label
+                key={`option-${q.questionId}-${i}`}
+                className="kuis-option"
+              >
+                <input
+                  type="radio"
+                  name={`question-${q.questionId}`}
+                  value={i}
+                  onChange={() => handleChange(q.questionId, i)}
+                  disabled={showResults}
+                  checked={answers[q.questionId] === i}
+                />
+                {String.fromCharCode(65 + i)}. {opt}
+              </label>
+            ))}
+            {showResults && (
+              <p
+                className={`result ${
+                  answers[q.questionId] === q.correct ? "correct" : "incorrect"
+                }`}
+              >
+                {answers[q.questionId] === q.correct
+                  ? "✅ Benar"
+                  : `❌ Jawaban benar: ${String.fromCharCode(
+                      65 + q.correct
+                    )}. ${q.options[q.correct]}`}
+              </p>
             )}
-            {loading ? (
-              <>
-                <QuizSkeleton />
-                <QuizSkeleton />
-                <QuizSkeleton />
-              </>
-            ) : (
-              questions.map((q) => (
-                <div key={`question-${q.questionId}`} className="kuis-question">
-                  <p>
-                    <strong>
-                      {q.id}. {q.question}
-                    </strong>
-                  </p>
-                  {q.options.map((opt, i) => (
-                    <label
-                      key={`option-${q.questionId}-${i}`}
-                      className="kuis-option"
-                    >
-                      <input
-                        type="radio"
-                        name={`question-${q.questionId}`}
-                        value={i}
-                        onChange={() => handleChange(q.questionId, i)}
-                        disabled={showResults}
-                        checked={answers[q.questionId] === i}
-                      />
-                      {String.fromCharCode(65 + i)}. {opt}{" "}
-                    </label>
-                  ))}
-                  {showResults && (
-                    <p
-                      className={`result ${
-                        answers[q.questionId] === q.correct
-                          ? "correct"
-                          : "incorrect"
-                      }`}
-                    >
-                      {answers[q.questionId] === q.correct
-                        ? "✅ Benar"
-                        : `❌ Jawaban benar: ${String.fromCharCode(
-                            65 + q.correct
-                          )}. ${q.options[q.correct]}`}
-                    </p>
-                  )}
-                  {!showResults && answers[q.questionId] !== undefined && (
-                    <button
-                      className="clear-answer-btn"
-                      onClick={() => handleClearAnswer(q.questionId)}
-                    >
-                      Hapus Pilihan
-                    </button>
-                  )}
-                </div>
-              ))
-            )}
-
-            {!showResults && !loading && (
-              <button className="kuis-submit" onClick={handleSubmit}>
-                Kumpulkan Jawaban
+            {!showResults && answers[q.questionId] !== undefined && (
+              <button
+                className="clear-answer-btn"
+                onClick={() => handleClearAnswer(q.questionId)}
+              >
+                Hapus Pilihan
               </button>
             )}
           </div>
-        </div>
-      </div>
+        ))
+      )}
+      {!showResults && !loading && (
+        <button className="kuis-submit" onClick={handleSubmit}>
+          Kumpulkan Jawaban
+        </button>
+      )}
     </div>
   );
 };

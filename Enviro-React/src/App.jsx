@@ -21,22 +21,17 @@ function AppWrapper() {
 function App() {
   const location = useLocation();
 
-  const hideFooterRoutes = useMemo(
-    () => [
-      "/kuis-apa-itu-polusi-air",
-      "/kuis-penyebab-dan-dampak-polusi-air",
-      "/kuis-solusi-menjaga-kualitas-air",
-      "/kuis-pengenalan-dan-dampak-polusi-udara",
-      "/kuis-dampak-polusi-udara-terhadap-kesehatan",
-      "/kuis-solusi-dan-upaya-penanggulangan",
-      "/kuis-polusi-tanah-dan-penyebabnya",
-      "/kuis-dampak-polusi-tanah-terhadap-kesehatan",
-      "/kuis-solusi-mengatasi-polusi-tanah",
-    ],
-    []
-  );
-
-  const hideFooter = hideFooterRoutes.includes(location.pathname);
+  const hideFooter = useMemo(() => {
+    const hiddenPrefixes = [
+      "/pencemaran-air",
+      "/pencemaran-udara",
+      "/pencemaran-tanah",
+      "/kuis"
+    ];
+    return hiddenPrefixes.some((prefix) =>
+      location.pathname.startsWith(prefix)
+    );
+  }, [location.pathname]);
 
   return (
     <div className="App">

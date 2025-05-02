@@ -15,6 +15,8 @@ class Material extends Model
         'title',
         'pollution_type_id',
         'content',
+        'detail',
+        'sub_bab',
     ];
 
     public function pollutionType()

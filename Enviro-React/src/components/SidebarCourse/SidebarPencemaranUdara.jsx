@@ -1,165 +1,75 @@
-import "./SidebarPencemaranUdara.css";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { CircleCheck, Circle } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleChevronRight,
-  faCircleChevronLeft,
-  faChevronDown,
-  faChevronUp,
-} from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Sidebar from "./Sidebar"; // Komponen reusable
 
-export default function SidebarPencemaranUdara({ isOpen, toggleSidebar, isQuizOngoing }) {
-  const location = useLocation();
-  const navigate = useNavigate();
+export default function SidebarPencemaranUdara() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isQuizOngoing, setIsQuizOngoing] = useState(false);
 
-  const [dropdownStates, setDropdownStates] = useState({
-    pertama: true,
-    kedua: true,
-    ketiga: true,
-  });
-
-  const [completedMaterials, setCompletedMaterials] = useState([]);
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/api/completed-materials", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => setCompletedMaterials(data))
-      .catch((err) => console.error("Gagal fetch:", err));
-
-    fetch("http://localhost:8000/api/overall-progress", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => setProgress(data.progress))
-      .catch((err) => console.error("Gagal ambil progress:", err));
-  }, []);
-
-  const toggleDropDown = (key) => {
-    setDropdownStates((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
-
-  const subbabs = [
+  const dataSubbab = [
     {
       key: "pertama",
       title: "Pengenalan Polusi Udara & Dampaknya terhadap Lingkungan",
       items: [
-        { id: 10, text: "Apa Itu Polusi Udara dan Sumbernya?", link: "/apa-itu-polusi-udara-dan-sumbernya" },
-        { id: 11, text: "Jenis Polutan di Udara", link: "/jenis-polutan-di-udara" },
-        { id: 12, text: "Dampak Polusi terhadap Lingkungan", link: "/dampak-polusi-terhadap-lingkungan" },
-        { id: 31, text: "Quiz: Pengenalan dan Dampak Polusi Udara", link: "/kuis-pengenalan-dan-dampak-polusi-udara" },
+        { id: 10, text: "Apa Itu Polusi Udara dan Sumbernya?" },
+        { id: 11, text: "Jenis Polutan di Udara" },
+        { id: 12, text: "Dampak Polusi terhadap Lingkungan" },
+        {
+          id: 31,
+          text: "Quiz: Pengenalan dan Dampak Polusi Udara",
+          isQuiz: true,
+          pollutionTypeId: 2,
+          subbab: 1,
+        },
       ],
     },
     {
       key: "kedua",
       title: "Dampak Polusi Udara terhadap Kesehatan",
       items: [
-        { id: 13, text: "Bagaimana Polusi Udara Mempengaruhi Tubuh Kita", link: "/bagaimana-polusi-udara-mempengaruhi-tubuh-kita" },
-        { id: 14, text: "Pencegahan & Penanganan Risiko Kesehatan Akibat Polusi", link: "/pencegahan-dan-penganganan-risiko-kesehatan-akibat-polusi" },
-        { id: 15, text: "Siapa yang Paling Terdampak?", link: "/pencemaran-udara-siapa-yang-paling-Terdampak" },
-        { id: 32, text: "Quiz: Dampak Polusi Udara terhadap Kesehatan", link: "/kuis-dampak-polusi-udara-terhadap-kesehatan" },
+        { id: 13, text: "Bagaimana Polusi Udara Mempengaruhi Tubuh Kita" },
+        {
+          id: 14,
+          text: "Pencegahan & Penanganan Risiko Kesehatan Akibat Polusi",
+        },
+        { id: 15, text: "Siapa yang Paling Terdampak?" },
+        {
+          id: 32,
+          text: "Quiz: Dampak Polusi Udara terhadap Kesehatan",
+          isQuiz: true,
+          pollutionTypeId: 2,
+          subbab: 2,
+        },
       ],
     },
     {
       key: "ketiga",
       title: "Solusi dan Upaya Penanggulangan",
       items: [
-        { id: 16, text: "Inovasi di Kota-Kota Besar untuk Mengatasi Polusi Udara", link: "/inovasi-di-kota-kota-besar-untuk-mengatasi-polusi-udara" },
-        { id: 17, text: "Peran Pemerintah dan Regulasi", link: "/peran-pemerintah-dan-regulasi" },
-        { id: 18, text: "Aksi Individu untuk Udara Lebih Bersih", link: "/aksi-individu-untuk-udara-lebih-bersih" },
-        { id: 33, text: "Quiz: Solusi dan Upaya Penanggulangan", link: "/kuis-solusi-dan-upaya-penanggulangan" },
+        {
+          id: 16,
+          text: "Inovasi di Kota-Kota Besar untuk Mengatasi Polusi Udara",
+        },
+        { id: 17, text: "Peran Pemerintah dan Regulasi" },
+        { id: 18, text: "Aksi Individu untuk Udara Lebih Bersih" },
+        {
+          id: 33,
+          text: "Quiz: Solusi dan Upaya Penanggulangan",
+          isQuiz: true,
+          pollutionTypeId: 2,
+          subbab: 3,
+        },
       ],
     },
   ];
 
   return (
-    <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
-      {isOpen ? (
-        <div className="progress-bar-container">
-          <div className="progress-bar-fill" style={{ width: `${progress}%` }}></div>
-          <span className="progress-text">{progress}% selesai</span>
-        </div>
-      ) : (
-        <div className="progress-bar-mini">
-          <div className="progress-bar-mini-fill" style={{ height: `${progress}%` }}></div>
-        </div>
-      )}
-
-      <h1 className="judul-bab">
-        {isOpen && "💨 POLUSI UDARA"}
-        <FontAwesomeIcon
-          icon={isOpen ? faCircleChevronLeft : faCircleChevronRight}
-          style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
-          onClick={toggleSidebar}
-        />
-      </h1>
-
-      {isOpen && (
-        <>
-          {subbabs.map((subbab) => (
-            <div className={`subbab ${subbab.key}`} key={subbab.key}>
-              <div className="dropdown-header" onClick={() => toggleDropDown(subbab.key)}>
-                <span className="dropdown-title">{subbab.title}</span>
-                <FontAwesomeIcon
-                  icon={dropdownStates[subbab.key] ? faChevronUp : faChevronDown}
-                  style={{ marginLeft: "10px", cursor: "pointer" }}
-                />
-              </div>
-              {dropdownStates[subbab.key] && (
-                <ul className="course-list">
-                  {subbab.items.map((item) => {
-                    const isActive = location.pathname === item.link;
-                    const isQuiz = item.link.includes("kuis");
-                    const isDone = completedMaterials.includes(item.id);
-
-                    return (
-                      <li key={item.id}>
-                        <Link
-                          to={item.link}
-                          onClick={(e) => {
-                            if (!isQuiz && isQuizOngoing) {
-                              e.preventDefault();
-                              alert("Tidak boleh menyontek!");
-                            } else if (!isActive) {
-                              e.preventDefault();
-                              navigate(item.link);
-                            }
-                          }}
-                          className={`link-item ${location.pathname === item.link ? "active" : ""}`}
-                          style={{
-                            cursor: !isQuiz && isQuizOngoing ? "not-allowed" : "pointer",
-                          }}
-                        >
-                          {isDone ? (
-                            <CircleCheck
-                              className="sudah-dipelajari"
-                              size={20}
-                              style={{ color: isActive ? "#1DBC60" : "white" }}
-                            />
-                          ) : (
-                            <Circle
-                              className="belum-dipelajari"
-                              size={20}
-                              style={{ color: isActive ? "#1DBC60" : "white" }}
-                            />
-                          )}
-                          {item.text}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-          ))}
-        </>
-      )}
-    </div>
+    <Sidebar
+      isOpen={isSidebarOpen}
+      toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+      isQuizOngoing={isQuizOngoing}
+      title="Polusi Udara"
+      subbabs={dataSubbab}
+      basePath="/pencemaran-udara"
+    />
   );
 }

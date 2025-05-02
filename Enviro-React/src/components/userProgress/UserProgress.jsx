@@ -1,29 +1,57 @@
 import { useState, useEffect } from "react";
-import { http } from "@/utils/fetch";
-import { FaLeaf, FaUsers, FaBookReader } from "react-icons/fa";
+import { FaLeaf, FaUsers, FaBookReader, FaChevronLeft,  FaChevronRight, } from "react-icons/fa";
 import "./UserProgress.css";
 import { useParams } from "react-router-dom";
 
 export default function UserProgress() {
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const [currentFeature, setCurrentFeature] = useState(0);
-  const [materials, setMaterials] = useState([
-    { id: 1, title: "Pencemaran Air", description: "Deskripsi materi air", icon: FaLeaf },
-    { id: 2, title: "Pencemaran Udara", description: "Deskripsi materi udara", icon: FaUsers },
-    { id: 3, title: "Pencemaran Tanah", description: "Deskripsi materi tanah", icon: FaBookReader }
-  ]);
-  const params = useParams();
+  const [progressByType, setProgressByType] = useState({});
+  const [completedMaterials, setCompletedMaterials] = useState([]);
+  const [currentMaterial, setCurrentMaterial] = useState (0);
+  const materials =[
+    {
+      id:1,
+      title:  "Pencemaran Air",
+      icon: FaLeaf,
+    },
+    {
+      id:2,
+      title:  "Pencemaran Udara",
+      icon: FaUsers,
+    },
+    {
+      id:3,
+      title:  "Pencemaran Tanah",
+      icon: FaBookReader,
+    },
+  ];
+  const [pollutionPhotos, setPollutionPhotos] = useState({});
+  // const params = useParams();
+  
+  const nextMaterial = () => {
+    setCurrentMaterial((prev) => (prev + 1) % materials.length);
+  };
+  const prevMaterial = () => {
+    setCurrentMaterial((prev) => (prev - 1 + materials.length) % materials.length);
+  };
 
+  
   useEffect(() => {
     const loadProgress = async () => {
       setLoading(true);
       try {
-        const [resProg] = await Promise.all([
-          fetch("/api/overall-progress", { credentials: "include" })
-        ]);
+        // Fetch overall progress by type
+        const resProg = await fetch("/api/overall-progress", { credentials: "include" });
         const progData = await resProg.json();
-        setProgress(progData.progress);
+        setProgressByType(progData.progress_by_type);
+
+        // Set pollution photos (make sure photo exists)
+        setPollutionPhotos(progData.progress_by_type);
+
+        // Fetch completed materials
+        const resCompleted = await fetch("/api/completed-materials", { credentials: "include" });
+        const completedData = await resCompleted.json();
+        setCompletedMaterials(completedData);
       } catch (err) {
         console.error("Error loading progress:", err);
       } finally {
@@ -33,19 +61,32 @@ export default function UserProgress() {
     loadProgress();
   }, []);
 
-  const changeFeature = (index) => setCurrentFeature(index);
+   const changeMaterial = (index) => setCurrentMaterial(index);
+
+  const getProgressForMaterial = (materialId) => {
+    return progressByType[materialId]?.progress || 0;
+  };
+
+  const getPhotoForMaterial = (materialId) => {
+    // Mengambil foto berdasarkan materialId (pollution type)
+    const photo = pollutionPhotos[materialId]?.photo;
+    return photo ? photo : "https://via.placeholder.com/150"; // Default placeholder jika tidak ada foto
+  };
 
   return (
     <div className="user-progress">
+      <button className="slider-button-landing-page prev" onClick={prevMaterial}>
+        <FaChevronLeft />
+      </button>
       <div className="container-progress">
         <div className="status-user">
           <h1 className="status">Dalam Progress</h1>
-          <div className="slider-dots">
+          <div className="slider-dots-landing-page">
             {materials.map((_, index) => (
               <button
                 key={index}
-                className={`dot ${index === currentFeature ? "active" : ""}`}
-                onClick={() => changeFeature(index)}
+                className={`dot ${index === currentMaterial ? "active" : ""}`}
+                onClick={() => changeMaterial(index)}
               />
             ))}
           </div>
@@ -53,28 +94,38 @@ export default function UserProgress() {
 
         <div className="main-progress">
           <div className="image-polution">
-            material image here
-            {/* Add your material images here */}
+            image polution disini
+            {/* Menampilkan gambar sesuai jenis polusi */}
+            <img
+              src={getPhotoForMaterial(materials[currentMaterial].id)}
+              alt={`Materi ${materials[currentMaterial].title}`}
+              className="pollution-image"
+            />
           </div>
-
-          <div className="progress-detail">
+        <div className="container-detail-progress">
+        <div className="progress-detail">
             <h4>Materi</h4>
-            <h2 className="course-name">{materials[currentFeature].title}</h2>
-            <div className="progress-bar-container">
+            <h2 className="course-name">{materials[currentMaterial].title}</h2>
+          </div>
+          <div className="progress-bar-container-landing-page">
               <div
                 className="progress-bar-fill"
                 style={{
-                  width: loading ? "0%" : `${progress}%`,
+                  width: loading ? "0%" : `${getProgressForMaterial(materials[currentMaterial].id)}%`,
                   backgroundColor: loading ? "#888" : "#1DBC60"
                 }}
               />
-              <span className="progress-text-landing-page">
-                {loading ? "Loading..." : `${progress}% selesai`}
-              </span>
-            </div>
           </div>
+
+
+
+        </div>
+
         </div>
       </div>
+      <button className="slider-button-landing-page next" onClick={nextMaterial}>
+        <FaChevronRight />
+      </button>
     </div>
   );
 }

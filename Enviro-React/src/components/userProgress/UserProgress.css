@@ -1,8 +1,9 @@
 .container-progress{
     background-color: #F0F0F0;
+    width: 100%;
     border-radius: 20px;
-    padding: 20px;
-    width: 1200px;
+    padding: 50px 80px;
+    max-width: 1200px;
     margin-top: 100px;
 }
 .status-user{
@@ -10,11 +11,24 @@
     align-items: center;
     justify-content: space-between;
 }
+.status{
+    margin:0px
+}
+
+.slider-dots-landing-page{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 0px;
+}
 .main-progress{
     display: flex;
     justify-content:flex-start;
     align-items: center;
     gap: 20px
+}
+.container-detail-progress{
+    width: 665px;
 }
 .progress-detail{
     display: flex;
@@ -22,18 +36,65 @@
     margin: 0;
 }
 h4{
+    font-size: 20px;
+    padding-top: 20px;
     margin:0
 }
 .course-name{
-    padding-top: 20px;
+    font-size: 40px;
     margin: 0;
 }
 
-.progress-bar{
-    padding-top: 20px;
-    margin:0;
+.progress-bar-container-landing-page {
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    height: 16px;
+    width: 100%;
+    margin : 20px 0px;
+    position: relative;
+  }
+  
+  .progress-bar-fill {
+    background-color: #1DBC60;
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+
+.image-polution{
+    width: 300px;
 }
 
-.progress-text-landing-page{
-    color: black;
+.slider-button-landing-page {
+    position: absolute;
+    transform: translateY(-50%);
+    background: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #1DBC60;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 5;
+}
+
+.slider-button-landing-page:hover {
+    background: #1DBC60;
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-button-landing-page.prev {
+    left: 0;
+}
+
+.slider-button-landing-page.next {
+    right: 0;
 }

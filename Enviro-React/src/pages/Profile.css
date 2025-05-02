@@ -14,12 +14,14 @@
 }
 
 .User-Photo-Wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .User-Photo {
+
   background-color: #1DBC60;
   height: 200px;
   width: 200px;
@@ -69,12 +71,13 @@
 
 .update-profile-button {
   position: absolute;
-  right: 0;
+  bottom: 10px; /* diatur mau di pojok mana */
+  right: -5px;
   display: flex;
   align-items: center;
   background-color: whitesmoke;
   border: 2px solid #1DBC60;
-  border-radius: 8px;
+  border-radius: 50%;
   padding: 8px 12px;
   font-size: 16px;
   color: #1DBC60;
@@ -83,7 +86,7 @@
 }
 
 .update-profile-button svg {
-  margin-right: 8px;
+
 }
 
 .update-profile-button:hover {

@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
-import Test from "@/pages/Test";
+//  import Test from "@/pages/Test";
 import Profile from "@/pages/Profile";
 import SendEmail from "@/pages/SendEmail";
 import VerifyEmail from "@/pages/VerifyEmail";
@@ -32,8 +32,8 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/" element={<LandingPageLogin />} />
+      <Route path="/" element={<Home />} />
+
 
       {/* Auth Routes */}
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
@@ -57,7 +57,7 @@ const AppRoutes = () => {
       <Route path="/reset-password" element={<ResetPass />} />
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
 
-      <Route path="/test" element={<Test />} />
+      {/* <Route path="/test" element={<Test />} /> */}
 
       <Route
         path="/pencemaran-air/:material_id"

@@ -85,9 +85,7 @@
   transition: background-color 0.2s;
 }
 
-.update-profile-button svg {
 
-}
 
 .update-profile-button:hover {
   background-color: #f0f0f0;

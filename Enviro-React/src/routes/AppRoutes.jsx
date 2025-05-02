@@ -46,6 +46,8 @@ import Bab3TanahMateri1 from "../pages/PencemaranTanah/SubBab3/Materi1/Bab3Tanah
 import Bab3TanahMateri2 from "../pages/PencemaranTanah/SubBab3/Materi2/Bab3TanahMateri2";
 import Bab3TanahMateri3 from "../pages/PencemaranTanah/SubBab3/Materi3/Bab3TanahMateri3";
 import Bab3TanahKuis3 from "../pages/PencemaranTanah/SubBab3/Kuis3/Bab3TanahKuis3";
+import LandingPage from "../components/LandingPage";
+import LandingPageLogin from "../components/LandingPageLogin";
 
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext); // Ambil loading dari AuthContext
@@ -64,7 +66,8 @@ const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LandingPageLogin />} />
 
       {/* Auth Routes */}
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />

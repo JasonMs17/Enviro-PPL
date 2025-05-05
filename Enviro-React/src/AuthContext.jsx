@@ -14,10 +14,10 @@ export const AuthProvider = ({ children }) => {
 
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser.user); // Set the nested user directly
+      setUser(parsedUser); // Set the nested user directly
       setLoading(false);
 
-      console.log("User:", user);
+      console.log("User after setting:", parsedUser); 
     } else {
       fetchUserFromSession();
     }

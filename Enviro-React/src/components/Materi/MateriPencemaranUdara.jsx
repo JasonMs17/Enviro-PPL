@@ -4,6 +4,7 @@ import "./Materi.css";
 import SidebarPencemaranUdara from "../SidebarCourse/SidebarPencemaranUdara";
 import QuizComponent from "@/components/Kuis/Kuis";
 import { http } from "../../utils/fetch";
+import Chatbot from "@/components/Chatbot/Chatbot";
 
 export default function CourseMaterialUdara() {
   const params = useParams();
@@ -14,6 +15,7 @@ export default function CourseMaterialUdara() {
   const [error, setError] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isQuizActive, setIsQuizActive] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
@@ -50,15 +52,13 @@ export default function CourseMaterialUdara() {
     } else if (isQuizView) {
       setIsLoading(false);
     } else {
-      setError("Halaman tidak ditemukan.");
+      setError("Pilih materi dari sidebar.");
       setIsLoading(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, materialId, isQuizView]);
 
   return (
-    <div
-      className={`materi ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
-    >
+    <div className="materi split-view">
       <SidebarPencemaranUdara
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -76,11 +76,18 @@ export default function CourseMaterialUdara() {
               ) : material ? (
                 <div dangerouslySetInnerHTML={{ __html: material.detail }} />
               ) : (
-                <p>Pilih materi dari sidebar.</p>
+                <p>{error}</p>
               ))}
           </div>
         </div>
       </div>
+      {!isQuizView && material && (
+        <Chatbot
+          material={material}
+          isOpen={isChatOpen}
+          setIsOpen={setIsChatOpen}
+        />
+      )}
     </div>
   );
 }

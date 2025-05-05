@@ -11,7 +11,6 @@ import {
 import { http } from "@/utils/fetch";
 import "./Sidebar.css";
 
-const SkeletonItem = () => <div className="skeleton-item"></div>;
 
 const SkeletonDropdown = () => (
   <div className="skeleton-dropdown">
@@ -44,9 +43,11 @@ export default function SidebarCourseModule({
   const trackedRef = useRef(new Set());
 
   useEffect(() => {
-    const states = {};
-    subbabs.forEach((s) => (states[s.key] = true));
-    setDropdownStates(states);
+    if (Object.keys(dropdownStates).length === 0) {
+      const states = {};
+      subbabs.forEach((s) => (states[s.key] = true));
+      setDropdownStates(states);
+    }
   }, [subbabs]);
 
   useEffect(() => {
@@ -150,97 +151,101 @@ export default function SidebarCourseModule({
       </h1>
 
       {isOpen &&
-        (loading ? (
-          subbabs.map((subbab) => <SkeletonDropdown key={subbab.key} />)
-        ) : (
-          subbabs.map((subbab) => (
-            <div className={`subbab ${subbab.key}`} key={subbab.key}>
-              <div
-                className="dropdown-header"
-                onClick={() => toggleDropDown(subbab.key)}
-              >
-                <span className="dropdown-title">{subbab.title}</span>
-                <FontAwesomeIcon
-                  icon={dropdownStates[subbab.key] ? faChevronUp : faChevronDown}
-                  style={{ marginLeft: "10px", cursor: "pointer" }}
-                />
-              </div>
-              {dropdownStates[subbab.key] && (
-                <ul className="course-list">
-                  {subbab.items.map((item) => {
-                    const isQuiz = item.isQuiz === true;
-                    const targetLink = isQuiz
-                      ? `${basePath}/kuis/${item.pollutionTypeId}/${item.subbab}`
-                      : `${basePath}/${item.id}`;
-                    const currentPath = location.pathname;
-                    const isActive = isQuiz
-                      ? currentPath === targetLink
-                      : String(item.id) === params.material_id;
+        (loading
+          ? subbabs.map((subbab) => <SkeletonDropdown key={subbab.key} />)
+          : subbabs.map((subbab) => (
+              <div className={`subbab ${subbab.key}`} key={subbab.key}>
+                <div
+                  className="dropdown-header"
+                  onClick={() => toggleDropDown(subbab.key)}
+                >
+                  <span className="dropdown-title">{subbab.title}</span>
+                  <FontAwesomeIcon
+                    icon={
+                      dropdownStates[subbab.key] ? faChevronUp : faChevronDown
+                    }
+                    style={{ marginLeft: "10px", cursor: "pointer" }}
+                  />
+                </div>
+                {dropdownStates[subbab.key] && (
+                  <ul className="course-list">
+                    {subbab.items.map((item) => {
+                      const isQuiz = item.isQuiz === true;
+                      const targetLink = isQuiz
+                        ? `${basePath}/kuis/${item.pollutionTypeId}/${item.subbab}`
+                        : `${basePath}/${item.id}`;
+                      const currentPath = location.pathname;
+                      const isActive = isQuiz
+                        ? currentPath === targetLink
+                        : String(item.id) === params.material_id;
 
-                    const isDone = completedMaterials.includes(item.id);
+                      const isDone = completedMaterials.includes(item.id);
 
-                    return (
-                      <li key={item.id}>
-                        <Link
-                          to={targetLink}
-                          state={
-                            isQuiz
-                              ? {
-                                  title: item.text,
-                                  pollutionTypeId: item.pollutionTypeId,
-                                  subbab: item.subbab,
-                                }
-                              : undefined
-                          }
-                          onClick={async (e) => {
-                            if (!isQuiz && isQuizOngoing) {
-                              e.preventDefault();
-                              alert("Tidak boleh menyontek!");
-                            } else if (!isActive) {
-                              e.preventDefault();
-                              if (!isQuiz) await trackProgress(item.id);
-                              navigate(targetLink, {
-                                state: isQuiz
-                                  ? {
-                                      title: item.text,
-                                      pollutionTypeId: item.pollutionTypeId,
-                                      subbab: item.subbab,
-                                    }
-                                  : undefined,
-                              });
+                      return (
+                        <li key={item.id}>
+                          <Link
+                            to={targetLink}
+                            state={
+                              isQuiz
+                                ? {
+                                    title: item.text,
+                                    pollutionTypeId: item.pollutionTypeId,
+                                    subbab: item.subbab,
+                                  }
+                                : undefined
                             }
-                          }}
-                          className={`link-item ${isActive ? "active" : ""}`}
-                          style={{
-                            color: isActive ? "#1DBC60" : "white",
-                            fontWeight: isActive ? "bold" : "normal",
-                            cursor:
-                              !isQuiz && isQuizOngoing
-                                ? "not-allowed"
-                                : "pointer",
-                          }}
-                        >
-                          {isDone ? (
-                            <CircleCheck
-                              size={20}
-                              style={{ color: isActive ? "#1DBC60" : "white" }}
-                            />
-                          ) : (
-                            <Circle
-                              size={20}
-                              style={{ color: isActive ? "#1DBC60" : "white" }}
-                            />
-                          )}
-                          {item.text}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-          ))
-        ))}
+                            onClick={async (e) => {
+                              if (!isQuiz && isQuizOngoing) {
+                                e.preventDefault();
+                                alert("Tidak boleh menyontek!");
+                              } else if (!isActive) {
+                                e.preventDefault();
+                                if (!isQuiz) await trackProgress(item.id);
+                                navigate(targetLink, {
+                                  state: isQuiz
+                                    ? {
+                                        title: item.text,
+                                        pollutionTypeId: item.pollutionTypeId,
+                                        subbab: item.subbab,
+                                      }
+                                    : undefined,
+                                });
+                              }
+                            }}
+                            className={`link-item ${isActive ? "active" : ""}`}
+                            style={{
+                              color: isActive ? "#1DBC60" : "white",
+                              fontWeight: isActive ? "bold" : "normal",
+                              cursor:
+                                !isQuiz && isQuizOngoing
+                                  ? "not-allowed"
+                                  : "pointer",
+                            }}
+                          >
+                            {isDone ? (
+                              <CircleCheck
+                                size={20}
+                                style={{
+                                  color: isActive ? "#1DBC60" : "white",
+                                }}
+                              />
+                            ) : (
+                              <Circle
+                                size={20}
+                                style={{
+                                  color: isActive ? "#1DBC60" : "white",
+                                }}
+                              />
+                            )}
+                            {item.text}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
+            )))}
     </div>
   );
 }

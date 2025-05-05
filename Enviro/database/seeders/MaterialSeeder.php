@@ -32,6 +32,7 @@ class MaterialSeeder extends Seeder
                         'title' => $material['title'] ?? null,
                         'content' => $material['content'] ?? null,
                         'detail' => $material['detail'] ?? null,
+                        'video_subs' => $material['video_subs'] ?? null,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];

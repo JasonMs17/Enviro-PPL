@@ -1,0 +1,41 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 340px;
+    height: 100vh;
+    background-color: #555555;
+    box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    overflow-y: auto;
+    font-family: sans-serif;
+  }
+  
+  .countdown {
+    background-color: #444444;
+    padding: 12px;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 0;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .countdown-timer {
+    color: whitesmoke;
+    background-color: #444444;
+    padding: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border-radius: 0 0 8px 8px;
+  }
+  
+  .challenge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  

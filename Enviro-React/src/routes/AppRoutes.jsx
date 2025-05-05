@@ -14,7 +14,7 @@ import Loading from "@/components/Loading"; // Import komponen Loading
 import CourseMaterialAir from "@/components/Materi/MateriPencemaranAir"; // Import komponen Loading
 import CourseMaterialTanah from "@/components/Materi/MateriPencemaranTanah"; // Import komponen Loading
 import CourseMaterialUdara from "@/components/Materi/MateriPencemaranUdara"; // Import komponen Loading
-import Challenge from "@/pages/Challenge";
+import Challenge from "@/pages/Challenge/Challenge";
 import LandingPage from "../components/LandingPage";
 import LandingPageLogin from "../components/LandingPageLogin";
 

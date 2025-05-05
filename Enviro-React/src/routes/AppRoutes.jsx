@@ -15,6 +15,7 @@ import CourseMaterialAir from "@/components/Materi/MateriPencemaranAir"; // Impo
 import CourseMaterialTanah from "@/components/Materi/MateriPencemaranTanah"; // Import komponen Loading
 import CourseMaterialUdara from "@/components/Materi/MateriPencemaranUdara"; // Import komponen Loading
 import Challenge from "@/pages/Challenge/Challenge";
+import ChallengeClaimed from "@/pages/Challenge/ChallengeClaimed";
 import LandingPage from "../components/LandingPage";
 import LandingPageLogin from "../components/LandingPageLogin";
 
@@ -63,6 +64,11 @@ const AppRoutes = () => {
       <Route
         path="/challenge"
         element={<Challenge />}
+      />
+      
+      <Route
+        path="/challenge-claimed"
+        element={<ChallengeClaimed />}
       />
 
       <Route

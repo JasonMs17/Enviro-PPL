@@ -1,23 +1,38 @@
-.materi {
+.materi.split-view {
     display: flex;
     flex-direction: row;
     width: 100%;
     height: calc(100vh - 80px);
-    /* PENTING */
     box-sizing: border-box;
     overflow: hidden;
 }
 
-/* SIDEBAR OPEN */
-.sidebar-open .SidebarCourse {
-    width: 400px;
-    padding: 30px;
+.split-view .SidebarCourse.open {
+    width: 350px;
+    padding: 20px;
 }
 
-/* SIDEBAR CLOSED */
-.sidebar-closed .SidebarCourse {
+.split-view .SidebarCourse.closed {
     width: 60px;
-    padding: 20px 0;
+    padding: 15px 0;
+}
+
+.split-view .course-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0px 15px 15px 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.split-view .course-article {
+    padding-top: 3rem !important;
+    padding-bottom: 1rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 4rem !important;
 }
 
 /* Sidebar General */
@@ -32,15 +47,6 @@
     top: 0;
 }
 
-/* Kontainer utama */
-.course-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 0px 15px 15px 15px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-}
 
 /* Artikel & Konten */
 .course-article {

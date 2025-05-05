@@ -9,11 +9,18 @@ class ChatController extends Controller
     public function kirimChat(Request $request)
     {
         $pesan = $request->input('pesan');
-        $history = $request->input('history', []); // Terima riwayat percakapan sebagai array
+        $history = $request->input('history', []); // Terima riwayat percakapan
+        $context = $request->input('context', '');   // Terima konteks sebagai string
         $apiKey = env('GROQ_API_KEY'); // Ambil API key dari .env
 
-        // Tambahkan pesan pengguna saat ini ke dalam riwayat
-        $messages = [...$history, ['role' => 'user', 'content' => $pesan]];
+        // Tambahkan konteks jika ada sebelum pesan pengguna
+        $messages = [];
+        if (!empty($context)) {
+            $messages[] = ['role' => 'system', 'content' => $context];
+        }
+
+        // Tambahkan riwayat percakapan
+        $messages = [...$messages, ...$history, ['role' => 'user', 'content' => $pesan]];
 
         $curl = curl_init();
 
@@ -26,7 +33,7 @@ class ChatController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode([
-                'messages' => $messages, // Kirim seluruh riwayat percakapan
+                'messages' => $messages, // Kirim pesan dengan konteks dan riwayat
                 'model' => 'llama-3.3-70b-versatile',
             ]),
             CURLOPT_HTTPHEADER => [
@@ -48,7 +55,7 @@ class ChatController extends Controller
             $balasan = $responseData['choices'][0]['message']['content'] ?? 'Tidak ada balasan.';
 
             // Sertakan juga pesan asisten dalam respons untuk memperbarui riwayat di sisi klien
-            return response()->json(['balasan' => $balasan, 'history' => [...$messages, ['role' => 'assistant', 'content' => $balasan]]]);
+            return response()->json(['balasan' => $balasan, 'history' => [...$history, ['role' => 'user', 'content' => $pesan], ['role' => 'assistant', 'content' => $balasan]]]);
         }
     }
 }

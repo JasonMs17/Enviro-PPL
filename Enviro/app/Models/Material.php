@@ -17,6 +17,7 @@ class Material extends Model
         'content',
         'detail',
         'sub_bab',
+        'video_subs'
     ];
 
     public function pollutionType()

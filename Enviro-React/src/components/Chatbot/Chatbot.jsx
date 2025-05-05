@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { http } from "../../utils/fetch"; // Pakai http dari utils/fetch
+import { http } from "../../utils/fetch";
+import ReactMarkdown from "react-markdown";
 import "./Chatbot.css";
 
-const Chatbot = () => {
+const Chatbot = ({ material, isOpen, setIsOpen }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const chatBoxRef = useRef(null);
-  const [chatHistory, setChatHistory] = useState([]); // State untuk riwayat percakapan
+  const [chatHistory, setChatHistory] = useState([]);
+  const [usedTemplates, setUsedTemplates] = useState([]);
+  const [showTemplates, setShowTemplates] = useState(true); // State baru untuk mengontrol tampilan template pertanyaan
 
   useEffect(() => {
     if (chatBoxRef.current) {
@@ -16,9 +18,35 @@ const Chatbot = () => {
     }
   }, [messages]);
 
+  const getDynamicTemplates = () => {
+    const templates = [];
+
+    if (material) {
+      if (material.video_subs && material.video_subs.length > 0) {
+        templates.unshift({
+          label: "Jelaskan tentang video materi",
+          text: "Jelaskan tentang video materi",
+        });
+      }
+
+      templates.unshift({
+        label: "Rangkumkan materi ini",
+        text: "Rangkumkan materi ini",
+      });
+    }
+
+    return templates.filter((tpl) => !usedTemplates.includes(tpl.text));
+  };
+
   const handleTemplateClick = (text) => {
-    setInput(text);
-    sendMessage(text);
+    const context =
+      (material?.detail || "") +
+      "\n\nBerikut ini adalah transkrip dari video pembelajaran:\n" +
+      (material?.video_subs || "");
+
+    setUsedTemplates((prev) => [...prev, text]);
+    setShowTemplates(false); // Hilangkan template pertanyaan setelah diklik
+    sendMessage(text, { context });
   };
 
   const sendMessage = async (messageText, customData = {}) => {
@@ -26,17 +54,19 @@ const Chatbot = () => {
     if (!text.trim()) return;
 
     setMessages((prev) => [...prev, { text, isUser: true }]);
-    setChatHistory((prevHistory) => [...prevHistory, { role: 'user', content: text }]); // Tambahkan pesan pengguna ke riwayat
+    setChatHistory((prev) => [...prev, { role: "user", content: text }]);
     setInput("");
     setIsTyping(true);
 
     try {
       const response = await http("/api/chat", {
         method: "POST",
-        body: JSON.stringify({ pesan: text, history: chatHistory, ...customData }), // Kirim riwayat
+        body: JSON.stringify({
+          pesan: text,
+          history: chatHistory,
+          context: customData.context || "",
+        }),
       });
-
-      console.log("Response received:", response);
 
       if (!response.ok) {
         const errData = await response.json();
@@ -49,16 +79,16 @@ const Chatbot = () => {
       }
 
       const data = await response.json();
-      setMessages((prev) => [
+      setMessages((prev) => [...prev, { text: data.balasan, isUser: false }]);
+      setChatHistory((prev) => [
         ...prev,
-        { text: data.balasan, isUser: false },
+        { role: "assistant", content: data.balasan },
       ]);
-      setChatHistory((prevHistory) => [...prevHistory, { role: 'assistant', content: data.balasan }]); // Tambahkan balasan asisten ke riwayat
     } catch (error) {
       console.error("Gagal mengirim pesan:", error);
       setMessages((prev) => [
         ...prev,
-        { text: "Terjadi kesalahan.", isUser: false },
+        { text: "Terjadi kesalahan saat menghubungi server.", isUser: false },
       ]);
     } finally {
       setIsTyping(false);
@@ -67,20 +97,29 @@ const Chatbot = () => {
 
   return (
     <div>
-      <button className="chat-button" onClick={() => setIsOpen(!isOpen)}>
-        Chat
-      </button>
+      {!isOpen && (
+        <button className="chat-button" onClick={() => setIsOpen(true)}>
+          Chat
+        </button>
+      )}
 
       {isOpen && (
         <div className={`chat-container ${isOpen ? "open" : "closed"}`}>
           <div className="chat-header">
-            Chatbot Asisten Akademik
-            <button className="close-button" onClick={() => setIsOpen(false)}>
-              &#10005;
+            <span>EnviBot</span>
+            <button
+              className="close-button-chatbot"
+              onClick={() => setIsOpen(false)}
+            >
+              ✕
             </button>
           </div>
 
           <div className="chat-box" ref={chatBoxRef}>
+            <div className="message ai-message">
+              Hai! Ada yang bisa saya bantu?
+            </div>
+
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -88,28 +127,35 @@ const Chatbot = () => {
                   msg.isUser ? "user-message" : "ai-message"
                 }`}
               >
-                {msg.text}
+                {msg.isUser ? (
+                  msg.text
+                ) : (
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                )}
               </div>
             ))}
-            {isTyping && <div className="typing-indicator">Typing...</div>}
+            {isTyping && (
+              <div className="typing-indicator">EnviBot sedang mengetik...</div>
+            )}
           </div>
 
-          <div className="template-questions">
-            <button onClick={() => handleTemplateClick("Jadwal saya hari ini")}>
-              Jadwal saya hari ini
-            </button>
-            <button onClick={() => handleTemplateClick("Daftar tugas")}>
-              Daftar tugas
-            </button>
-          </div>
+          {showTemplates && ( // Hanya tampilkan template pertanyaan jika showTemplates adalah true
+            <div className="template-questions">
+              {getDynamicTemplates().map((tpl, idx) => (
+                <button key={idx} onClick={() => handleTemplateClick(tpl.text)}>
+                  {tpl.label}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="input-container">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Masukkan pertanyaan..."
-              onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+              placeholder="Ketik pertanyaan di sini..."
+              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
             <button onClick={() => sendMessage()}>Kirim</button>
           </div>

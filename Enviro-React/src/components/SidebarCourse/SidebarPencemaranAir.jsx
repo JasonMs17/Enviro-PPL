@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Sidebar from "./Sidebar";
 
 export default function SidebarPencemaranAir() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isQuizOngoing, setIsQuizOngoing] = useState(false);
 
-  const dataSubbab = [
+  const dataSubbab = useMemo(() => [
     {
       key: "pertama",
       title: "Pengenalan Polusi Air & Dampak Umum",
@@ -54,7 +54,7 @@ export default function SidebarPencemaranAir() {
         },
       ],
     },
-  ];
+  ], []);
 
   return (
     <Sidebar

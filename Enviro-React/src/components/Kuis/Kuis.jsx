@@ -1,5 +1,5 @@
 // Kuis.jsx (Direfaktor)
-import React, { useState, useEffect, useContext } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import "./QuizComponent.css";
@@ -19,6 +19,8 @@ const QuizComponent = ({ setIsQuizActive }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [score, setScore] = useState(null);
+
+  const kuisScoreRef = useRef(null);
 
   const QuizSkeleton = () => (
     <div className="kuis-question skeleton">
@@ -193,8 +195,13 @@ const QuizComponent = ({ setIsQuizActive }) => {
               );
               setIsQuizActive(false);
 
-              window.location.reload();
-
+              setTimeout(() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth', // untuk scroll yang halus
+                });
+              }, 100); // Coba dengan delay jika diperlukan
+              
             } catch (error) {
               console.error("Error submitting answers or progress:", error);
             }

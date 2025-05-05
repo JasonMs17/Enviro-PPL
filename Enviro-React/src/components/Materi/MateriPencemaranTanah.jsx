@@ -4,6 +4,7 @@ import "./Materi.css";
 import SidebarPencemaranTanah from "../SidebarCourse/SidebarPencemaranTanah";
 import QuizComponent from "@/components/Kuis/Kuis";
 import { http } from "../../utils/fetch";
+import Chatbot from "@/components/Chatbot/Chatbot";
 
 export default function CourseMaterialTanah() {
   const params = useParams();
@@ -14,6 +15,7 @@ export default function CourseMaterialTanah() {
   const [error, setError] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isQuizActive, setIsQuizActive] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
 
@@ -28,6 +30,7 @@ export default function CourseMaterialTanah() {
     setMaterial(null);
     setError(null);
     setIsLoading(true);
+    if (!isQuizView) setIsQuizActive(false);
 
     if (!isQuizView && materialId) {
       const fetchMaterial = async () => {
@@ -39,9 +42,11 @@ export default function CourseMaterialTanah() {
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
           const data = await res.json();
           setMaterial(data);
+          setError(null);
         } catch (err) {
           console.error("Gagal fetch materi:", err);
           setError("Gagal memuat materi.");
+          setMaterial(null);
         } finally {
           setIsLoading(false);
         }
@@ -50,15 +55,13 @@ export default function CourseMaterialTanah() {
     } else if (isQuizView) {
       setIsLoading(false);
     } else {
-      setError("Halaman tidak ditemukan.");
+      setError("Pilih materi dari sidebar.");
       setIsLoading(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, materialId, isQuizView]);
 
   return (
-    <div
-      className={`materi ${isSidebarOpen ? "sidebar-open" : "sidebar-closed"}`}
-    >
+    <div className="materi split-view">
       <SidebarPencemaranTanah
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -76,11 +79,18 @@ export default function CourseMaterialTanah() {
               ) : material ? (
                 <div dangerouslySetInnerHTML={{ __html: material.detail }} />
               ) : (
-                <p>Pilih materi dari sidebar.</p>
+                <p>{error}</p>
               ))}
           </div>
         </div>
       </div>
+      {!isQuizView && material && (
+        <Chatbot
+          material={material}
+          isOpen={isChatOpen}
+          setIsOpen={setIsChatOpen}
+        />
+      )}
     </div>
   );
 }

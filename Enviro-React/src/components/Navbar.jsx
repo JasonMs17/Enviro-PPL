@@ -109,7 +109,7 @@ const Navbar = () => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/");
+              navigate("/challenge");
               setTimeout(() => scrollToSection("challenge-section"), 100);
             }}
           >

@@ -5,6 +5,7 @@ import treeStage2 from '../../assets/tree2.png';
 import treeStage3 from '../../assets/tree3.png';
 import treeStage4 from '../../assets/tree4.png';
 import treeStage5 from '../../assets/tree5.png';
+import { http } from "../../utils/fetch";
 
 const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5];
 
@@ -15,6 +16,22 @@ const Challenge = () => {
   const [showUploadPopup, setShowUploadPopup] = useState(false);
   const [showRewardPopup, setShowRewardPopup] = useState(false);
   const [challengeFailed, setChallengeFailed] = useState(false);
+  const [challengeData, setChallengeData] = useState(null);
+  const [uploadText, setUploadText] = useState("");
+  const [uploadFile, setUploadFile] = useState(null);
+
+  useEffect(() => {
+    const fetchChallenge = async () => {
+      try {
+        const res = await http("/api/user/claimed-challenge");
+        const data = await res.json();
+        setChallengeData(data);
+      } catch (err) {
+        console.error("Gagal memuat challenge:", err);
+      }
+    };
+    fetchChallenge();
+  }, []);
 
   useEffect(() => {
     if (progress >= 100) {
@@ -36,6 +53,7 @@ const Challenge = () => {
   };
 
   const handleUploadSubmit = () => {
+    // Logika kirim data bisa ditambahkan di sini
     setShowUploadPopup(false);
     setShowRewardPopup(true);
     setProgress((prev) => Math.min(prev + 20, 100));
@@ -55,6 +73,8 @@ const Challenge = () => {
       window.location.href = '/challenge';
     }
   }, [challengeFailed]);
+
+  if (!challengeData) return <p>Loading...</p>;
 
   return (
     <div className={`challenge-page stage-${stage}`}>
@@ -78,19 +98,25 @@ const Challenge = () => {
           <img src={trees[stage]} alt="Tree stage" className={`tree-image tree-stage-${stage}`} />
         </div>
 
-        {/* === KOLom SOAL === */}
         <div className="question-column">
           <div className="question-box">
-            <h3>Apakah kamu naik transportasi umum setiap keluar minggu ini?</h3>
+            <h3>{challengeData.question}</h3>
             <div className="options">
-              <label><input type="radio" name="transport" onChange={() => setSelectedOption(1)} checked={selectedOption === 1}/> Ya dong!! As always 😋</label>
-              <label><input type="radio" name="transport" onChange={() => setSelectedOption(2)} checked={selectedOption === 2}/> Ga selalu si, tapi lumayan sering 😗</label>
-              <label><input type="radio" name="transport" onChange={() => setSelectedOption(3)} checked={selectedOption === 3}/> Cuma sekali dua kali 😔</label>
-              <label><input type="radio" name="transport" onChange={() => setSelectedOption(4)} checked={selectedOption === 4}/> Ga, kan ada mobil/motor 🤨</label>
+              {challengeData.answer.map((ans, index) => (
+                <label key={index}>
+                  <input
+                    type="radio"
+                    name="transport"
+                    onChange={() => setSelectedOption(index + 1)}
+                    checked={selectedOption === index + 1}
+                  />
+                  {ans}
+                </label>
+              ))}
             </div>
             <div className="question-actions">
-              <><button onClick={handleDeleteAnswer}>Hapus Jawaban</button></>
-              <><button onClick={handleSubmitOption}>Konfirmasi</button></>
+              <button onClick={handleDeleteAnswer}>Hapus Jawaban</button>
+              <button onClick={handleSubmitOption}>Konfirmasi</button>
             </div>
           </div>
         </div>
@@ -100,10 +126,20 @@ const Challenge = () => {
       {showUploadPopup && (
         <div className="popup-overlay">
           <div className="popup">
-            <h3>Transportasi apa yang kamu gunakan?</h3>
-            <input type="text" placeholder="kendaraan yang kamu gunakan" />
+            <h3>{challengeData.question2}</h3>
             <label htmlFor="file-upload" className="upload-btn">Upload Bukti</label>
-            <input id="file-upload" type="file" accept="image/*" />
+            <input
+              id="file-upload"
+              type="file"
+              accept="image/*"
+              onChange={(e) => setUploadFile(e.target.files[0])}
+            />
+            <h3>{challengeData.question3}</h3>
+            <input
+              type="text"
+              value={uploadText}
+              onChange={(e) => setUploadText(e.target.value)}
+            />
             <button onClick={handleUploadSubmit}>Submit</button>
           </div>
         </div>
@@ -114,12 +150,12 @@ const Challenge = () => {
         <div className="popup-overlay">
           <div className="popup">
             <img
-              src="https://media.discordapp.net/attachments/1299188923540574332/1368993559281406053/reward_1.png?ex=681a3e1b&is=6818ec9b&hm=dfefd21fca5c68c467f473bb25ff3f0094b6668b3c2fecaa2de5b02af2dbb599&=&format=webp&quality=lossless&width=1035&height=440"
+              src={challengeData.reward}
               alt="Reward"
               style={{ maxWidth: '100%' }}
-            />{/* Link gambar kupon buat embed gabisa make google drive :o */}
+            />
             <a
-              href="https://drive.google.com/u/0/uc?id=1TienKWCKG9UQ2JhKITypwSkJN2dYla0b&export=download"
+              href={challengeData.reward}
               download
               target="_blank"
               rel="noopener noreferrer"

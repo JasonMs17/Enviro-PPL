@@ -15,10 +15,9 @@ return new class extends Migration {
                 materials.material_id as material_id,
                 materials.title,
                 materials.content,
-                pollution_types.photo
+                materials.photo
             FROM material_reports
             JOIN materials ON material_reports.material_id = materials.material_id
-            JOIN pollution_types ON materials.pollution_type_id = pollution_types.pollution_type_id
             WHERE material_reports.progress = 100
         ");
     }

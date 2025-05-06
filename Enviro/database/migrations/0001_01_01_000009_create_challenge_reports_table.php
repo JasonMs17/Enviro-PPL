@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('challenge_id');
+            $table->string('photo_proof')->nullable();
+            $table->text('text_answer')->nullable();
+            $table->integer('progress')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 

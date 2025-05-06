@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PollutionTypeSeeder::class);
         $this->call(MaterialSeeder::class);
         $this->call(QuizSeeder::class);
+        $this->call(ChallengeSeeder::class);
     }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->text('detail');
             $table->text('video_subs')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
 
             $table->foreign('pollution_type_id')

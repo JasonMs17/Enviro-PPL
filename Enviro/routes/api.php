@@ -13,7 +13,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizReportController;
-
+use App\Http\Controllers\ChallengeController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -66,5 +66,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/quiz-reports', [QuizReportController::class, 'store']);
 });
 
-
 Route::get('/materials/{id}', [MaterialController::class, 'show']);
+
+Route::get('/challenges-fetch', [ChallengeController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/challenges/claim', [ChallengeController::class, 'claimChallenge']);
+Route::middleware('auth:sanctum')->get('/user/claimed-challenge', [ChallengeController::class, 'showClaimed']);
+Route::middleware('auth:sanctum')->post('/user/submit-proof', [ChallengeController::class, 'submitProof']);

@@ -23,7 +23,8 @@ class ChallengeSeeder extends Seeder
                     'Cuma sekali dua kali',
                     'Ga, kan ada mobil/motor'
                 ]),
-                'fail_answer' => 'Ga, kan ada mobil/motor'
+                'fail_answer' => 'Ga, kan ada mobil/motor',
+                'completed' => '0'
             ],
             [
                 'title' => 'Jadi Pahlawan Tanah!',
@@ -38,7 +39,8 @@ class ChallengeSeeder extends Seeder
                     'Sebagian, masih belajar pilahnya',
                     'Belum, lupa nih 😥'
                 ]),
-                'fail_answer' => 'Belum, lupa nih 😥'
+                'fail_answer' => 'Belum, lupa nih 😥',
+                'completed' => '0'
             ],
             [
                 'title' => 'Hijaukan Rumahmu!',
@@ -53,7 +55,8 @@ class ChallengeSeeder extends Seeder
                     'Belum, tapi ada rencana 😅',
                     'Belum dan tidak berencana'
                 ]),
-                'fail_answer' => 'Belum dan tidak berencana'
+                'fail_answer' => 'Belum dan tidak berencana',
+                'completed' => '0'
             ],
             [
                 'title' => 'Bersih-bersih Sungai!',
@@ -68,7 +71,8 @@ class ChallengeSeeder extends Seeder
                     'Belakangan ini sering nih, udah jadi kebiasaan.',
                     'Belum sempat 😞'
                 ]),
-                'fail_answer' => 'Belum sempat 😞'
+                'fail_answer' => 'Belum sempat 😞',
+                'completed' => '0'
             ],
             [
                 'title' => 'Jaga Paru-parumu!',
@@ -83,7 +87,8 @@ class ChallengeSeeder extends Seeder
                     'Kadang-kadang',
                     'Tidak sama sekali'
                 ]),
-                'fail_answer' => 'Tidak sama sekali'
+                'fail_answer' => 'Tidak sama sekali',
+                'completed' => '0'
             ]
         ]);
     }

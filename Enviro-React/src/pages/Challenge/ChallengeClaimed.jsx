@@ -34,6 +34,19 @@ const Challenge = () => {
   }, []);
 
   useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await http("/api/challenge-progress");
+        const data = await res.json();
+        setProgress(data.percentage);
+      } catch (err) {
+        console.error("Gagal memuat progress:", err);
+      }
+    };
+    fetchProgress();
+  }, []);
+
+  useEffect(() => {
     if (progress >= 100) {
       if (stage < trees.length - 1) {
         setStage(stage + 1);
@@ -52,12 +65,37 @@ const Challenge = () => {
     }
   };
 
-  const handleUploadSubmit = () => {
-    // Logika kirim data bisa ditambahkan di sini
-    setShowUploadPopup(false);
-    setShowRewardPopup(true);
-    setProgress((prev) => Math.min(prev + 20, 100));
+  const handleUploadSubmit = async () => {
+    if (!uploadFile || !uploadText) {
+      alert("Mohon lengkapi bukti dan jawaban teks.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("photo", uploadFile);
+    formData.append("text_answer", uploadText);
+  
+    try {
+      const res = await http("/api/user/submit-proof", {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (!res.ok) {
+        const error = await res.json();
+        console.error("Gagal submit proof:", error);
+        alert(error.message || "Terjadi kesalahan saat submit.");
+        return;
+      }
+  
+      setShowUploadPopup(false);
+      setShowRewardPopup(true);
+    } catch (err) {
+      console.error("Error saat submit proof:", err);
+      alert("Terjadi kesalahan jaringan.");
+    }
   };
+  
 
   const handleCloseReward = () => {
     setShowRewardPopup(false);
@@ -126,19 +164,19 @@ const Challenge = () => {
       {showUploadPopup && (
         <div className="popup-overlay">
           <div className="popup">
-            <h3>{challengeData.question2}</h3>
+            <h3>{challengeData.question3}</h3>
+            <input
+              type="text"
+              value={uploadText}
+              onChange={(e) => setUploadText(e.target.value)}
+            />
+            {/* <h3>{challengeData.question2}</h3> */}
             <label htmlFor="file-upload" className="upload-btn">Upload Bukti</label>
             <input
               id="file-upload"
               type="file"
               accept="image/*"
               onChange={(e) => setUploadFile(e.target.files[0])}
-            />
-            <h3>{challengeData.question3}</h3>
-            <input
-              type="text"
-              value={uploadText}
-              onChange={(e) => setUploadText(e.target.value)}
             />
             <button onClick={handleUploadSubmit}>Submit</button>
           </div>

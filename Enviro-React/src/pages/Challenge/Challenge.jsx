@@ -7,6 +7,7 @@ import treeStage3 from '../../assets/tree3.png';
 import treeStage4 from '../../assets/tree4.png';
 import treeStage5 from '../../assets/tree5.png';
 import Sidebar from '../../components/SidebarChallenge/Sidebar';
+import { http } from "../../utils/fetch";
 
 const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5];
 
@@ -25,6 +26,19 @@ const Challenge = () => {
       }
     }
   }, [progress, stage]);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await http("/api/challenge-progress");
+        const data = await res.json();
+        setProgress(data.percentage);
+      } catch (err) {
+        console.error("Gagal memuat progress:", err);
+      }
+    };
+    fetchProgress();
+  }, []);
 
   const handleChallengeComplete = () => {
     setProgress((prev) => {

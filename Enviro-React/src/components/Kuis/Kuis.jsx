@@ -1,6 +1,5 @@
-// Kuis.jsx (Direfaktor)
 import React, { useRef, useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import "./QuizComponent.css";
 import { http } from "../../utils/fetch";
@@ -13,23 +12,55 @@ const QuizComponent = ({ setIsQuizActive }) => {
   const parsedSubbab = parseInt(subbab, 10);
 
   const { user } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const basePath = location.pathname.split("/")[1];
 
   const [answers, setAnswers] = useState({});
   const [showResults, setShowResults] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [score, setScore] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(605); // ini ganti menitannya disini
 
-  const kuisScoreRef = useRef(null);
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60).toString().padStart(2, "0");
+    const s = (seconds % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
 
-  const QuizSkeleton = () => (
-    <div className="kuis-question skeleton">
-      <div className="skeleton-line skeleton-title" />
-      {[1, 2, 3, 4].map((_, i) => (
-        <div key={i} className="skeleton-line skeleton-option" />
-      ))}
-    </div>
-  );
+  useEffect(() => {
+    if (showResults) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          confirmAlert({
+            title: "Waktu Habis",
+            message: "Waktu habis, akan dialihkan ke materi pertama.",
+            buttons: [
+              {
+                label: "OK",
+                onClick: () => {
+                  let redirectPath = "/";
+                  if (basePath === "pencemaran-tanah") redirectPath = "/pencemaran-tanah/19";
+                  else if (basePath === "pencemaran-air") redirectPath = "/pencemaran-air/1";
+                  else if (basePath === "pencemaran-udara") redirectPath = "/pencemaran-udara/10";
+                  navigate(redirectPath);
+                },
+              },
+            ],
+          });
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [showResults, basePath, navigate]);
 
   const getMaterialId = (pollutionTypeId, subbab) => {
     const map = {
@@ -105,7 +136,7 @@ const QuizComponent = ({ setIsQuizActive }) => {
           setAnswers(restoredAnswers);
           setScore(correctCount);
           setShowResults(true);
-          setIsQuizActive(false); // Sinyal bahwa quiz selesai
+          setIsQuizActive(false);
         }
       } catch (error) {
         console.error("Error fetching user answers:", error);
@@ -198,10 +229,9 @@ const QuizComponent = ({ setIsQuizActive }) => {
               setTimeout(() => {
                 window.scrollTo({
                   top: 0,
-                  behavior: 'smooth', // untuk scroll yang halus
+                  behavior: "smooth",
                 });
-              }, 100); // Coba dengan delay jika diperlukan
-              
+              }, 100);
             } catch (error) {
               console.error("Error submitting answers or progress:", error);
             }
@@ -212,8 +242,19 @@ const QuizComponent = ({ setIsQuizActive }) => {
     });
   };
 
+  const QuizSkeleton = () => (
+    <div className="kuis-question skeleton">
+      <div className="skeleton-line skeleton-title" />
+      {[1, 2, 3, 4].map((_, i) => (
+        <div key={i} className="skeleton-line skeleton-option" />
+      ))}
+    </div>
+  );
+
   return (
     <div className="kuis-wrapper">
+      <div className="kuis-timer">⏰ {formatTime(timeLeft)}</div>
+
       <h2>Kuis</h2>
       {showResults && score !== null && (
         <div className="kuis-score">

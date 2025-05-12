@@ -13,6 +13,19 @@
   color: #333;
 }
 
+.kuis-timer {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  background-color: #fefefe;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 .kuis-question {
   margin-bottom: 2rem;
   padding: 1rem;

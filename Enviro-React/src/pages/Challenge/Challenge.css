@@ -19,12 +19,12 @@
 }
 
 .empty-column {
-  margin-top: 20%;
+  margin-top: 0%;
   flex: 1;
 }
 
 .center-column {
-  margin-top: 20%;
+  
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -32,8 +32,28 @@
   gap: 20px;
 }
 
+.challenge-page.stage-0 .center-column {
+  margin-top: 50%;
+}
+
+.challenge-page.stage-1 .center-column {
+  margin-top: 45%;
+}
+
+.challenge-page.stage-2 .center-column {
+  margin-top: 43%;
+}
+
+.challenge-page.stage-3 .center-column {
+  margin-top: 39%;
+}
+
+.challenge-page.stage-4 .center-column {
+  margin-top: 34%;
+}
+
 .button-column {
-  margin-top: 20%;
+  margin-top: 0%;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -79,6 +99,26 @@
   font-weight: bold;
   color: whitesmoke;
   margin-top: 0px;
+}
+
+.countdown-box {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f4c3;
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.countdown-title {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #388e3c;
+}
+
+.countdown-time {
+  font-size: 1.2rem;
+  color: #a71e1e;
 }
 
 .progress-preview-wrapper {

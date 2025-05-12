@@ -27,6 +27,7 @@ const Challenge = () => {
   const [uploadFile, setUploadFile] = useState(null);
   const [canClaim, setCanClaim] = useState(true);
   const [countdown, setCountdown] = useState(0);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     const fetchChallenge = async () => {
@@ -221,14 +222,14 @@ const Challenge = () => {
 
       {/* === POPUP UPLOAD === */}
       {showUploadPopup && (
-        <div
-          className="popup-overlay"
-          onClick={() => setShowUploadPopup(false)}
-        >
-          <div
-            className="popup"
-            onClick={(e) => e.stopPropagation()} // Mencegah propagasi klik dari dalam popup
-          >
+        <div className="popup-overlay" onClick={() => setShowUploadPopup(false)}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
+            {imagePreview && (
+              <div className="image-preview">
+                <p>Preview Bukti:</p>
+                <img src={imagePreview} alt="Preview Upload" style={{ maxWidth: '100%', marginTop: '10px' }} />
+              </div>
+            )}
             <h3>{challengeData.question3}</h3>
             <input
               type="text"
@@ -241,7 +242,15 @@ const Challenge = () => {
               id="file-upload"
               type="file"
               accept="image/*"
-              onChange={(e) => setUploadFile(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setUploadFile(file);
+                if (file) {
+                  setImagePreview(URL.createObjectURL(file));
+                } else {
+                  setImagePreview(null);
+                }
+              }}
             />
             <button onClick={handleUploadSubmit}>Submit</button>
           </div>

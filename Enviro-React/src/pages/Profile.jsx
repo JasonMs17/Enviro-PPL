@@ -4,6 +4,7 @@ import { http } from "../utils/fetch";
 import userIMG from "../assets/person.svg";
 import { Link, useLocation } from "react-router-dom";
 import UserCourse from "./ProfileLayout/userCourseLayout/userCourse";
+import UserChallenge from "./ProfileLayout/userChallengeLayout/userChallenge";
 import "./Profile.css";
 
 export default function Profile() {
@@ -120,7 +121,11 @@ export default function Profile() {
             </nav>
           </div>
 
-          <UserCourse />
+          {location.pathname.includes("/profile/challenge") ? (
+            <UserChallenge />
+          ) : (
+            <UserCourse />
+          )}
 
           {showModal && (
             <div className="modal-overlay">

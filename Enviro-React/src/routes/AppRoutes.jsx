@@ -40,6 +40,7 @@ const AppRoutes = () => {
       <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
       <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
       <Route path="/profile/course" element={user ? <Profile /> : <Navigate to="/" />} />
+      <Route path="/profile/challenge" element={user ? <Profile /> : <Navigate to="/" />} />
       <Route path="/send-email" element={<ProtectedRoute element={<SendEmail />} />} />
       <Route path="/verify-email" element={<ProtectedRoute element={<VerifyEmail />} />} />
       <Route path="/reset-password" element={<ResetPass />} />

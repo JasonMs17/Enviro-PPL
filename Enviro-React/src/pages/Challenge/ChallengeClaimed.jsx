@@ -5,9 +5,15 @@ import treeStage2 from '../../assets/tree2.png';
 import treeStage3 from '../../assets/tree3.png';
 import treeStage4 from '../../assets/tree4.png';
 import treeStage5 from '../../assets/tree5.png';
+import bg1 from '../../assets/bg1.png';
+import bg2 from '../../assets/bg2.png';
+import bg3 from '../../assets/bg3.png';
+import bg4 from '../../assets/bg4.png';
+import bg5 from '../../assets/bg5.png';
 import { http } from "../../utils/fetch";
 
 const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5];
+const backgrounds = [bg1, bg2, bg3, bg4, bg5];
 
 const Challenge = () => {
   const [progress, setProgress] = useState(0);
@@ -19,6 +25,9 @@ const Challenge = () => {
   const [challengeData, setChallengeData] = useState(null);
   const [uploadText, setUploadText] = useState("");
   const [uploadFile, setUploadFile] = useState(null);
+  const [canClaim, setCanClaim] = useState(true);
+  const [countdown, setCountdown] = useState(0);
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     const fetchChallenge = async () => {
@@ -34,9 +43,22 @@ const Challenge = () => {
   }, []);
 
   useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await http("/api/challenge-progress");
+        const data = await res.json();
+        setProgress(data.percentage);
+      } catch (err) {
+        console.error("Gagal memuat progress:", err);
+      }
+    };
+    fetchProgress();
+  }, []);
+
+  useEffect(() => {
     if (progress >= 100) {
       if (stage < trees.length - 1) {
-        setStage(stage + 1);
+        setStage((prev) => prev + 1);
         setProgress(0);
       } else {
         setProgress(100);
@@ -52,12 +74,37 @@ const Challenge = () => {
     }
   };
 
-  const handleUploadSubmit = () => {
-    // Logika kirim data bisa ditambahkan di sini
-    setShowUploadPopup(false);
-    setShowRewardPopup(true);
-    setProgress((prev) => Math.min(prev + 20, 100));
+  const handleUploadSubmit = async () => {
+    if (!uploadFile || !uploadText) {
+      alert("Mohon lengkapi bukti dan jawaban teks.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("photo", uploadFile);
+    formData.append("text_answer", uploadText);
+  
+    try {
+      const res = await http("/api/user/submit-proof", {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (!res.ok) {
+        const error = await res.json();
+        console.error("Gagal submit proof:", error);
+        alert(error.message || "Terjadi kesalahan saat submit.");
+        return;
+      }
+  
+      setShowUploadPopup(false);
+      setShowRewardPopup(true);
+    } catch (err) {
+      console.error("Error saat submit proof:", err);
+      alert("Terjadi kesalahan jaringan.");
+    }
   };
+  
 
   const handleCloseReward = () => {
     setShowRewardPopup(false);
@@ -69,6 +116,43 @@ const Challenge = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+      {/*ini sup gimana :D*/}
+      } catch (err) {
+        console.error('Gagal memuat data:', err);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    let timer;
+    if (!canClaim && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            setCanClaim(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [canClaim, countdown]);
+
+  const formatCountdown = (seconds) => {
+    const d = Math.floor(seconds / (3600 * 24));
+    const h = Math.floor((seconds % (3600 * 24)) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${String(d).padStart(2, '0')}:${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  };
+
+  useEffect(() => {
     if (challengeFailed) {
       window.location.href = '/challenge';
     }
@@ -77,9 +161,23 @@ const Challenge = () => {
   if (!challengeData) return <p>Loading...</p>;
 
   return (
-    <div className={`challenge-page stage-${stage}`}>
+    <div
+      className={`challenge-page stage-${stage}`}
+      style={{
+        backgroundImage: `url(${backgrounds[stage]})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        transition: 'background-image 0.5s ease-in-out',
+      }}
+    >
       <div className="challenge-layout">
         <div className="empty-column">
+        <div className="countdown-box"> 
+              <p className="countdown-title">Challenge Reset</p>
+              <p className="countdown-time">{formatCountdown(countdown)}</p>
+            </div>
           <div className="progress-preview-wrapper">
             <div className="progress-bar-wrapper">
               <progress value={progress} max="100" className="progress-bar"></progress>
@@ -124,21 +222,35 @@ const Challenge = () => {
 
       {/* === POPUP UPLOAD === */}
       {showUploadPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>{challengeData.question2}</h3>
-            <label htmlFor="file-upload" className="upload-btn">Upload Bukti</label>
-            <input
-              id="file-upload"
-              type="file"
-              accept="image/*"
-              onChange={(e) => setUploadFile(e.target.files[0])}
-            />
+        <div className="popup-overlay" onClick={() => setShowUploadPopup(false)}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
+            {imagePreview && (
+              <div className="image-preview">
+                <p>Preview Bukti:</p>
+                <img src={imagePreview} alt="Preview Upload" style={{ maxWidth: '100%', marginTop: '10px' }} />
+              </div>
+            )}
             <h3>{challengeData.question3}</h3>
             <input
               type="text"
               value={uploadText}
               onChange={(e) => setUploadText(e.target.value)}
+            />
+            {/* <h3>{challengeData.question2}</h3> */}
+            <label htmlFor="file-upload" className="upload-btn">Upload Bukti</label>
+            <input
+              id="file-upload"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setUploadFile(file);
+                if (file) {
+                  setImagePreview(URL.createObjectURL(file));
+                } else {
+                  setImagePreview(null);
+                }
+              }}
             />
             <button onClick={handleUploadSubmit}>Submit</button>
           </div>
@@ -152,7 +264,7 @@ const Challenge = () => {
             <img
               src={challengeData.reward}
               alt="Reward"
-              style={{ maxWidth: '100%' }}
+              style={{ maxWidth: '200%' }}
             />
             <a
               href={challengeData.reward}

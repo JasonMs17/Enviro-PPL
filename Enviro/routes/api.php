@@ -68,7 +68,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('/materials/{id}', [MaterialController::class, 'show']);
 
-Route::get('/challenges-fetch', [ChallengeController::class, 'index']);
+// challenge
+Route::get('/challenges-fetch', [ChallengeController::class, 'showchallenge']);
 Route::middleware('auth:sanctum')->post('/challenges/claim', [ChallengeController::class, 'claimChallenge']);
 Route::middleware('auth:sanctum')->get('/user/claimed-challenge', [ChallengeController::class, 'showClaimed']);
 Route::middleware('auth:sanctum')->post('/user/submit-proof', [ChallengeController::class, 'submitProof']);
+Route::middleware('auth:sanctum')->get('/challenge-progress', [ChallengeController::class, 'overallProgress']);

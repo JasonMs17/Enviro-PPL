@@ -11,12 +11,13 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('reward'); // link photo
+            $table->string('reward');
             $table->text('question');
             $table->text('question2');
             $table->text('question3');
-            $table->json('answer'); // untuk pilihan ganda
+            $table->json('answer');
             $table->string('fail_answer');
+            $table->boolean('completed');
             $table->timestamps();
         });
     }

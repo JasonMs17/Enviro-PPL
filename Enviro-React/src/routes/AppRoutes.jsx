@@ -14,6 +14,7 @@ import Loading from "@/components/Loading"; // Import komponen Loading
 import CourseMaterialAir from "@/components/Materi/MateriPencemaranAir"; // Import komponen Loading
 import CourseMaterialTanah from "@/components/Materi/MateriPencemaranTanah"; // Import komponen Loading
 import CourseMaterialUdara from "@/components/Materi/MateriPencemaranUdara"; // Import komponen Loading
+import Quiz from "@/components/Kuis/kuishubung"; // testing kuis
 import Challenge from "@/pages/Challenge/Challenge";
 import ChallengeClaimed from "@/pages/Challenge/ChallengeClaimed";
 import LandingPage from "../components/LandingPage";
@@ -44,6 +45,7 @@ const AppRoutes = () => {
       <Route path="/reset-password" element={<ResetPass />} />
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
 
+      <Route path="/testingkuis" element={<Quiz />} />
       <Route path="/challenge" element={<Challenge />} />
       <Route path="/challenge-claimed" element={<ChallengeClaimed />} />
       <Route path="/pencemaran-air/:material_id" element={<ProtectedRoute element={<CourseMaterialAir />} />} />

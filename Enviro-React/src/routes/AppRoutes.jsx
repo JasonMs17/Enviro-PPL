@@ -19,6 +19,7 @@ import Challenge from "@/pages/Challenge/Challenge";
 import ChallengeClaimed from "@/pages/Challenge/ChallengeClaimed";
 import LandingPage from "../components/LandingPage";
 import LandingPageLogin from "../components/LandingPageLogin";
+import MaterialDetail from "../components/MaterialDetail/MaterialDetail";
 
 const ProtectedRoute = ({ element: Element }) => {
   const { user } = useContext(AuthContext);
@@ -41,6 +42,7 @@ const AppRoutes = () => {
       <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
       <Route path="/profile/course" element={user ? <Profile /> : <Navigate to="/" />} />
       <Route path="/profile/challenge" element={user ? <Profile /> : <Navigate to="/" />} />
+      <Route path= "/profile/material/:id" element = { <MaterialDetail />}/>
       <Route path="/send-email" element={<ProtectedRoute element={<SendEmail />} />} />
       <Route path="/verify-email" element={<ProtectedRoute element={<VerifyEmail />} />} />
       <Route path="/reset-password" element={<ResetPass />} />

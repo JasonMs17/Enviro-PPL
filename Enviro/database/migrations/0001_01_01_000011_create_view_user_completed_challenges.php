@@ -9,20 +9,21 @@ return new class extends Migration {
     public function up(): void
     {
         // Drop the view if it exists first
-        DB::statement('DROP VIEW IF EXISTS user_completed_materials');
+        DB::statement('DROP VIEW IF EXISTS user_completed_challenges');
 
         // Create the view
         DB::statement("
-            CREATE VIEW user_completed_materials AS
+            CREATE VIEW user_completed_challenges AS
             SELECT 
-                material_reports.user_id,
-                materials.material_id as material_id,
-                materials.title,
-                materials.content,
-                materials.photo
-            FROM material_reports
-            JOIN materials ON material_reports.material_id = materials.material_id
-            WHERE material_reports.progress = 100
+                challenge_reports.user_id,
+                challenges.id as challenge_id,
+                challenges.title,
+                challenges.description,
+                challenge_reports.progress,
+                challenge_reports.completed_at
+            FROM challenge_reports
+            JOIN challenges ON challenge_reports.challenge_id = challenges.id
+            WHERE challenge_reports.progress = 100
         ");
     }
 
@@ -33,11 +34,11 @@ return new class extends Migration {
             SELECT COUNT(*) as count 
             FROM information_schema.views 
             WHERE table_schema = DATABASE() 
-            AND table_name = 'user_completed_materials'
+            AND table_name = 'user_completed_challenges'
         ");
 
         if ($viewExists[0]->count > 0) {
-            DB::statement('DROP VIEW user_completed_materials');
+            DB::statement('DROP VIEW user_completed_challenges');
         }
     }
 };

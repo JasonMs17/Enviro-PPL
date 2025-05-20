@@ -40,10 +40,10 @@ export default function UserChallenge() {
   }
 
   return (
-    <div className="row-section">
+    <div className="row-section-challenge">
       {challenges.length > 0 ? (
         challenges.map((challenge, index) => (
-          <div className="progress-container" key={challenge.challenge_id || index}>
+          <div className="progress-container-challenge" key={challenge.challenge_id || index}>
             <div className="user-challenge-profile">
               <div className="challenge-card-user-progress">
                 <div className="challenge-card-header">

@@ -94,12 +94,9 @@ export default function UserProgress() {
 
         <div className="main-progress">
           <div className="image-polution">
-            image polution disini
-            {/* Menampilkan gambar sesuai jenis polusi */}
             <img
               src={getPhotoForMaterial(materials[currentMaterial].id)}
               alt={`Materi ${materials[currentMaterial].title}`}
-              className="pollution-image"
             />
           </div>
         <div className="container-detail-progress">
@@ -116,9 +113,6 @@ export default function UserProgress() {
                 }}
               />
           </div>
-
-
-
         </div>
 
         </div>

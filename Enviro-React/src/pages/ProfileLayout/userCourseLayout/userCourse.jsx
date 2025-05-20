@@ -45,7 +45,7 @@ export default function UserCourse() {
         materials.map((material, index) => (
           <div className="progress-container" key={material.material_id || index}>
             <div className="user-course-profile">
-              <a className="course-card-user-progress" href={`./material/${material.material_id}`}>
+              <a className="course-card-user-progress" >
                 <div className="course-card-header">
                   <div className="course-card-logo-wrapper">
                     <img

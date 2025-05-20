@@ -143,19 +143,9 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.pollution-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
 
-.pollution-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+
+
 
 .pollution-overlay {
     position: absolute;

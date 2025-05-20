@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\DB;
+
 class ChallengeController extends Controller
 {
     public function showchallenge(): JsonResponse
@@ -132,6 +134,20 @@ class ChallengeController extends Controller
         $percentage = round($totalProgress / $totalChallenges);
 
         return response()->json(['percentage' => $percentage]);
+    }
+    public function userCompletedChallenges()
+    {
+        $userId = Auth::id();
+
+        $completedChallenges = DB::table('challenge_reports')
+            ->join('challenges', 'challenge_reports.challenge_id', '=', 'challenges.id')
+            ->where('challenge_reports.user_id', $userId)
+            ->where('challenge_reports.progress', 100)
+            ->orderBy('challenge_reports.completed_at', 'desc')
+            ->select('challenge_reports.*', 'challenges.description')
+            ->get();
+
+        return response()->json($completedChallenges);
     }
 }
 

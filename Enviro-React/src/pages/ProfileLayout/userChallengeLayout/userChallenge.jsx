@@ -8,13 +8,15 @@ export default function UserChallenge() {
   useEffect(() => {
     const fetchChallenges = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/challenges-fetch", {
+        const response = await fetch("http://localhost:8000/api/user-challenge", {
           method: "GET",
+          credentials: "include",
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
             "Content-Type": "application/json",
           },
         });
+
 
         if (!response.ok) {
           throw new Error("Gagal ambil data tantangan");
@@ -41,7 +43,7 @@ export default function UserChallenge() {
     <div className="row-section">
       {challenges.length > 0 ? (
         challenges.map((challenge, index) => (
-          <div className="progress-container" key={challenge.id || index}>
+          <div className="progress-container" key={challenge.challenge_id || index}>
             <div className="user-challenge-profile">
               <div className="challenge-card-user-progress">
                 <div className="challenge-card-header">

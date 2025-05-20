@@ -11,11 +11,11 @@
     display: flex;
   }
 
-  .user-course-profile {
+  .user-challenge-profile {
     padding: 0.5rem;
   }
 
-.course-card-user-progress{
+.challenge-card-user-progress{
     flex: 1;
     height: 100%;
     align-items: flex-start;
@@ -29,60 +29,48 @@
     text-decoration: none;
 }
 
-.course-card-header{
+.challenge-card-header{
     margin-bottom: 1rem;
     display: flex;
     align-items: center;
 }
 
-.course-card-content {
+.challenge-card-content {
     flex: 1; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
   }
 
-  .course-card-summary {
-    flex-grow: 1; /* PAKSAIN TULISAN NGISI TINGGI */
+  .challenge-card-summary {
+    flex-grow: 1; 
     display: flex;
     align-items: center;
   }
 
-.course-card-logo-wrapper{
+.challenge-card-logo-wrapper{
     margin-right: 1rem;
     max-width: 4rem;
     position: relative;
 }
 
-img{
-    width: 100%;
-    height: auto;
-    vertical-align: middle;
-    border-style: none;
-}
 
-.course-card-logo{
-    border-radius: 2px;
-    height: auto;
-    max-width: 100%;
-}
-
-.course-card-name{
+.challenge-card-name{
     font-size: 20px;
     font-weight: 700 !important;
     margin:0px;
 }
 
-.course-card-summary{
+.challenge-card-summary{
     padding: 19px 0;
     color: #71717a;
 }
 
-.course-card-summary > p{
+.challenge-card-summary > p{
     margin: 0;
 }
 
-.course-card-user-progress:hover {
+.challenge-card-user-progress:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
   }

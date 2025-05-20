@@ -144,7 +144,7 @@ class ChallengeController extends Controller
             ->where('challenge_reports.user_id', $userId)
             ->where('challenge_reports.progress', 100)
             ->orderBy('challenge_reports.completed_at', 'desc')
-            ->select('challenge_reports.*', 'challenges.description')
+            ->select('challenge_reports.*', 'challenges.description', 'challenges.title')
             ->get();
 
         return response()->json($completedChallenges);

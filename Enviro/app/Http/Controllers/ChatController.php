@@ -9,17 +9,15 @@ class ChatController extends Controller
     public function kirimChat(Request $request)
     {
         $pesan = $request->input('pesan');
-        $history = $request->input('history', []); // Terima riwayat percakapan
-        $context = $request->input('context', '');   // Terima konteks sebagai string
-        $apiKey = env('GROQ_API_KEY'); // Ambil API key dari .env
+        $history = $request->input('history', []); // riwayat percakapan
+        $context = $request->input('context', '');   // konteks sebagai string
+        $apiKey = env('GROQ_API_KEY'); 
 
-        // Tambahkan konteks jika ada sebelum pesan pengguna
         $messages = [];
         if (!empty($context)) {
             $messages[] = ['role' => 'system', 'content' => $context];
         }
 
-        // Tambahkan riwayat percakapan
         $messages = [...$messages, ...$history, ['role' => 'user', 'content' => $pesan]];
 
         $curl = curl_init();
@@ -33,7 +31,7 @@ class ChatController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode([
-                'messages' => $messages, // Kirim pesan dengan konteks dan riwayat
+                'messages' => $messages, 
                 'model' => 'llama-3.3-70b-versatile',
             ]),
             CURLOPT_HTTPHEADER => [
@@ -48,13 +46,11 @@ class ChatController extends Controller
         curl_close($curl);
 
         if ($err) {
-            // Handle error
             return response()->json(['error' => 'cURL Error: ' . $err], 500);
         } else {
             $responseData = json_decode($response, true);
             $balasan = $responseData['choices'][0]['message']['content'] ?? 'Tidak ada balasan.';
 
-            // Sertakan juga pesan asisten dalam respons untuk memperbarui riwayat di sisi klien
             return response()->json(['balasan' => $balasan, 'history' => [...$history, ['role' => 'user', 'content' => $pesan], ['role' => 'assistant', 'content' => $balasan]]]);
         }
     }

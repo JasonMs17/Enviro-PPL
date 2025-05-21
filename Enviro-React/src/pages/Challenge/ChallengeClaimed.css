@@ -23,7 +23,7 @@
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Pertanyaan */
@@ -66,7 +66,8 @@
 }
 
 .question-actions button:first-child {
-  background-color: #f44336; /* Hapus */
+  background-color: #f44336;
+  /* Hapus */
   color: white;
   margin-bottom: 5px;
 }
@@ -76,7 +77,8 @@
 }
 
 .question-actions button:last-child {
-  background-color: #4CAF50; /* Konfirmasi */
+  background-color: #4CAF50;
+  /* Konfirmasi */
   color: white;
 }
 
@@ -91,7 +93,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,7 +107,7 @@
   max-width: 400px;
   width: 90%;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Upload button */
@@ -178,10 +180,12 @@
   max-width: 100%;
   max-height: 200px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   object-fit: contain;
 }
 
-p {
+.challenge-page .question-box p,
+.challenge-page .popup p,
+.challenge-page .image-preview p {
   color: #4CAF50;
 }

@@ -1,6 +1,7 @@
 import "./userCourse.css";
 import pencemaran from "../../../assets/pencemaranUdara.png";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function UserCourse() {
   const [materials, setMaterials] = useState([]);
@@ -45,7 +46,7 @@ export default function UserCourse() {
         materials.map((material, index) => (
           <div className="progress-container" key={material.material_id || index}>
             <div className="user-course-profile">
-              <a className="course-card-user-progress" >
+             <Link className="course-card-user-progress" to={`/pencemaran-${material.category}/${material.material_id}`}>
                 <div className="course-card-header">
                   <div className="course-card-logo-wrapper">
                     <img
@@ -61,7 +62,7 @@ export default function UserCourse() {
                 <div className="course-card-summary">
                   <p>{material.content}</p>
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
         ))

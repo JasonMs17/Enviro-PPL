@@ -8,7 +8,7 @@ export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
       onMouseEnter={onMouseEnter} // Event hover untuk memasuki dropdown
       onMouseLeave={onMouseLeave} // Event hover untuk keluar dari dropdown
     >
-      <ul className="gap-4">
+      <ul className="course-type">
         <li>
           <Link to="/pencemaran-tanah/19">Polusi Tanah</Link>
         </li>

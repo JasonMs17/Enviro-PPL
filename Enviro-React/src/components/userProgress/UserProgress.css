@@ -1,3 +1,7 @@
+.user-progress{
+    position: relative;
+}
+
 .container-progress{
     background-color: #F0F0F0;
     width: 100%;
@@ -25,7 +29,9 @@
     display: flex;
     justify-content:flex-start;
     align-items: center;
-    gap: 20px
+    gap: 20px;
+    padding-top:20px;
+
 }
 .container-detail-progress{
     width: 665px;
@@ -64,11 +70,14 @@ h4{
 
 .image-polution{
     width: 300px;
+    height: 200px; /* atur sesuai kebutuhan */
+    overflow: hidden;
+    border-radius: 10px;
 }
 
 .image-polution > img{
     object-fit: cover;
-       width: 100%;
+    width: 100%;
     height: 100%;
 }
 
@@ -97,10 +106,12 @@ h4{
     transform: translateY(-50%) scale(1.1);
 }
 
-.slider-button-landing-page.prev {
-    left: 0;
+.slider-button-landing-page.prev-page {
+    left: 10px;
+    bottom: 120px; 
 }
 
-.slider-button-landing-page.next {
-    right: 0;
+.slider-button-landing-page.next-page {
+    right: 10px;
+    bottom: 120px;
 }

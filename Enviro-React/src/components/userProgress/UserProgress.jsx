@@ -68,16 +68,16 @@ export default function UserProgress() {
   };
 
   const getPhotoForMaterial = (materialId) => {
-    // Mengambil foto berdasarkan materialId (pollution type)
+
     const photo = pollutionPhotos[materialId]?.photo;
     return photo ? photo : "https://via.placeholder.com/150"; // Default placeholder jika tidak ada foto
   };
 
   return (
     <div className="user-progress">
-      {/* <button className="slider-button-landing-page prev" onClick={prevMaterial}>
+      <button className="slider-button-landing-page prev-page" onClick={prevMaterial}>
         <FaChevronLeft />
-      </button> */}
+      </button>
       <div className="container-progress">
         <div className="status-user">
           <h1 className="status">Dalam Progress</h1>
@@ -117,9 +117,9 @@ export default function UserProgress() {
 
         </div>
       </div>
-      {/* <button className="slider-button-landing-page next" onClick={nextMaterial}>
+      <button className="slider-button-landing-page next-page" onClick={nextMaterial}>
         <FaChevronRight />
-      </button> */}
+      </button>
     </div>
   );
 }

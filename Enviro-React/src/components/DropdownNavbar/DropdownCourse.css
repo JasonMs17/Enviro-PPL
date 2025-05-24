@@ -58,6 +58,34 @@
     padding: 8px 12px;
     border-radius: 8px;
   }
+
+@media (max-width: 768px) {
+  .DropDownCourse {
+    position: static;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .DropDownCourse.open {
+    opacity: 1;
+    max-height: 500px;
+  }
+
+  .dropdown-trigger {
+    font-weight: bold;
+    display: block;
+    padding: 12px 16px;
+    cursor: pointer;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+  }
+}
+
+
   
 
   

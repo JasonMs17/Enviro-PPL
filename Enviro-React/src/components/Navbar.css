@@ -2,29 +2,25 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  /* Supaya tetap di atas elemen lain */
   background-color: #ffffff;
+  width: 100vw;
+}
+.hamburger {
+  display: none; 
 }
 
 
 .logo-and-navbar {
   width: 100vw;
-  /* Biar full lebar layar */
   background-color: #ffffff;
-  /* Atur warna latar */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  /* Spasi biar gak nempel */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  /* Sedikit bayangan */
   position: relative;
-  /* Biar gak nempel di atas */
   margin-bottom: 1rem;
-  /* Biar ada jarak dari konten lain */
   box-sizing: border-box;
-
 }
 
 .navbar {
@@ -40,6 +36,7 @@
 
 .user-control {
   display: flex;
+  align-items: center;
 }
 
 .relative-wrapper {
@@ -155,7 +152,9 @@ nav a.active {
   max-width: 100%;
 }
 
-@media (max-width: 1024px) {
+
+
+@media (max-width: 1000px) {
   .user-control {
     gap: 16px;
   }
@@ -167,51 +166,80 @@ nav a.active {
   .enviro-logo img {
     width: 120px;
   }
+
+  .login-signup-mobile {
+    display: none !important;
+  }
 }
 
+
+
 @media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
+  .hamburger {
+    display: block; 
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1DBC60;
+    margin-left: 15px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
   }
 
   .user-control {
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 1rem 0;
+    z-index: 998;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .login-signup {
-    flex-direction: column;
-    gap: 10px;
+  .navbar.collapsed {
+     flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
   }
 
-  .user-profile {
-    flex-direction: column;
-    gap: 8px;
+  .navbar.collapsed .hamburger {
+   display: block; 
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1DBC60;
+    margin-left: 15px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  .navbar.collapsed .user-control {
+    display: none !important;
   }
 
-  .enviro-logo img {
-    width: 100px;
+.login-button {
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 18px;
+   background-color: black;
+  color: white;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  padding-right: 18px;
+  padding-left: 18px;
+  border-radius: 50px;
+  font-weight: bold;
+
   }
 
-  .user-control a, .login-button, .signup {
-    font-size: 16px;
+  .signup{
+    display: none;
   }
-
-  .signup {
-    padding: 10px 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .user-control a, .login-button, .signup {
-    font-size: 14px;
-  }
-
-  .signup {
-    padding: 8px 12px;
-  }
-}
+ 
+} 

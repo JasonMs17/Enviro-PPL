@@ -1,10 +1,7 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
 import { AuthContext } from "../AuthContext";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import userIMG from "../assets/person.svg";
-// import axios from "axios";
-
 import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
 import DropDownPicture from "./DropdownNavbar/DropDownPicture";
@@ -13,6 +10,8 @@ import DropDownCourse from "./DropdownNavbar/DropdownCourse";
 const Navbar = () => {
   const [openCourse, setOpenCourse] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -21,66 +20,59 @@ const Navbar = () => {
       method: "GET",
       credentials: "include",
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data user");
-        }
+      .then((response) => {
+        if (!response.ok) throw new Error("Gagal mengambil data user");
         return response.json();
       })
-      .then(data => {
-        setUser(data);
-      })
-      .catch(error => {
-        console.error("Gagal ambil data user:", error);
-      });
+      .then((data) => setUser(data))
+      .catch((error) => console.error("Gagal ambil data user:", error));
   }, []);
 
   const courseTimeoutRef = useRef(null);
   const profileTimeoutRef = useRef(null);
 
   const handleCourseEnter = () => {
-    if (!user) return; // Only show dropdown if user is logged in
+    if (!user) return;
     clearTimeout(courseTimeoutRef.current);
     setOpenCourse(true);
   };
 
   const handleCourseLeave = () => {
-    courseTimeoutRef.current = setTimeout(() => {
-      setOpenCourse(false);
-    }, 200);
+    courseTimeoutRef.current = setTimeout(() => setOpenCourse(false), 200);
   };
 
-  // Fungsi hover untuk Profile
   const handleProfileEnter = () => {
     clearTimeout(profileTimeoutRef.current);
     setOpenProfile(true);
   };
+
   const handleProfileLeave = () => {
-    profileTimeoutRef.current = setTimeout(() => {
-      setOpenProfile(false);
-    }, 200);
+    profileTimeoutRef.current = setTimeout(() => setOpenProfile(false), 200);
   };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
-  const imageClick = () => {
-    navigate("/profile/course");
-  };
+  const imageClick = () => navigate("/profile/course");
 
   return (
-    <header className="navbar">
+    <header className={`navbar ${isMobileMenuOpen ? "collapsed" : ""}`}>
+       <button
+        className="hamburger"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+      >
+        ☰
+      </button>
+     
       <div className="enviro-logo">
         <Link to="/">
           <img src={logoEnviro} alt="Website Logo" />
         </Link>
       </div>
-
-      <nav className="user-control">
+      {/* Main navigation */}
+      <nav className={`user-control ${isMobileMenuOpen ? "show" : "hide"}`}>
         <div
           className="user-course relative-wrapper"
           onMouseEnter={handleCourseEnter}
@@ -104,6 +96,7 @@ const Navbar = () => {
             />
           )}
         </div>
+
         <div className="user-challenge">
           <a
             href="#"
@@ -116,6 +109,7 @@ const Navbar = () => {
             Challenge
           </a>
         </div>
+
         <a
           href="#"
           onClick={(e) => {
@@ -126,25 +120,12 @@ const Navbar = () => {
         >
           About Us
         </a>
-      </nav>
 
-      <div className="login-signup">
-        {user ? (
-          <div
-            className="user-profile"
-            onMouseEnter={handleProfileEnter}
-            onMouseLeave={handleProfileLeave}
-          >
-            <div className="User-Photo-Navbar">
-              <img
-                src={user.profile_photo ? user.profile_photo : userIMG} alt="User"
-                onClick={() => imageClick()}
-                className="profile-image"
-              />
-            </div>
-            <DropDownPicture open={openProfile} />
-          </div>
-        ) : (
+        {/* Mobile-only login/signup if not logged in */}
+
+      </nav>
+        <div className= "login-signup">
+        {!user ? (
           <>
             <Link className="login-button" to="/login">
               Masuk
@@ -153,8 +134,27 @@ const Navbar = () => {
               Sign Up
             </Link>
           </>
+        ) : (
+          <div
+            className="user-profile"
+            onMouseEnter={handleProfileEnter}
+            onMouseLeave={handleProfileLeave}
+          >
+            <div className="User-Photo-Navbar">
+              <img
+                src={user.profile_photo || userIMG}
+                alt="User"
+                onClick={imageClick}
+                className="profile-image"
+              />
+            </div>
+                <DropDownPicture open={openProfile} />
+            </div>
         )}
-      </div>
+        </div>
+
+
+      
     </header>
   );
 };

@@ -1,13 +1,37 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./DropdownCourse.css";
 
 export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isOpenMobile, setIsOpenMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setIsOpenMobile(false); // Reset saat kembali ke desktop
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleClick = () => {
+    if (isMobile) {
+      setIsOpenMobile((prev) => !prev);
+    }
+  };
+
   return (
     <div
-      className={`DropDownCourse ${open ? "open" : ""}`}
-      onMouseEnter={onMouseEnter} // Event hover untuk memasuki dropdown
-      onMouseLeave={onMouseLeave} // Event hover untuk keluar dari dropdown
+      className={`DropDownCourse ${open || isOpenMobile ? "open" : ""}`}
+      onMouseEnter={!isMobile ? onMouseEnter : undefined}
+      onMouseLeave={!isMobile ? onMouseLeave : undefined}
     >
+
       <ul className="course-type">
         <li>
           <Link to="/pencemaran-tanah/19">Polusi Tanah</Link>

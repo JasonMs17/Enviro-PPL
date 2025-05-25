@@ -67,7 +67,7 @@ export default function CourseMaterialUdara() {
       setIsLoading(false);
     }
   }, [location.pathname, materialId, isQuizView]);
-
+  
   return (
     <div className="materi split-view">
       {" "}
@@ -76,7 +76,7 @@ export default function CourseMaterialUdara() {
         toggleSidebar={toggleSidebar}
         isQuizOngoing={isQuizActive}
       />
-      <div className="course-container">
+      <div className="course-container">   
         <div className="course-article">
           <div className="course-content">
             {isLoading && <p>Loading...</p>}

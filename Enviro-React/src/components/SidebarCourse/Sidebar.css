@@ -248,3 +248,39 @@
     transform: translateX(100%);
   }
 }
+
+@media screen and (max-width: 768px) {
+  .SidebarCourse {
+    position: fixed;
+    top: 80px; /* sesuaikan dengan tinggi header */
+    left: 0;
+    height: calc(100vh - 80px);
+    z-index: 1000;
+    background-color: #333;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .SidebarCourse.open {
+    transform: translateX(0);
+  }
+
+  .SidebarCourse.closed {
+    transform: translateX(-100%);
+  }
+
+  /* Overlay background saat sidebar terbuka */
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+
+  .sidebar-overlay.hidden {
+    display: none;
+  }
+}

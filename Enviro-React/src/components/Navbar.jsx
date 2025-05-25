@@ -6,14 +6,27 @@ import logoEnviro from "../assets/logoEnviro.png";
 import "./Navbar.css";
 import DropDownPicture from "./DropdownNavbar/DropDownPicture";
 import DropDownCourse from "./DropdownNavbar/DropdownCourse";
+// import { useLocation } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ toggleSidebar }) => {
   const [openCourse, setOpenCourse] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  // const location = useLocation();
+  // const isInCoursePage =  
+  // location.pathname.includes("/pencemaran-air/") ||
+  // location.pathname.includes("/pencemaran-tanah/") ||
+  // location.pathname.includes("/pencemaran-udara/");
+
+
+  useEffect(() => {
+  const handleResize = () => setIsMobile(window.innerWidth <= 768);
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     fetch("/api/user", {
@@ -88,7 +101,7 @@ const Navbar = () => {
           >
             Learn With Us
           </a>
-          {user && (
+          {user && !isMobile && (
             <DropDownCourse
               open={openCourse}
               onMouseEnter={handleCourseEnter}

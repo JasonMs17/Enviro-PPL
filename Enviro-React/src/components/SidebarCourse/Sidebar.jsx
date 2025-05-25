@@ -41,6 +41,16 @@ export default function SidebarCourseModule({
   const [progressByType, setProgressByType] = useState({});
   const [loading, setLoading] = useState(true);
   const trackedRef = useRef(new Set());
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     if (Object.keys(dropdownStates).length === 0) {
@@ -115,6 +125,22 @@ export default function SidebarCourseModule({
   const progress = progressByType[pollutionTypeId]?.progress || 0;
 
   return (
+  <>
+   {isMobile && !isOpen && (
+  <FontAwesomeIcon
+    icon={faCircleChevronRight}
+    style={{
+      position: "fixed",
+      top: "90px", 
+      left: "-15px",
+      fontSize: "30px",
+      color: "#1DBC60",
+      cursor: "pointer",
+      zIndex: 2000, 
+    }}
+    onClick={toggleSidebar}
+  />
+)} 
     <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
       {isOpen ? (
         <div className="progress-bar-container">
@@ -141,8 +167,10 @@ export default function SidebarCourseModule({
         </div>
       )}
 
+      
+
       <h1 className="judul-bab">
-        {isOpen && `📘 ${title}`}
+        {isMobile && isOpen && `📘 ${title}`}
         <FontAwesomeIcon
           icon={isOpen ? faCircleChevronLeft : faCircleChevronRight}
           style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
@@ -247,5 +275,6 @@ export default function SidebarCourseModule({
               </div>
             )))}
     </div>
+  </>
   );
 }

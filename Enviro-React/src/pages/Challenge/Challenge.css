@@ -52,6 +52,10 @@
   margin-top: 34%;
 }
 
+.challenge-page.stage-5 .center-column {
+  margin-top: 32%;
+}
+
 .button-column {
   margin-top: 0%;
   flex: 1;
@@ -190,11 +194,13 @@ progress::-webkit-progress-value {
 .tree-stage-2 { transform: scale(1.6); }
 .tree-stage-3 { transform: scale(3.1); }
 .tree-stage-4 { transform: scale(4.0); }
+.tree-stage-5 { transform: scale(6.2); }
 
 .tree-stage-0,
 .tree-stage-1,
 .tree-stage-2,
 .tree-stage-3,
-.tree-stage-4 {
+.tree-stage-4,
+.tree-stage-5 {
   transition: transform 0.3s ease;
 }

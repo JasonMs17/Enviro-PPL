@@ -6,6 +6,7 @@ import treeStage2 from '../../assets/tree2.png';
 import treeStage3 from '../../assets/tree3.png';
 import treeStage4 from '../../assets/tree4.png';
 import treeStage5 from '../../assets/tree5.png';
+import treeStage6 from '../../assets/tree6.png';
 import bg1 from '../../assets/bg1.png';
 import bg2 from '../../assets/bg2.png';
 import bg3 from '../../assets/bg3.png';
@@ -16,8 +17,8 @@ import { http } from '../../utils/fetch';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../components/Modal/Modal'; // Pastikan komponen Modal sudah dibuat
 
-const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5];
-const backgrounds = [bg1, bg2, bg3, bg4, bg5];
+const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5, treeStage6];
+const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg5];
 
 const Challenge = () => {
   const [progress, setProgress] = useState(0);
@@ -28,7 +29,7 @@ const Challenge = () => {
   const [showActiveChallengeModal, setShowActiveChallengeModal] = useState(false);
   const navigate = useNavigate();
 
-  const stage = Math.min(Math.floor(progress / 20), trees.length - 1);
+  const stage = progress === 100 ? 5 : Math.floor(progress / 20);
 
   useEffect(() => {
     const checkActiveChallenge = async () => {

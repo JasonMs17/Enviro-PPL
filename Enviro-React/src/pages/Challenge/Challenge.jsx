@@ -113,12 +113,12 @@ const Challenge = () => {
       <Modal 
         isOpen={showActiveChallengeModal}
         onClose={handleNavigateToClaimed}
-        title="Challenge Aktif"
-        closeText="Lanjutkan Challenge"
+        closeText="Oke"
       >
-        <p>Anda masih memiliki challenge aktif</p>
-        <p>Silakan lanjutkan challenge Anda</p>
+        <p>Challenge sebelumnya masih belum selesai nih,</p>
+        <p>selesain itu dulu yaa 😉</p>
       </Modal>
+
 
       <div className="challenge-layout">
         <div className="empty-column">

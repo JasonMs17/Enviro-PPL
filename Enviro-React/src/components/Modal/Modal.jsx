@@ -7,15 +7,20 @@ const Modal = ({ isOpen, onClose, title, children, closeText = "Tutup" }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-container">
-        <div className="modal-header">
-          <h3>{title}</h3>
-          <button onClick={onClose} className="modal-close-btn">
+        {title ? (
+          <div className="modal-header">
+            <button onClick={onClose} className="modal-close-btn">
+              &times;
+            </button>
+          </div>
+        ) : (
+          <button onClick={onClose} className="modal-close-btn top-right">
             &times;
           </button>
-        </div>
-        <div className="modal-content">
-          {children}
-        </div>
+        )}
+
+        <div className="isi">{children}</div>
+
         <div className="modal-footer">
           <button onClick={onClose} className="modal-action-btn">
             {closeText}

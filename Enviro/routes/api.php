@@ -73,7 +73,16 @@ Route::get('/materials/{id}', [MaterialController::class, 'show']);
 
 // challenge
 Route::get('/challenges-fetch', [ChallengeController::class, 'showchallenge']);
-Route::middleware('auth:sanctum')->post('/challenges/claim', [ChallengeController::class, 'claimChallenge']);
-Route::middleware('auth:sanctum')->get('/user/claimed-challenge', [ChallengeController::class, 'showClaimed']);
-Route::middleware('auth:sanctum')->post('/user/submit-proof', [ChallengeController::class, 'submitProof']);
-Route::middleware('auth:sanctum')->get('/challenge-progress', [ChallengeController::class, 'overallProgress']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/challenges/claim', [ChallengeController::class, 'claimChallenge']);
+    Route::get('/user/claimed-challenge', [ChallengeController::class, 'showClaimed']);
+    Route::post('/user/submit-proof', [ChallengeController::class, 'submitProof']);
+    Route::get('/challenge-progress', [ChallengeController::class, 'overallProgress']);
+    Route::get('/challenge/countdown', [ChallengeController::class, 'getCountdown']);
+    Route::post('/user/deactivate-challenge-report', [ChallengeController::class, 'deactivate']);
+    Route::get('/check-active-challenge', [ChallengeController::class, 'checkActiveChallenge']);
+    Route::post('/send-reminder-email', [ChallengeController::class, 'sendReminderEmail']);
+    Route::get('/check-reminder-status', [ChallengeController::class, 'checkReminderStatus']);
+    Route::post('/user/fail-challenge', [ChallengeController::class, 'failChallenge']);
+});
+

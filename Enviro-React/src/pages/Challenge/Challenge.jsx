@@ -13,38 +13,54 @@ import bg4 from '../../assets/bg4.png';
 import bg5 from '../../assets/bg5.png';
 import Sidebar from '../../components/SidebarChallenge/Sidebar';
 import { http } from '../../utils/fetch';
+import { useNavigate } from 'react-router-dom';
+import Modal from '../../components/Modal/Modal'; // Pastikan komponen Modal sudah dibuat
 
 const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5];
 const backgrounds = [bg1, bg2, bg3, bg4, bg5];
 
 const Challenge = () => {
   const [progress, setProgress] = useState(0);
-  const [stage, setStage] = useState(0);
   const [challengeOpen, setChallengeOpen] = useState(false);
   const [canClaim, setCanClaim] = useState(true);
   const [countdown, setCountdown] = useState(0);
+  const [hasActiveChallenge, setHasActiveChallenge] = useState(false);
+  const [showActiveChallengeModal, setShowActiveChallengeModal] = useState(false);
+  const navigate = useNavigate();
+
+  const stage = Math.min(Math.floor(progress / 20), trees.length - 1);
 
   useEffect(() => {
-    if (progress >= 100) {
-      if (stage < trees.length - 1) {
-        setStage((prev) => prev + 1);
-        setProgress(0);
-      } else {
-        setProgress(100);
-      }
-    }
-  }, [progress, stage]);
-
-  useEffect(() => {
-    const fetchData = async () => {
+    const checkActiveChallenge = async () => {
       try {
-      {/*ini sup gimana :D*/}
+        const res = await http("/api/check-active-challenge");
+        const data = await res.json();
+        
+        if (data.has_active_challenge) {
+          setHasActiveChallenge(true);
+          setShowActiveChallengeModal(true);
+          setCountdown(data.countdown_seconds);
+          setCanClaim(false);
+        }
       } catch (err) {
-        console.error('Gagal memuat data:', err);
+        console.error("Gagal memeriksa challenge aktif:", err);
       }
     };
 
-    fetchData();
+    checkActiveChallenge();
+  }, []);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await http("/api/challenge-progress");
+        const data = await res.json();
+        setProgress(data.percentage);
+      } catch (err) {
+        console.error("Gagal memuat progress:", err);
+      }
+    };
+    fetchProgress();
   }, []);
 
   useEffect(() => {
@@ -76,6 +92,11 @@ const Challenge = () => {
     setProgress((prev) => Math.min(prev + 20, 100));
   };
 
+  const handleNavigateToClaimed = () => {
+    setShowActiveChallengeModal(false);
+    navigate('/challenge-claimed');
+  };
+
   return (
     <div
       className={`challenge-page stage-${stage}`}
@@ -88,6 +109,17 @@ const Challenge = () => {
         transition: 'background-image 0.5s ease-in-out',
       }}
     >
+      {/* Modal untuk challenge aktif */}
+      <Modal 
+        isOpen={showActiveChallengeModal}
+        onClose={handleNavigateToClaimed}
+        title="Challenge Aktif"
+        closeText="Lanjutkan Challenge"
+      >
+        <p>Anda masih memiliki challenge aktif</p>
+        <p>Silakan lanjutkan challenge Anda</p>
+      </Modal>
+
       <div className="challenge-layout">
         <div className="empty-column">
           <div className="progress-preview-wrapper">
@@ -118,17 +150,10 @@ const Challenge = () => {
         </div>
 
         <div className="button-column">
-          {canClaim ? (
             <button className="btn-circle" onClick={() => setChallengeOpen(!challengeOpen)}>
               <img src={pupuk} alt="Pupuk" className="pupuk-icon" />
               <div className="btn-label">Challenge</div>
             </button>
-          ) : ( //countdonnya disini sup
-            <div className="countdown-box"> 
-              <p className="countdown-title">Challenge Berikutnya</p>
-              <p className="countdown-time">{formatCountdown(countdown)}</p>
-            </div>
-          )}
         </div>
       </div>
 

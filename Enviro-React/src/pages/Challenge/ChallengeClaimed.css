@@ -110,6 +110,14 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+.popup .btn-confirm {
+  background-color: #e53935;
+}
+
+.popup .btn-confirm:hover {
+  background-color: #c62828;
+}
+
 /* Upload button */
 .popup input[type="file"] {
   display: none;

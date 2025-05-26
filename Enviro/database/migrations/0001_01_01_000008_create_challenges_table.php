@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->text('question3');
             $table->json('answer');
             $table->string('fail_answer');
-            $table->boolean('completed');
             $table->timestamps();
         });
     }

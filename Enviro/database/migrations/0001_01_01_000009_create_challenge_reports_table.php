@@ -19,6 +19,10 @@ return new class extends Migration
             $table->text('text_answer')->nullable();
             $table->integer('progress')->nullable();
             $table->timestamp('completed_at')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamp('countdown_end_at')->nullable();
+            $table->boolean('reminder_sent')->default(false);
+            $table->boolean('failed')->default(false);
             $table->timestamps();
 
             // Foreign key constraint

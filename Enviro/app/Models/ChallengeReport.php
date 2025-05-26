@@ -16,6 +16,10 @@ class ChallengeReport extends Model
         'text_answer',
         'progress',
         'completed_at',
+        'active',
+        'countdown_end_at',
+        'reminder_sent',
+        'failed'
     ];
 
     protected $dates = [

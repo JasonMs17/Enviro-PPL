@@ -50,18 +50,22 @@ const Sidebar = ({ onCompleteChallenge }) => {
     <div className="sidebar">
       <h3 className="countdown">Challenge Minggu Ini:</h3>
       <div className="challenge-list">
-        {challenges.map((challenge, index) => (
-          <ChallengeCard
-            key={index}
-            challenge={{
-              id: challenge.id,
-              name: challenge.title,
-              description: challenge.description,
-              points: 10,
-            }}
-            onClick={() => setPopupOpen(challenge.id)}
-          />
-        ))}
+        {challenges.length > 0 ? (
+          challenges.map((challenge, index) => (
+            <ChallengeCard
+              key={index}
+              challenge={{
+                id: challenge.id,
+                name: challenge.title,
+                description: challenge.description,
+                points: 10,
+              }}
+              onClick={() => setPopupOpen(challenge.id)}
+            />
+          ))
+        ) : (
+          <h3 className="empty-message">Semua challenge selesai dikerjakan 🎉</h3>
+        )}
       </div>
       {popupOpen && (
         <UploadPopup

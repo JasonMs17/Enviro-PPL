@@ -28,6 +28,7 @@ const Challenge = () => {
   const [challengeData, setChallengeData] = useState(null);
   const [uploadText, setUploadText] = useState("");
   const [uploadFile, setUploadFile] = useState(null);
+  const [uploadPreview, setUploadPreview] = useState(null); // TAMBAHAN
   const [countdown, setCountdown] = useState(0);
   const [countdownEndAt, setCountdownEndAt] = useState(null);
 
@@ -72,7 +73,6 @@ const Challenge = () => {
     const timer = setInterval(fetchChallengeAndCountdown, 60000);
     return () => clearInterval(timer);
   }, []);
-
 
   useEffect(() => {
     const fetchProgress = async () => {
@@ -244,7 +244,7 @@ const Challenge = () => {
             <p className="countdown-title">Challenge Reset</p>
             <p className="countdown-time" style={{ color: 'brown', fontWeight: 'bold', fontSize: '1.2rem' }}>{formatCountdown(countdown)}</p>
           </div>
-              <div className="progress-preview-wrapper">
+          <div className="progress-preview-wrapper">
             <div className="progress-bar-wrapper">
               <progress value={progress} max="100" className="progress-bar"></progress>
               <span className="progress-text">{progress}%</span>
@@ -315,19 +315,34 @@ const Challenge = () => {
 
       {showUploadPopup && (
         <div className="popup-overlay" onClick={() => setShowUploadPopup(false)}>
-          <div className="popup" onClick={(e) => e.stopPropagation()}>
+          <div className="popup" onClick={(e) => e.stopPropagation()}>            
+            {uploadPreview && (
+              <div style={{ marginBottom: '1rem' }}>
+                <h3 style={{ marginBottom: '10px' }}>Preview Bukti:</h3>
+                <img src={uploadPreview} alt="Upload Preview" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '8px' }} />
+              </div>
+            )}
             <h3>{challengeData.question3}</h3>
             <input
               type="text"
               value={uploadText}
               onChange={(e) => setUploadText(e.target.value)}
+              placeholder="Jawaban teks"
             />
             <label htmlFor="file-upload" className="upload-btn">Upload Bukti</label>
             <input
               id="file-upload"
               type="file"
               accept="image/*"
-              onChange={(e) => setUploadFile(e.target.files[0])}
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setUploadFile(file);
+                if (file) {
+                  setUploadPreview(URL.createObjectURL(file));
+                } else {
+                  setUploadPreview(null);
+                }
+              }}
             />
             <button onClick={handleUploadSubmit}>Submit</button>
           </div>
@@ -351,7 +366,7 @@ const Challenge = () => {
           <div className="popup" onClick={(e) => e.stopPropagation()}>
             <h3>Kamu yakin milih ini?</h3>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-              <button className= "btn-confirm" onClick={handleConfirmYes}>Iya</button>
+              <button className="btn-confirm" onClick={handleConfirmYes}>Iya</button>
               <button onClick={handleConfirmCancel}>Batal</button>
             </div>
           </div>

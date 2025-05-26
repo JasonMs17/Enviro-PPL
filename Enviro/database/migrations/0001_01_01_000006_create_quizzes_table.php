@@ -15,15 +15,16 @@ return new class extends Migration
             $table->id('quiz_id');
             $table->unsignedBigInteger('pollution_type_id');
             $table->integer('sub_bab');
+            $table->string('type');
             $table->text('question');
             $table->text('options'); // JSON string
-            $table->string('correct_answer');
+            $table->text('correct_answer');
             $table->timestamps();
 
             $table->foreign('pollution_type_id')
-                  ->references('pollution_type_id')
-                  ->on('pollution_types')
-                  ->onDelete('cascade');
+                ->references('pollution_type_id')
+                ->on('pollution_types')
+                ->onDelete('cascade');
         });
     }
 

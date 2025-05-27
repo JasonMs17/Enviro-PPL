@@ -21,11 +21,6 @@ function RegisterForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("Password dan Konfirmasi Password tidak cocok.");
-      return;
-    }
-
     try {
       const response = await http("/api/register", {
         method: "POST",

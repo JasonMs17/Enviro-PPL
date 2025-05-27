@@ -20,10 +20,14 @@ import {
 } from "react-icons/fa";
 import PollutionCard from "./PollutionCard";
 import LoginModal from "./LoginModal";
+import VerifyEmailModal from "./VerifyEmailModal";
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showVerifyModal, setShowVerifyModal] = useState(false);
   const [currentFeature, setCurrentFeature] = useState(0);
+  const navigate = useNavigate();
 
   const pollutionTypes = [
     {
@@ -107,6 +111,15 @@ const LandingPage = () => {
     featuresSection.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleCloseVerifyModal = () => {
+    setShowVerifyModal(false);
+  };
+
+  const handleVerifyEmail = () => {
+    navigate("/send-email");
+    setShowVerifyModal(false);
+  };
+
   return (
     <>
       <div className="home-container">
@@ -182,6 +195,7 @@ const LandingPage = () => {
                 image={type.image}
                 route={type.route}
                 onRequireLogin={() => setShowLoginModal(true)}
+                onRequireVerify={() => setShowVerifyModal(true)}
               />
             ))}
           </div>
@@ -231,6 +245,13 @@ const LandingPage = () => {
 
       {showLoginModal && (
         <LoginModal onClose={() => setShowLoginModal(false)} />
+      )}
+
+      {showVerifyModal && (
+        <VerifyEmailModal
+          onClose={handleCloseVerifyModal}
+          onVerify={handleVerifyEmail}
+        />
       )}
     </>
   );

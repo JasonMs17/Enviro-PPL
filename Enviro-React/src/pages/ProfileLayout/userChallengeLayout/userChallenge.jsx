@@ -1,5 +1,6 @@
 import "./userChallenge.css";
 import { useEffect, useState } from "react";
+import SkeletonCard from "../../../components/SkeletonCard";
 
 export default function UserChallenge() {
   const [challenges, setChallenges] = useState([]);
@@ -8,15 +9,17 @@ export default function UserChallenge() {
   useEffect(() => {
     const fetchChallenges = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/user-challenge", {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            "Content-Type": "application/json",
-          },
-        });
-
+        const response = await fetch(
+          "http://localhost:8000/api/user-challenge",
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Gagal ambil data tantangan");
@@ -36,31 +39,53 @@ export default function UserChallenge() {
   }, []);
 
   if (loading) {
-    return <p>Loading tantangan...</p>;
+    return (
+      <div className="row-section-challenge">
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+    );
+  }
+
+  if (challenges.length === 0) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ fontSize: "1.2rem", color: "#666" }}>
+          Belum ada tantangan yang diselesaikan.
+        </p>
+      </div>
+    );
   }
 
   return (
     <div className="row-section-challenge">
-      {challenges.length > 0 ? (
-        challenges.map((challenge, index) => (
-          <div className="progress-container-challenge" key={challenge.challenge_id || index}>
-            <div className="user-challenge-profile">
-              <div className="challenge-card-user-progress">
-                <div className="challenge-card-header">
-                  <div className="challenge-card-content">
-                    <h5 className="challenge-card-name">{challenge.title}</h5>
-                  </div>
+      {challenges.map((challenge, index) => (
+        <div
+          className="progress-container-challenge"
+          key={challenge.challenge_id || index}
+        >
+          <div className="user-challenge-profile">
+            <div className="challenge-card-user-progress">
+              <div className="challenge-card-header">
+                <div className="challenge-card-content">
+                  <h5 className="challenge-card-name">{challenge.title}</h5>
                 </div>
-                <div className="challenge-card-summary">
-                  <p>{challenge.description}</p>
-                </div>
+              </div>
+              <div className="challenge-card-summary">
+                <p>{challenge.description}</p>
               </div>
             </div>
           </div>
-        ))
-      ) : (
-        <p>Belum ada tantangan yang tersedia.</p>
-      )}
+        </div>
+      ))}
     </div>
   );
 }

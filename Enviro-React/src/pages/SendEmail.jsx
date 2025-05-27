@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./SendEmail.css";
 import logoEnviro from "../assets/logoEnviro.png";
-
-axios.defaults.withCredentials = true;
+import http from "../utils/fetch";
 
 function SendEmail() {
   const [status, setStatus] = useState({
@@ -15,13 +13,15 @@ function SendEmail() {
   useEffect(() => {
     const checkVerificationStatus = async () => {
       try {
-        const response = await axios.get("/api/email/verify");
-        if (response.status === 200) {
+        const response = await http("/api/email/verify");
+        if (response.ok) {
           setStatus({
             success: true,
             message: "Verifikasi Email Berhasil Dikirim",
             loading: false,
           });
+        } else {
+          throw new Error("Verifikasi gagal");
         }
       } catch (error) {
         setStatus({
@@ -38,13 +38,18 @@ function SendEmail() {
   const handleResend = async () => {
     setStatus((prev) => ({ ...prev, loading: true }));
     try {
-      const response = await axios.post("/api/email/verify");
+      const response = await http("/api/email/verify", {
+        method: "POST",
+      });
+
       if (response.ok) {
         setStatus({
           success: true,
           message: "Verifikasi Email Berhasil Dikirim",
           loading: false,
         });
+      } else {
+        throw new Error("Verifikasi gagal");
       }
     } catch (error) {
       setStatus({
@@ -58,7 +63,7 @@ function SendEmail() {
   const renderIcon = () => {
     if (status.loading) {
       return (
-        <svg className="spinner" viewBox="0 0 50 50">
+        <svg className="email-spinner" viewBox="0 0 50 50">
           <circle
             cx="25"
             cy="25"

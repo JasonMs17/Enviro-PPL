@@ -1,68 +1,67 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./VerifyEmail.css";
 import logoEnviro from "../assets/logoEnviro.png";
+import http from "../utils/fetch";
 
 function VerifyEmail() {
+  const [status, setStatus] = useState({
+    success: false,
+    message: "",
+    loading: true,
+  });
   const location = useLocation();
   const navigate = useNavigate();
-  const [status, setStatus] = useState({
-    loading: true,
-    success: false,
-    message: "Memverifikasi Email...",
-  });
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const id = searchParams.get("id");
-    const hash = searchParams.get("hash");
-    const expires = searchParams.get("expires");
-    const signature = searchParams.get("signature");
+    const verifyEmail = async () => {
+      try {
+        // Ambil semua parameter dari URL
+        const searchParams = new URLSearchParams(location.search);
+        const id = searchParams.get("id");
+        const hash = searchParams.get("hash");
+        const expires = searchParams.get("expires");
+        const signature = searchParams.get("signature");
 
-    const token = localStorage.getItem("token");
+        if (!id || !hash || !expires || !signature) {
+          throw new Error("Link verifikasi tidak valid");
+        }
 
-    if (!id || !hash || !expires || !signature || !token) {
-      setStatus({
-        loading: false,
-        success: false,
-        message: "Link verifikasi tidak valid",
-      });
-      return;
-    }
+        const response = await http(
+          `/api/verify-email/${id}/${hash}?expires=${expires}&signature=${signature}`
+        );
 
-    const backendUrl = `/api/verify-email/${id}/${hash}?expires=${expires}&signature=${signature}`;
-
-    axios
-      .get(backendUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
+        if (response.ok) {
+          setStatus({
+            success: true,
+            message: "Email berhasil diverifikasi!",
+            loading: false,
+          });
+          // Redirect ke home setelah 3 detik
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
+        } else {
+          const data = await response.json();
+          throw new Error(data.message || "Verifikasi gagal");
+        }
+      } catch (error) {
+        console.error(error);
         setStatus({
-          loading: false,
-          success: true,
-          message: "Email berhasil diverifikasi. Mengarahkan ke home...",
-        });
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
-      })
-      .catch((error) => {
-        setStatus({
-          loading: false,
           success: false,
-          message: "Verifikasi email gagal",
+          message: error.message || "Verifikasi email gagal",
+          loading: false,
         });
-        console.error(error.response?.data || error.message);
-      });
+      }
+    };
+
+    verifyEmail();
   }, [location, navigate]);
 
   const renderIcon = () => {
     if (status.loading) {
       return (
-        <svg className="spinner" viewBox="0 0 50 50">
+        <svg className="email-spinner" viewBox="0 0 50 50">
           <circle
             cx="25"
             cy="25"
@@ -103,7 +102,9 @@ function VerifyEmail() {
           <img src={logoEnviro} alt="Enviro Logo" />
         </div>
 
-        <h2 className="verify-email-title">{status.message}</h2>
+        <h2 className="verify-email-title">
+          {status.loading ? "Memverifikasi Email..." : status.message}
+        </h2>
 
         <div
           className={`status-icon ${
@@ -112,6 +113,12 @@ function VerifyEmail() {
         >
           {renderIcon()}
         </div>
+
+        {status.success && (
+          <p className="redirect-message">
+            Anda akan diarahkan ke halaman utama dalam beberapa detik...
+          </p>
+        )}
 
         {!status.loading && !status.success && (
           <button className="back-button" onClick={() => navigate("/login")}>

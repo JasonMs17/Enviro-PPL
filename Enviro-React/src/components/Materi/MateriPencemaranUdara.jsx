@@ -5,6 +5,7 @@ import SidebarPencemaranUdara from "../SidebarCourse/SidebarPencemaranUdara";
 import QuizComponent from "@/components/Kuis/Kuis";
 import { http } from "../../utils/fetch";
 import Chatbot from "@/components/Chatbot/Chatbot";
+import ContentLoading from "@/components/ContentLoading";
 
 export default function CourseMaterialUdara() {
   const params = useParams();
@@ -67,7 +68,7 @@ export default function CourseMaterialUdara() {
       <div className="course-container">
         <div className="course-article">
           <div className="course-content">
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <ContentLoading />}
             {error && <p style={{ color: "red" }}>{error}</p>}
             {!isLoading &&
               !error &&

@@ -1,23 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import './Challenge.css';
-import pupuk from '../../assets/pupuk.png';
-import treeStage1 from '../../assets/tree1.png';
-import treeStage2 from '../../assets/tree2.png';
-import treeStage3 from '../../assets/tree3.png';
-import treeStage4 from '../../assets/tree4.png';
-import treeStage5 from '../../assets/tree5.png';
-import treeStage6 from '../../assets/tree6.png';
-import bg1 from '../../assets/bg1.png';
-import bg2 from '../../assets/bg2.png';
-import bg3 from '../../assets/bg3.png';
-import bg4 from '../../assets/bg4.png';
-import bg5 from '../../assets/bg5.png';
-import Sidebar from '../../components/SidebarChallenge/Sidebar';
-import { http } from '../../utils/fetch';
-import { useNavigate } from 'react-router-dom';
-import Modal from '../../components/Modal/Modal'; // Pastikan komponen Modal sudah dibuat
+import React, { useState, useEffect } from "react";
+import "./Challenge.css";
+import pupuk from "../../assets/pupuk.png";
+import treeStage1 from "../../assets/tree1.png";
+import treeStage2 from "../../assets/tree2.png";
+import treeStage3 from "../../assets/tree3.png";
+import treeStage4 from "../../assets/tree4.png";
+import treeStage5 from "../../assets/tree5.png";
+import treeStage6 from "../../assets/tree6.png";
+import bg1 from "../../assets/bg1.png";
+import bg2 from "../../assets/bg2.png";
+import bg3 from "../../assets/bg3.png";
+import bg4 from "../../assets/bg4.png";
+import bg5 from "../../assets/bg5.png";
+import Sidebar from "../../components/SidebarChallenge/Sidebar";
+import { http } from "../../utils/fetch";
+import { useNavigate } from "react-router-dom";
+import Modal from "../../components/Modal/Modal"; // Pastikan komponen Modal sudah dibuat
 
-const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5, treeStage6];
+const trees = [
+  treeStage1,
+  treeStage2,
+  treeStage3,
+  treeStage4,
+  treeStage5,
+  treeStage6,
+];
 const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg5];
 
 const Challenge = () => {
@@ -26,7 +33,8 @@ const Challenge = () => {
   const [canClaim, setCanClaim] = useState(true);
   const [countdown, setCountdown] = useState(0);
   const [hasActiveChallenge, setHasActiveChallenge] = useState(false);
-  const [showActiveChallengeModal, setShowActiveChallengeModal] = useState(false);
+  const [showActiveChallengeModal, setShowActiveChallengeModal] =
+    useState(false);
   const navigate = useNavigate();
 
   const stage = progress === 100 ? 5 : Math.floor(progress / 20);
@@ -36,7 +44,7 @@ const Challenge = () => {
       try {
         const res = await http("/api/check-active-challenge");
         const data = await res.json();
-        
+
         if (data.has_active_challenge) {
           setHasActiveChallenge(true);
           setShowActiveChallengeModal(true);
@@ -86,7 +94,10 @@ const Challenge = () => {
     const h = Math.floor((seconds % (3600 * 24)) / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
-    return `${String(d).padStart(2, '0')}:${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(d).padStart(2, "0")}:${String(h).padStart(
+      2,
+      "0"
+    )}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
 
   const handleChallengeComplete = () => {
@@ -95,7 +106,7 @@ const Challenge = () => {
 
   const handleNavigateToClaimed = () => {
     setShowActiveChallengeModal(false);
-    navigate('/challenge-claimed');
+    navigate("/challenge-claimed");
   };
 
   return (
@@ -103,15 +114,15 @@ const Challenge = () => {
       className={`challenge-page stage-${stage}`}
       style={{
         backgroundImage: `url(${backgrounds[stage]})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        minHeight: '100vh',
-        transition: 'background-image 0.5s ease-in-out',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+        transition: "background-image 0.5s ease-in-out",
       }}
     >
       {/* Modal untuk challenge aktif */}
-      <Modal 
+      <Modal
         isOpen={showActiveChallengeModal}
         onClose={handleNavigateToClaimed}
         closeText="Oke"
@@ -120,12 +131,15 @@ const Challenge = () => {
         <p>selesain itu dulu yaa 😉</p>
       </Modal>
 
-
       <div className="challenge-layout">
         <div className="empty-column">
           <div className="progress-preview-wrapper">
             <div className="progress-bar-wrapper">
-              <progress value={progress} max="100" className="progress-bar"></progress>
+              <progress
+                value={progress}
+                max="100"
+                className="progress-bar"
+              ></progress>
               <span className="progress-text">{progress}%</span>
             </div>
 
@@ -151,14 +165,19 @@ const Challenge = () => {
         </div>
 
         <div className="button-column">
-            <button className="btn-circle" onClick={() => setChallengeOpen(!challengeOpen)}>
-              <img src={pupuk} alt="Pupuk" className="pupuk-icon" />
-              <div className="btn-label">Challenge</div>
-            </button>
+          <button
+            className="btn-circle"
+            onClick={() => setChallengeOpen(!challengeOpen)}
+          >
+            <img src={pupuk} alt="Pupuk" className="pupuk-icon" />
+            <div className="btn-label">Challenge</div>
+          </button>
         </div>
       </div>
 
-      {challengeOpen && <Sidebar onCompleteChallenge={handleChallengeComplete} />}
+      {challengeOpen && (
+        <Sidebar onCompleteChallenge={handleChallengeComplete} />
+      )}
     </div>
   );
 };

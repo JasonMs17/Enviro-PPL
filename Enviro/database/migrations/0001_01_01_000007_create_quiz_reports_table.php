@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('quiz_report_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('quiz_id');
-            $table->string('user_answer');
+            $table->string('user_answer')->nullable();
             $table->boolean('is_correct'); 
             $table->dateTime('completed_at')->nullable();
             $table->timestamps();

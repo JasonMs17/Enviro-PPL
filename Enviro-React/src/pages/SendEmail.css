@@ -64,11 +64,11 @@
     color: white;
 }
 
-.status-icon .spinner {
-    animation: spin 1s linear infinite;
+.status-icon .email-spinner {
+    animation: email-spin 1s linear infinite;
 }
 
-@keyframes spin {
+@keyframes email-spin {
     0% {
         transform: rotate(0deg);
     }
@@ -78,13 +78,13 @@
     }
 }
 
-.status-icon .spinner circle {
+.status-icon .email-spinner circle {
     stroke-dasharray: 150, 200;
     stroke-dashoffset: -10;
-    animation: dash 1.5s ease-in-out infinite;
+    animation: email-dash 1.5s ease-in-out infinite;
 }
 
-@keyframes dash {
+@keyframes email-dash {
     0% {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;

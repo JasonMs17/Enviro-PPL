@@ -1,24 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import './ChallengeClaimed.css';
-import treeStage1 from '../../assets/tree1.png';
-import treeStage2 from '../../assets/tree2.png';
-import treeStage3 from '../../assets/tree3.png';
-import treeStage4 from '../../assets/tree4.png';
-import treeStage5 from '../../assets/tree5.png';
-import treeStage6 from '../../assets/tree6.png';
-import bg1 from '../../assets/bg1.png';
-import bg2 from '../../assets/bg2.png';
-import bg3 from '../../assets/bg3.png';
-import bg4 from '../../assets/bg4.png';
-import bg5 from '../../assets/bg5.png';
+import React, { useState, useEffect } from "react";
+import "./ChallengeClaimed.css";
+import Loading from "../../components/Loading";
+import treeStage1 from "../../assets/tree1.png";
+import treeStage2 from "../../assets/tree2.png";
+import treeStage3 from "../../assets/tree3.png";
+import treeStage4 from "../../assets/tree4.png";
+import treeStage5 from "../../assets/tree5.png";
+import treeStage6 from "../../assets/tree6.png";
+import bg1 from "../../assets/bg1.png";
+import bg2 from "../../assets/bg2.png";
+import bg3 from "../../assets/bg3.png";
+import bg4 from "../../assets/bg4.png";
+import bg5 from "../../assets/bg5.png";
 import { http } from "../../utils/fetch";
 
-const trees = [treeStage1, treeStage2, treeStage3, treeStage4, treeStage5, treeStage6];
+const trees = [
+  treeStage1,
+  treeStage2,
+  treeStage3,
+  treeStage4,
+  treeStage5,
+  treeStage6,
+];
 const backgrounds = [bg1, bg2, bg3, bg4, bg5, bg5];
 
 const Challenge = () => {
   const [progress, setProgress] = useState(0);
-    const stage = progress === 100 ? 5 : Math.floor(progress / 20);
+  const stage = progress === 100 ? 5 : Math.floor(progress / 20);
 
   const [selectedOption, setSelectedOption] = useState(null);
   const [showUploadPopup, setShowUploadPopup] = useState(false);
@@ -37,16 +45,20 @@ const Challenge = () => {
     const fetchChallengeAndCountdown = async () => {
       try {
         const res = await http("/api/user/claimed-challenge");
-        if (!res.ok) throw new Error('Failed to fetch challenge');
+        if (!res.ok) throw new Error("Failed to fetch challenge");
 
         const data = await res.json();
-        
+
         // Debugging - log response data
-        console.log('API Response:', data);
+        console.log("API Response:", data);
 
         // Pastikan data yang diperlukan ada
-        if (!data || typeof data.seconds_remaining === 'undefined' || typeof data.completed === 'undefined') {
-          throw new Error('Invalid response structure');
+        if (
+          !data ||
+          typeof data.seconds_remaining === "undefined" ||
+          typeof data.completed === "undefined"
+        ) {
+          throw new Error("Invalid response structure");
         }
 
         setChallengeData(data);
@@ -164,7 +176,7 @@ const Challenge = () => {
     let timer;
     if (countdown > 0) {
       timer = setInterval(() => {
-        setCountdown(prev => {
+        setCountdown((prev) => {
           const newCount = prev - 1;
           if (newCount <= 0) {
             clearInterval(timer);
@@ -182,21 +194,21 @@ const Challenge = () => {
       try {
         if (countdown > 0 && countdown <= 86400) {
           const statusRes = await http("/api/check-reminder-status");
-          if (!statusRes.ok) throw new Error('Failed to check reminder status');
+          if (!statusRes.ok) throw new Error("Failed to check reminder status");
 
           const { reminderSent } = await statusRes.json();
 
           if (!reminderSent) {
             const reminderRes = await http("/api/send-reminder-email", {
-              method: "POST"
+              method: "POST",
             });
 
-            if (!reminderRes.ok) throw new Error('Failed to send reminder');
+            if (!reminderRes.ok) throw new Error("Failed to send reminder");
             console.log("Reminder email sent successfully");
           }
         }
       } catch (err) {
-        console.error('Error in reminder process:', err);
+        console.error("Error in reminder process:", err);
       }
     };
 
@@ -210,7 +222,10 @@ const Challenge = () => {
     const h = Math.floor((seconds % (3600 * 24)) / 3600);
     const m = Math.floor((seconds % 3600) / 60);
     const s = seconds % 60;
-    return `${String(d).padStart(2, '0')}:${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    return `${String(d).padStart(2, "0")}:${String(h).padStart(
+      2,
+      "0"
+    )}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
 
   useEffect(() => {
@@ -220,11 +235,11 @@ const Challenge = () => {
           method: "POST",
         });
 
-        if (!res.ok) throw new Error('Failed to deactivate challenge');
+        if (!res.ok) throw new Error("Failed to deactivate challenge");
 
         localStorage.removeItem("challengeSubmitted");
         setChallengeSubmitted(false);
-        window.location.href = '/challenge';
+        window.location.href = "/challenge";
       } catch (err) {
         console.error("Failed to update challenge status:", err);
       }
@@ -235,19 +250,38 @@ const Challenge = () => {
     }
   }, [countdown]);
 
-  if (!challengeData) return <p>Loading...</p>;
+  if (!challengeData) return <Loading />;
 
   return (
-    <div className={`challenge-page stage-${stage}`} style={{ backgroundImage: `url(${backgrounds[stage]})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', minHeight: '100vh', transition: 'background-image 0.5s ease-in-out' }}>
+    <div
+      className={`challenge-page stage-${stage}`}
+      style={{
+        backgroundImage: `url(${backgrounds[stage]})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+        transition: "background-image 0.5s ease-in-out",
+      }}
+    >
       <div className="challenge-layout">
         <div className="empty-column">
           <div className="countdown-box">
             <p className="countdown-title">Challenge Reset</p>
-            <p className="countdown-time" style={{ color: 'brown', fontWeight: 'bold', fontSize: '1.2rem' }}>{formatCountdown(countdown)}</p>
+            <p
+              className="countdown-time"
+              style={{ color: "brown", fontWeight: "bold", fontSize: "1.2rem" }}
+            >
+              {formatCountdown(countdown)}
+            </p>
           </div>
           <div className="progress-preview-wrapper">
             <div className="progress-bar-wrapper">
-              <progress value={progress} max="100" className="progress-bar"></progress>
+              <progress
+                value={progress}
+                max="100"
+                className="progress-bar"
+              ></progress>
               <span className="progress-text">{progress}%</span>
             </div>
 
@@ -259,23 +293,37 @@ const Challenge = () => {
                   alt="Preview Tree"
                   className="preview-tree"
                 />
+                <img
+                  src={trees[stage + 1]}
+                  alt="Preview Tree"
+                  className="preview-tree"
+                />
               </div>
             )}
           </div>
         </div>
 
         <div className="center-column">
-          <img src={trees[stage]} alt="Tree stage" className={`tree-image tree-stage-${stage}`} />
+          <img
+            src={trees[stage]}
+            alt="Tree stage"
+            className={`tree-image tree-stage-${stage}`}
+          />
         </div>
 
         <div className="question-column">
           <div className="question-box">
             {challengeFailed ? (
               <>
-                <h3>Yah challenge nya gagal, coba lagi di challenge berikutnya ya!</h3>
-                <p>Kamu dapat mengambil challenge selanjutnya setelah countdown habis.</p>
+                <h3>
+                  Yah challenge nya gagal, coba lagi di challenge berikutnya ya!
+                </h3>
+                <p>
+                  Kamu dapat mengambil challenge selanjutnya setelah countdown
+                  habis.
+                </p>
               </>
-            ) : (challengeSubmitted || challengeData?.completed) ? (
+            ) : challengeSubmitted || challengeData?.completed ? (
               <>
                 <h3>Terimakasih telah menyelesaikan challenge minggu ini!😉</h3>
                 <p>Challenge akan dinonaktifkan setelah countdown habis.</p>
@@ -315,12 +363,23 @@ const Challenge = () => {
       </div>
 
       {showUploadPopup && (
-        <div className="popup-overlay" onClick={() => setShowUploadPopup(false)}>
-          <div className="popup" onClick={(e) => e.stopPropagation()}>            
+        <div
+          className="popup-overlay"
+          onClick={() => setShowUploadPopup(false)}
+        >
+          <div className="popup" onClick={(e) => e.stopPropagation()}>
             {uploadPreview && (
-              <div style={{ marginBottom: '1rem' }}>
-                <h3 style={{ marginBottom: '10px' }}>Preview Bukti:</h3>
-                <img src={uploadPreview} alt="Upload Preview" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '8px' }} />
+              <div style={{ marginBottom: "1rem" }}>
+                <h3 style={{ marginBottom: "10px" }}>Preview Bukti:</h3>
+                <img
+                  src={uploadPreview}
+                  alt="Upload Preview"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "200px",
+                    borderRadius: "8px",
+                  }}
+                />
               </div>
             )}
             <h3>{challengeData.question3}</h3>
@@ -330,7 +389,9 @@ const Challenge = () => {
               onChange={(e) => setUploadText(e.target.value)}
               placeholder="Jawaban teks"
             />
-            <label htmlFor="file-upload" className="upload-btn">Upload Bukti</label>
+            <label htmlFor="file-upload" className="upload-btn">
+              Upload Bukti
+            </label>
             <input
               id="file-upload"
               type="file"
@@ -353,8 +414,17 @@ const Challenge = () => {
       {showRewardPopup && (
         <div className="popup-overlay">
           <div className="popup">
-            <img src={challengeData.reward} alt="Reward" style={{ maxWidth: '200%' }} />
-            <a href={challengeData.reward} download target="_blank" rel="noopener noreferrer">
+            <img
+              src={challengeData.reward}
+              alt="Reward"
+              style={{ maxWidth: "200%" }}
+            />
+            <a
+              href={challengeData.reward}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <button>Download</button>
             </a>
             <button onClick={handleCloseReward}>Close</button>
@@ -366,8 +436,12 @@ const Challenge = () => {
         <div className="popup-overlay" onClick={handleConfirmCancel}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
             <h3>Kamu yakin milih ini?</h3>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-              <button className="btn-confirm" onClick={handleConfirmYes}>Iya</button>
+            <div
+              style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
+            >
+              <button className="btn-confirm" onClick={handleConfirmYes}>
+                Iya
+              </button>
               <button onClick={handleConfirmCancel}>Batal</button>
             </div>
           </div>

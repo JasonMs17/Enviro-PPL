@@ -26,7 +26,10 @@ function App() {
       "/pencemaran-air",
       "/pencemaran-udara",
       "/pencemaran-tanah",
-      "/kuis"
+      "/kuis",
+      "/profile",
+      "/challenge",
+      "/challenge-claimed",
     ];
     return hiddenPrefixes.some((prefix) =>
       location.pathname.startsWith(prefix)

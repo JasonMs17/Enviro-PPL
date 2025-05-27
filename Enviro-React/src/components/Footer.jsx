@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export default function Footer() {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -35,10 +42,19 @@ export default function Footer() {
                 <Link to="/">Beranda</Link>
               </li>
               <li>
-                <Link to="/tentang">Tentang Kami</Link>
+                <Link to="/about-us">Tentang Kami</Link>
               </li>
               <li>
-                <Link to="/materi">Materi</Link>
+                <Link
+                  to="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Navigate("/")
+                    setTimeout(() => scrollToSection("explore-section"), 100);
+                  }}
+                >
+                  Materi
+                </Link>
               </li>
               <li>
                 <Link to="/challenge">Challenge</Link>
@@ -49,16 +65,13 @@ export default function Footer() {
             <h3>Materi</h3>
             <ul>
               <li>
-                <Link to="/pencemaran-tanah">Pencemaran Tanah</Link>
+                <Link to="/pencemaran-tanah/19">Polusi Tanah</Link>
               </li>
               <li>
-                <Link to="/pencemaran-air">Pencemaran Air</Link>
+                <Link to="/pencemaran-air/1">Polusi Air</Link>
               </li>
               <li>
-                <Link to="/pencemaran-udara">Pencemaran Udara</Link>
-              </li>
-              <li>
-                <Link to="/konservasi">Konservasi</Link>
+                <Link to="/pencemaran-udara/10">Polusi Udara</Link>
               </li>
             </ul>
           </div>
@@ -74,7 +87,7 @@ export default function Footer() {
           <p>&copy; {new Date().getFullYear()} Enviro. All rights reserved.</p>
           {/* <div className="footer-legal">
             <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms of Service</Link>
+          <Link to="/terms">Terms of Service</Link>
           </div> */}
         </div>
       </div>

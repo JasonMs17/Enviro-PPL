@@ -2,22 +2,50 @@ import "./userCourse.css";
 import pencemaran from "../../../assets/pencemaranUdara.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SkeletonCard from "../../../components/SkeletonCard";
 
 export default function UserCourse() {
   const [materials, setMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getCategoryByMaterialId = (materialId) => {
+    if (materialId >= 1 && materialId <= 9) {
+      return "pencemaran-air";
+    } else if (materialId >= 10 && materialId <= 18) {
+      return "pencemaran-udara";
+    } else if (materialId >= 19 && materialId <= 27) {
+      return "pencemaran-tanah";
+    }
+    return "pencemaran-udara";
+  };
+
+  const getCategoryTitle = (category) => {
+    switch (category) {
+      case "pencemaran-air":
+        return "Pencemaran Air";
+      case "pencemaran-udara":
+        return "Pencemaran Udara";
+      case "pencemaran-tanah":
+        return "Pencemaran Tanah";
+      default:
+        return "Kategori Lainnya";
+    }
+  };
+
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/user-materials", {
-          method: "GET",
-          credentials: "include", 
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          "http://localhost:8000/api/user-materials",
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Gagal ambil data materi selesai");
@@ -37,38 +65,82 @@ export default function UserCourse() {
   }, []);
 
   if (loading) {
-    return <p>Loading materi...</p>;
+    return (
+      <div style={{ width: "100%", overflow: "hidden" }}>
+        <div className="row-section">
+          <SkeletonCard />
+          <SkeletonCard />
+        </div>
+      </div>
+    );
   }
 
+  if (materials.length === 0) {
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ fontSize: "1.2rem", color: "#666" }}>
+          Belum ada materi yang kamu selesaikan.
+        </p>
+      </div>
+    );
+  }
+
+  // Group materials by category
+  const groupedMaterials = materials.reduce((acc, material) => {
+    const category = getCategoryByMaterialId(material.material_id);
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(material);
+    return acc;
+  }, {});
+
   return (
-    <div className="row-section">
-      {materials.length > 0 ? (
-        materials.map((material, index) => (
-          <div className="progress-container" key={material.material_id || index}>
-            <div className="user-course-profile">
-             <Link className="course-card-user-progress" to={`/pencemaran-${material.category}/${material.material_id}`}>
-                <div className="course-card-header">
-                  <div className="course-card-logo-wrapper">
-                    <img
-                      src={material.photo || pencemaran}
-                      className="course-card-logo"
-                      alt={material.title}
-                    />
-                  </div>
-                  <div className="course-card-content">
-                    <h5 className="course-card-name">{material.title}</h5>
-                  </div>
+    <div className="materials-container">
+      {Object.entries(groupedMaterials).map(([category, categoryMaterials]) => (
+        <div key={category} className="category-section">
+          <h2 className="category-title">{getCategoryTitle(category)}</h2>
+          <div className="row-section">
+            {categoryMaterials.map((material, index) => (
+              <div
+                className="progress-container"
+                key={material.material_id || index}
+              >
+                <div className="user-course-profile">
+                  <Link
+                    className="course-card-user-progress"
+                    to={`/${category}/${material.material_id}`}
+                  >
+                    <div className="course-card-header">
+                      <div className="course-card-logo-wrapper">
+                        <img
+                          src={material.photo || pencemaran}
+                          className="course-card-logo"
+                          alt={material.title}
+                        />
+                      </div>
+                      <div className="course-card-content">
+                        <h5 className="course-card-name">{material.title}</h5>
+                      </div>
+                    </div>
+                    <div className="course-card-summary">
+                      <p>{material.content}</p>
+                    </div>
+                  </Link>
                 </div>
-                <div className="course-card-summary">
-                  <p>{material.content}</p>
-                </div>
-              </Link>
-            </div>
+              </div>
+            ))}
           </div>
-        ))
-      ) : (
-        <p>Belum ada materi yang kamu selesaikan.</p>
-      )}
+        </div>
+      ))}
     </div>
   );
 }

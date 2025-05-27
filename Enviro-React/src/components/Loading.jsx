@@ -1,11 +1,15 @@
+import React from "react";
+import "./Loading.css";
+
 const Loading = () => {
-    return (
-      <div style={{ textAlign: "center", padding: "2rem" }}>
-        <h2>Loading...</h2>
-        <p>Mohon tunggu sebentar...</p>
+  return (
+    <div className="loading-container">
+      <div className="loading-spinner">
+        <div className="spinner"></div>
       </div>
-    );
-  };
-  
-  export default Loading;
-  
+      <p className="loading-text">Loading...</p>
+    </div>
+  );
+};
+
+export default Loading;

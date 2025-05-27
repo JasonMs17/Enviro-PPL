@@ -3,7 +3,7 @@
   top: 0;
   z-index: 999;
   background-color: #ffffff;
-  width: 100vw;
+  /* width: 100vw; */
 }
 .hamburger {
   display: none; 

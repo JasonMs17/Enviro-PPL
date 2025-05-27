@@ -10,14 +10,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
-    console.log("Stored user:", storedUser);
+    // console.log("Stored user:", storedUser);
 
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser); // Set the nested user directly
       setLoading(false);
 
-      console.log("User after setting:", parsedUser); 
+      // console.log("User after setting:", parsedUser); 
     } else {
       fetchUserFromSession();
     }
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         method: "GET",
       });
 
-      console.log("Response received:", response);
+      // console.log("Response received:", response);
 
       if (!response.ok) {
         throw new Error("Failed to fetch user data");

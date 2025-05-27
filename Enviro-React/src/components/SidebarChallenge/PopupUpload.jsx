@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import './PopupUpload.css';
+import React, { useRef } from "react";
+import "./PopupUpload.css";
 
 const PopupUpload = ({ onClose }) => {
   const fileInputRef = useRef(null);
@@ -20,12 +20,8 @@ const PopupUpload = ({ onClose }) => {
         <button className="upload-button" onClick={handleUploadClick}>
           Upload Bukti
         </button>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-        />
-        <button className="close-button" onClick={onClose}>
+        <input type="file" ref={fileInputRef} style={{ display: "none" }} />
+        <button className="popup-upload-close-button" onClick={onClose}>
           Close
         </button>
       </div>

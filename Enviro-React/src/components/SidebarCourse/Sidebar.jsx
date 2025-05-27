@@ -11,7 +11,6 @@ import {
 import { http } from "@/utils/fetch";
 import "./Sidebar.css";
 
-
 const SkeletonDropdown = () => (
   <div className="skeleton-dropdown">
     <div className="skeleton-dropdown-header"></div>
@@ -124,157 +123,186 @@ export default function SidebarCourseModule({
 
   const progress = progressByType[pollutionTypeId]?.progress || 0;
 
+  const isMaterialLocked = (item, subbab) => {
+    // Cari index subbab saat ini
+    const currentSubbabIndex = subbabs.findIndex((s) => s.key === subbab.key);
+
+    // Jika ini adalah subbab pertama
+    if (currentSubbabIndex === 0) {
+      // Jika ini adalah materi pertama dalam subbab pertama, selalu unlocked
+      const isFirstInFirstSubbab = subbab.items[0].id === item.id;
+      if (isFirstInFirstSubbab) return false;
+
+      // Cek materi sebelumnya dalam subbab yang sama
+      const currentIndex = subbab.items.findIndex((i) => i.id === item.id);
+      if (currentIndex <= 0) return false;
+
+      const previousMaterial = subbab.items[currentIndex - 1];
+      return !completedMaterials.includes(previousMaterial.id);
+    }
+
+    // Untuk subbab selain yang pertama
+    // Cek apakah subbab sebelumnya sudah selesai (semua materi dalam subbab sebelumnya harus selesai)
+    const previousSubbab = subbabs[currentSubbabIndex - 1];
+    const isPreviousSubbabComplete = previousSubbab.items.every((material) =>
+      completedMaterials.includes(material.id)
+    );
+
+    if (!isPreviousSubbabComplete) return true;
+
+    // Jika subbab sebelumnya selesai, cek materi sebelumnya dalam subbab saat ini
+    const currentIndex = subbab.items.findIndex((i) => i.id === item.id);
+    if (currentIndex <= 0) return false;
+
+    const previousMaterial = subbab.items[currentIndex - 1];
+    return !completedMaterials.includes(previousMaterial.id);
+  };
+
   return (
-  <>
-   {isMobile && !isOpen && (
-  <FontAwesomeIcon
-    icon={faCircleChevronRight}
-    style={{
-      position: "fixed",
-      top: "90px", 
-      left: "-15px",
-      fontSize: "30px",
-      color: "#1DBC60",
-      cursor: "pointer",
-      zIndex: 2000, 
-    }}
-    onClick={toggleSidebar}
-  />
-)} 
-    <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
-      {isOpen ? (
-        <div className="progress-bar-container">
-          <div
-            className="progress-bar-fill"
-            style={{
-              width: loading ? "0%" : `${progress}%`,
-              backgroundColor: loading ? "#888" : "#1DBC60",
-            }}
-          />
-          <span className="progress-text">
-            {loading ? "Loading..." : `${progress}% selesai`}
-          </span>
-        </div>
-      ) : (
-        <div className="progress-bar-mini">
-          <div
-            className="progress-bar-mini-fill"
-            style={{
-              height: loading ? "0%" : `${progress}%`,
-              backgroundColor: loading ? "#888" : "#1DBC60",
-            }}
-          />
-        </div>
-      )}
-
-      
-
-      <h1 className="judul-bab">
-        {isMobile && isOpen && `📘 ${title}`}
+    <>
+      {isMobile && !isOpen && (
         <FontAwesomeIcon
-          icon={isOpen ? faCircleChevronLeft : faCircleChevronRight}
-          style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
+          icon={faCircleChevronRight}
+          style={{
+            position: "fixed",
+            top: "90px",
+            left: "-15px",
+            fontSize: "30px",
+            color: "#1DBC60",
+            cursor: "pointer",
+            zIndex: 2000,
+          }}
           onClick={toggleSidebar}
         />
-      </h1>
+      )}
+      <div className={`SidebarCourse ${isOpen ? "open" : "closed"}`}>
+        {isOpen ? (
+          <div className="progress-bar-container">
+            <div
+              className="progress-bar-fill"
+              style={{
+                width: loading ? "0%" : `${progress}%`,
+                backgroundColor: loading ? "#888" : "#1DBC60",
+              }}
+            />
+            <span className="progress-text">
+              {loading ? "" : `${progress}% selesai`}
+            </span>
+          </div>
+        ) : (
+          <div className="progress-bar-mini">
+            <div
+              className="progress-bar-mini-fill"
+              style={{
+                height: loading ? "0%" : `${progress}%`,
+                backgroundColor: loading ? "#888" : "#1DBC60",
+              }}
+            />
+          </div>
+        )}
 
-      {isOpen &&
-        (loading
-          ? subbabs.map((subbab) => <SkeletonDropdown key={subbab.key} />)
-          : subbabs.map((subbab) => (
-              <div className={`subbab ${subbab.key}`} key={subbab.key}>
-                <div
-                  className="dropdown-header"
-                  onClick={() => toggleDropDown(subbab.key)}
-                >
-                  <span className="dropdown-title">{subbab.title}</span>
-                  <FontAwesomeIcon
-                    icon={
-                      dropdownStates[subbab.key] ? faChevronUp : faChevronDown
-                    }
-                    style={{ marginLeft: "10px", cursor: "pointer" }}
-                  />
-                </div>
-                {dropdownStates[subbab.key] && (
-                  <ul className="course-list">
-                    {subbab.items.map((item) => {
-                      const isQuiz = item.isQuiz === true;
-                      const targetLink = isQuiz
-                        ? `${basePath}/kuis/${item.pollutionTypeId}/${item.subbab}`
-                        : `${basePath}/${item.id}`;
-                      const currentPath = location.pathname;
-                      const isActive = isQuiz
-                        ? currentPath === targetLink
-                        : String(item.id) === params.material_id;
+        <h1 className="judul-bab">
+          {isMobile && isOpen && `📘 ${title}`}
+          <FontAwesomeIcon
+            icon={isOpen ? faCircleChevronLeft : faCircleChevronRight}
+            style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
+            onClick={toggleSidebar}
+          />
+        </h1>
 
-                      const isDone = completedMaterials.includes(item.id);
+        {isOpen &&
+          (loading
+            ? subbabs.map((subbab) => <SkeletonDropdown key={subbab.key} />)
+            : subbabs.map((subbab) => (
+                <div className={`subbab ${subbab.key}`} key={subbab.key}>
+                  <div
+                    className="dropdown-header"
+                    onClick={() => toggleDropDown(subbab.key)}
+                  >
+                    <span className="dropdown-title">{subbab.title}</span>
+                    <FontAwesomeIcon
+                      icon={
+                        dropdownStates[subbab.key] ? faChevronUp : faChevronDown
+                      }
+                      style={{ marginLeft: "10px", cursor: "pointer" }}
+                    />
+                  </div>
+                  {dropdownStates[subbab.key] && (
+                    <ul className="course-list">
+                      {subbab.items.map((item) => {
+                        const isQuiz = item.isQuiz === true;
+                        const targetLink = isQuiz
+                          ? `${basePath}/kuis/${item.pollutionTypeId}/${item.subbab}`
+                          : `${basePath}/${item.id}`;
+                        const currentPath = location.pathname;
+                        const isActive = isQuiz
+                          ? currentPath === targetLink
+                          : String(item.id) === params.material_id;
 
-                      return (
-                        <li key={item.id}>
-                          <Link
-                            to={targetLink}
-                            state={
-                              isQuiz
-                                ? {
-                                    title: item.text,
-                                    pollutionTypeId: item.pollutionTypeId,
-                                    subbab: item.subbab,
-                                  }
-                                : undefined
-                            }
-                            onClick={async (e) => {
-                              if (!isQuiz && isQuizOngoing) {
-                                e.preventDefault();
-                                alert("Tidak boleh menyontek!");
-                              } else if (!isActive) {
-                                e.preventDefault();
-                                if (!isQuiz) await trackProgress(item.id);
-                                navigate(targetLink, {
-                                  state: isQuiz
-                                    ? {
-                                        title: item.text,
-                                        pollutionTypeId: item.pollutionTypeId,
-                                        subbab: item.subbab,
-                                      }
-                                    : undefined,
-                                });
+                        const isDone = completedMaterials.includes(item.id);
+                        const isLocked = isMaterialLocked(item, subbab);
+
+                        return (
+                          <li key={item.id}>
+                            <Link
+                              to={targetLink}
+                              state={
+                                isQuiz
+                                  ? {
+                                      title: item.text,
+                                      pollutionTypeId: item.pollutionTypeId,
+                                      subbab: item.subbab,
+                                    }
+                                  : undefined
                               }
-                            }}
-                            className={`link-item ${isActive ? "active" : ""}`}
-                            style={{
-                              color: isActive ? "#1DBC60" : "white",
-                              fontWeight: isActive ? "bold" : "normal",
-                              cursor:
-                                !isQuiz && isQuizOngoing
-                                  ? "not-allowed"
-                                  : "pointer",
-                            }}
-                          >
-                            {isDone ? (
-                              <CircleCheck
-                                size={20}
-                                style={{
-                                  color: isActive ? "#1DBC60" : "white",
-                                }}
-                              />
-                            ) : (
-                              <Circle
-                                size={20}
-                                style={{
-                                  color: isActive ? "#1DBC60" : "white",
-                                }}
-                              />
-                            )}
-                            {item.text}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            )))}
-    </div>
-  </>
+                              onClick={(e) => {
+                                if (isLocked) {
+                                  e.preventDefault();
+                                  alert(
+                                    "Selesaikan materi sebelumnya terlebih dahulu!"
+                                  );
+                                  return;
+                                }
+                                if (!isQuiz && isQuizOngoing) {
+                                  e.preventDefault();
+                                  alert("Tidak boleh menyontek!");
+                                }
+                              }}
+                              className={`link-item ${
+                                isActive ? "active" : ""
+                              } ${isLocked ? "locked" : ""}`}
+                              style={{
+                                color: isActive
+                                  ? "#1DBC60"
+                                  : isLocked
+                                  ? "#666"
+                                  : "white",
+                                fontWeight: isActive ? "bold" : "normal",
+                                cursor:
+                                  isLocked || (!isQuiz && isQuizOngoing)
+                                    ? "not-allowed"
+                                    : "pointer",
+                                opacity: isLocked ? 0.6 : 1,
+                              }}
+                            >
+                              {isDone ? (
+                                <CircleCheck size={16} />
+                              ) : (
+                                <Circle size={16} />
+                              )}
+                              <span>{item.text}</span>
+                              {isLocked && (
+                                <span className="lock-icon">🔒</span>
+                              )}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
+              )))}
+      </div>
+    </>
   );
 }

@@ -5,6 +5,7 @@ import SidebarPencemaranTanah from "../SidebarCourse/SidebarPencemaranTanah";
 import QuizComponent from "@/components/Kuis/Kuis";
 import { http } from "../../utils/fetch";
 import Chatbot from "@/components/Chatbot/Chatbot";
+import ContentLoading from "@/components/ContentLoading";
 
 export default function CourseMaterialTanah() {
   const params = useParams();
@@ -70,7 +71,7 @@ export default function CourseMaterialTanah() {
       <div className="course-container">
         <div className="course-article">
           <div className="course-content">
-            {isLoading && <p>Loading...</p>}
+            {isLoading && <ContentLoading />}
             {error && <p style={{ color: "red" }}>{error}</p>}
             {!isLoading &&
               !error &&

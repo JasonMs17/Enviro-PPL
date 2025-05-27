@@ -50,9 +50,9 @@
 
 /* Artikel & Konten */
 .course-article {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    margin-top: 0.5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    margin-top: 1rem !important;
     margin-bottom: 10rem !important;
 }
 
@@ -63,55 +63,63 @@
 }
 
 .course-content {
-    font-size: 20px;
-    line-height: 40px;
+    font-size: 18px;
+    line-height: 1.8;
     width: 100%;
     max-width: 900px;
     padding: 0 15px;
+    color: #2d3748;
 }
 
 /* Heading Style */
 .course-content h2,
 .course-content h3,
 .course-content h4 {
-    color: #3f3f46;
+    color: #1a202c;
     font-weight: 700;
-    line-height: 1.2;
-    margin-top: 0;
+    line-height: 1.3;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
 }
 
 .course-content h2 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #1DBC60;
+    padding-bottom: 0.5rem;
 }
 
 .course-content h3 {
-    font-size: 1.75rem;
+    font-size: 2rem;
     margin-bottom: 1.5rem;
+    color: #2d3748;
 }
 
 .course-content h4 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #4a5568;
 }
 
 /* Paragraph & List */
 .course-content p,
 .course-content li {
-    font-size: 20px;
-    line-height: 40px;
-    font-weight: 450;
-    margin-top: 0;
+    font-size: 18px;
+    line-height: 1.8;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    color: #4a5568;
 }
 
 .course-content p.paragraf-bold {
-    font-weight: bold;
+    font-weight: 600;
+    color: #2d3748;
 }
 
 /* Bab1AIrMateri3 */
 
 .course-content .line-bold {
-    font-weight: 550;
+    font-weight: 600;
     color: #1DBC60;
 }
 
@@ -184,6 +192,18 @@
 
 .course-content .italic-line {
     font-style: italic;
+    color: #4a5568;
+}
+
+/* List styling */
+.course-content ul,
+.course-content ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.course-content li {
+    margin-bottom: 0.75rem;
 }
 
 /* ========== RESPONSIVE ========== */
@@ -211,20 +231,25 @@
     }
 
     .course-content h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .course-content h3 {
-        font-size: 1.25rem;
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
     }
 
     .course-content h4 {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
     }
 
-    .course-content p {
-        font-size: 18px;
-        line-height: 32px;
+    .course-content p,
+    .course-content li {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 1rem;
     }
 }
 

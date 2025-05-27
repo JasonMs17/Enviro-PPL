@@ -121,7 +121,7 @@
   border-radius: 10px;
   height: 16px;
   width: 90%;
-  margin: 10px auto;
+  margin: 0 auto;
   position: relative;
 }
 
@@ -136,7 +136,9 @@
   font-size: 20px;
   text-align: center;
   color: white;
-  margin-top: 10px;
+  margin: 0;
+  height: 20px;
+  line-height: 20px;
 }
 
 .progress-bar-mini {
@@ -187,6 +189,20 @@
   font-weight: bold;
 }
 
+.link-item.locked {
+  background-color: rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+}
+
+.lock-icon {
+  margin-left: 8px;
+  font-size: 14px;
+}
+
+.link-item.locked:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 /* Skeleton Styling */
 .skeleton-dropdown {
   display: flex;
@@ -226,6 +242,7 @@
   overflow: hidden;
   position: relative;
 }
+
 /* Efek Shimmer */
 .skeleton-dropdown-header::before,
 .skeleton-item::before {
@@ -252,7 +269,8 @@
 @media screen and (max-width: 768px) {
   .SidebarCourse {
     position: fixed;
-    top: 80px; /* sesuaikan dengan tinggi header */
+    top: 80px;
+    /* sesuaikan dengan tinggi header */
     left: 0;
     height: calc(100vh - 80px);
     z-index: 1000;

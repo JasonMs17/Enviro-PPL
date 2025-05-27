@@ -490,16 +490,16 @@ const QuizComponent = ({ setIsQuizActive }) => {
               label: "OK",
               onClick: () => {
                 //                 let redirectPath = "/";
-              //   if (basePath === "pencemaran-tanah")
-              //     redirectPath = "/pencemaran-tanah/19";
-              //   else if (basePath === "pencemaran-air")
-              //     redirectPath = "/pencemaran-air/1";
-              //   else if (basePath === "pencemaran-udara")
-              //     redirectPath = "/pencemaran-udara/10";
-              //   navigate(redirectPath);
-              // },
-              window.location.reload();
-              }
+                //   if (basePath === "pencemaran-tanah")
+                //     redirectPath = "/pencemaran-tanah/19";
+                //   else if (basePath === "pencemaran-air")
+                //     redirectPath = "/pencemaran-air/1";
+                //   else if (basePath === "pencemaran-udara")
+                //     redirectPath = "/pencemaran-udara/10";
+                //   navigate(redirectPath);
+                // },
+                window.location.reload();
+              },
             },
           ],
         });

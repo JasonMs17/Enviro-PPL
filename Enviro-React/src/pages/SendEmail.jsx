@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./SendEmail.css";
 import logoEnviro from "../assets/logoEnviro.png";
-import http from "../utils/fetch";
+import { http } from "../utils/fetch";
 
 function SendEmail() {
   const [status, setStatus] = useState({
@@ -13,7 +13,10 @@ function SendEmail() {
   useEffect(() => {
     const checkVerificationStatus = async () => {
       try {
-        const response = await http("/api/email/verify");
+        const response = await http("/api/email/verify", {
+          method: "GET",
+          credentials: "include",
+        });
         if (response.ok) {
           setStatus({
             success: true,
@@ -39,7 +42,8 @@ function SendEmail() {
     setStatus((prev) => ({ ...prev, loading: true }));
     try {
       const response = await http("/api/email/verify", {
-        method: "POST",
+        method: "GET",
+        credentials: "include",
       });
 
       if (response.ok) {

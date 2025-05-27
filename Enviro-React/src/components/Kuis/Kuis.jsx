@@ -822,6 +822,17 @@ const QuizComponent = ({ setIsQuizActive }) => {
                 <strong>
                   {q.id}. {q.question}
                 </strong>
+                {q.type === "Checklist" && (
+                  <span
+                    style={{
+                      color: "#1DBC60",
+                      fontStyle: "italic",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    (Jawaban bisa lebih dari satu)
+                  </span>
+                )}
               </p>
               {renderQuestionOptions(q)}
               {renderQuestionResult(q)}

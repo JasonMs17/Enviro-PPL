@@ -194,12 +194,12 @@ const LandingPageLogin = () => {
           <div className="stat-container">
             <div className="stat-item">
               <FaBookReader className="stat-icon" />
-              <h3>30+</h3>
+              <h3>25+</h3>
               <p>Materi Edukasi</p>
             </div>
             <div className="stat-item">
               <FaChartLine className="stat-icon" />
-              <h3>10+</h3>
+              <h3>5+</h3>
               <p>Challenge Mingguan</p>
             </div>
             {/* <div className="stat-item">

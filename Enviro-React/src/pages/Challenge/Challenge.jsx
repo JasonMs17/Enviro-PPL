@@ -15,7 +15,8 @@ import bg5 from "../../assets/bg5.png";
 import Sidebar from "../../components/SidebarChallenge/Sidebar";
 import { http } from "../../utils/fetch";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../components/Modal/Modal"; // Pastikan komponen Modal sudah dibuat
+import Modal from "../../components/Modal/Modal";
+import Loading from "../../components/Loading";
 
 const trees = [
   treeStage1,
@@ -35,41 +36,42 @@ const Challenge = () => {
   const [hasActiveChallenge, setHasActiveChallenge] = useState(false);
   const [showActiveChallengeModal, setShowActiveChallengeModal] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const stage = progress === 100 ? 5 : Math.floor(progress / 20);
 
   useEffect(() => {
-    const checkActiveChallenge = async () => {
+    const fetchAllData = async () => {
       try {
-        const res = await http("/api/check-active-challenge");
-        const data = await res.json();
+        setIsLoading(true);
+        // Fetch both active challenge and progress in parallel
+        const [activeRes, progressRes] = await Promise.all([
+          http("/api/check-active-challenge"),
+          http("/api/challenge-progress"),
+        ]);
 
-        if (data.has_active_challenge) {
+        const [activeData, progressData] = await Promise.all([
+          activeRes.json(),
+          progressRes.json(),
+        ]);
+
+        if (activeData.has_active_challenge) {
           setHasActiveChallenge(true);
           setShowActiveChallengeModal(true);
-          setCountdown(data.countdown_seconds);
+          setCountdown(activeData.countdown_seconds);
           setCanClaim(false);
         }
+
+        setProgress(progressData.percentage);
       } catch (err) {
-        console.error("Gagal memeriksa challenge aktif:", err);
+        console.error("Gagal memuat data:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    checkActiveChallenge();
-  }, []);
-
-  useEffect(() => {
-    const fetchProgress = async () => {
-      try {
-        const res = await http("/api/challenge-progress");
-        const data = await res.json();
-        setProgress(data.percentage);
-      } catch (err) {
-        console.error("Gagal memuat progress:", err);
-      }
-    };
-    fetchProgress();
+    fetchAllData();
   }, []);
 
   useEffect(() => {
@@ -108,6 +110,8 @@ const Challenge = () => {
     setShowActiveChallengeModal(false);
     navigate("/challenge-claimed");
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <div

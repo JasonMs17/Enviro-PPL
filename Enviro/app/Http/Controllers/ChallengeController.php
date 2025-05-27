@@ -155,9 +155,9 @@ class ChallengeController extends Controller
         $completedChallenges = DB::table('challenge_reports')
             ->join('challenges', 'challenge_reports.challenge_id', '=', 'challenges.id')
             ->where('challenge_reports.user_id', $userId)
-            ->where('challenge_reports.progress', 100)
+            // ->where('challenge_reports.progress', 100)
             ->orderBy('challenge_reports.completed_at', 'desc')
-            ->select('challenge_reports.*', 'challenges.description', 'challenges.title')
+            ->select('challenge_reports.*', 'challenges.description', 'challenges.title', 'challenges.reward')
             ->get();
 
         return response()->json($completedChallenges);

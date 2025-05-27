@@ -37,40 +37,52 @@ const Challenge = () => {
   const [challengeData, setChallengeData] = useState(null);
   const [uploadText, setUploadText] = useState("");
   const [uploadFile, setUploadFile] = useState(null);
-  const [uploadPreview, setUploadPreview] = useState(null); // TAMBAHAN
+  const [uploadPreview, setUploadPreview] = useState(null);
   const [countdown, setCountdown] = useState(0);
   const [countdownEndAt, setCountdownEndAt] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchChallengeAndCountdown = async () => {
+    const fetchAllData = async () => {
       try {
-        const res = await http("/api/user/claimed-challenge");
-        if (!res.ok) throw new Error("Failed to fetch challenge");
+        setIsLoading(true);
+        // Fetch both challenge data and progress in parallel
+        const [challengeRes, progressRes] = await Promise.all([
+          http("/api/user/claimed-challenge"),
+          http("/api/challenge-progress"),
+        ]);
 
-        const data = await res.json();
+        if (!challengeRes.ok) throw new Error("Failed to fetch challenge");
+        if (!progressRes.ok) throw new Error("Failed to fetch progress");
+
+        const [challengeData, progressData] = await Promise.all([
+          challengeRes.json(),
+          progressRes.json(),
+        ]);
 
         // Debugging - log response data
-        console.log("API Response:", data);
+        console.log("API Response:", challengeData);
 
         // Pastikan data yang diperlukan ada
         if (
-          !data ||
-          typeof data.seconds_remaining === "undefined" ||
-          typeof data.completed === "undefined"
+          !challengeData ||
+          typeof challengeData.seconds_remaining === "undefined" ||
+          typeof challengeData.completed === "undefined"
         ) {
           throw new Error("Invalid response structure");
         }
 
-        setChallengeData(data);
-        setCountdown(Math.max(0, Math.floor(data.seconds_remaining)));
-        setCountdownEndAt(data.countdown_end_at);
+        setChallengeData(challengeData);
+        setCountdown(Math.max(0, Math.floor(challengeData.seconds_remaining)));
+        setCountdownEndAt(challengeData.countdown_end_at);
+        setProgress(progressData.percentage);
 
-        if (data.completed) {
+        if (challengeData.completed) {
           setChallengeSubmitted(true);
           localStorage.setItem("challengeSubmitted", "true");
         }
 
-        if (data.failed) {
+        if (challengeData.failed) {
           setChallengeFailed(true);
         }
       } catch (err) {
@@ -79,25 +91,14 @@ const Challenge = () => {
         setCountdown(0);
         setChallengeSubmitted(false);
         setChallengeFailed(false);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchChallengeAndCountdown();
-    const timer = setInterval(fetchChallengeAndCountdown, 60000);
+    fetchAllData();
+    const timer = setInterval(fetchAllData, 60000);
     return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    const fetchProgress = async () => {
-      try {
-        const res = await http("/api/challenge-progress");
-        const data = await res.json();
-        setProgress(data.percentage);
-      } catch (err) {
-        console.error("Gagal memuat progress:", err);
-      }
-    };
-    fetchProgress();
   }, []);
 
   const handleSubmitOption = () => {
@@ -250,7 +251,7 @@ const Challenge = () => {
     }
   }, [countdown]);
 
-  if (!challengeData) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <div

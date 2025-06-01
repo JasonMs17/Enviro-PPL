@@ -19,6 +19,8 @@ export const fetchCSRFToken = async () => {
   }
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const http = async (url, options = {}) => {
   let token = getCookie("XSRF-TOKEN");
 
@@ -27,13 +29,10 @@ export const http = async (url, options = {}) => {
     token = getCookie("XSRF-TOKEN");
   }
 
-  // Kalau body adalah FormData, jangan set Content-Type manual
   const isFormData = options.body instanceof FormData;
 
   const defaultHeaders = {
-    ...(isFormData
-      ? {} // Tidak set Content-Type
-      : { "Content-Type": "application/json" }),
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
     "X-XSRF-TOKEN": token,
     Accept: "application/json",
     "X-Requested-With": "XMLHttpRequest",
@@ -46,7 +45,10 @@ export const http = async (url, options = {}) => {
     headers: defaultHeaders,
   };
 
-  return fetch(url, finalOptions);
+  // ⬅️ Prefix otomatis URL hanya jika relative ("/api/xxx")
+  const fullUrl = url.startsWith("http") ? url : API_URL + url;
+
+  return fetch(fullUrl, finalOptions);
 };
 
 export default http;

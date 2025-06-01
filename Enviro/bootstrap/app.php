@@ -12,7 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->prepend(\Illuminate\Http\Middleware\HandleCors::class);
+        // $middleware->prepend(\Illuminate\Http\Middleware\HandleCors::class);
         $middleware->prepend(Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class);
         // $middleware->prepend(\Illuminate\Session\Middleware\StartSession::class);
         // $middleware->prepend(\Illuminate\View\Middleware\ShareErrorsFromSession::class);

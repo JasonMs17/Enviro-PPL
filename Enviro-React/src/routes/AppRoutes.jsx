@@ -6,7 +6,7 @@ import Test from "@/pages/Test";
 import Profile from "@/pages/Profile";
 import SendEmail from "@/pages/SendEmail";
 import VerifyEmail from "@/pages/VerifyEmail";
-import ResetPass from "@/pages/ResetPass";
+import ResetPass from "@/pages/resetPass";
 import ResetPasswordForm from "@/pages/ResetPasswordForm";
 import { useContext } from "react";
 import { AuthContext } from "@/AuthContext";

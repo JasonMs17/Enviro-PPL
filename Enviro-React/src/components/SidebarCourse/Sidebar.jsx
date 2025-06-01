@@ -64,8 +64,8 @@ export default function SidebarCourseModule({
       setLoading(true);
       try {
         const [resDone, resProg] = await Promise.all([
-          fetch("/api/completed-materials", { credentials: "include" }),
-          fetch("/api/overall-progress", { credentials: "include" }),
+          http("/api/completed-materials"),
+          http("/api/overall-progress"),
         ]);
         const doneData = await resDone.json();
         const progData = await resProg.json();
@@ -93,19 +93,12 @@ export default function SidebarCourseModule({
     try {
       const response = await http("/api/progress", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        credentials: "include",
         body: JSON.stringify({ material_id: id, progress: 100 }),
       });
       if (response.ok) {
         trackedRef.current.add(id);
         setCompletedMaterials((prev) => [...prev, id]);
-        const progRes = await fetch("/api/overall-progress", {
-          credentials: "include",
-        });
+        const progRes = await http("/api/overall-progress");
         const progData = await progRes.json();
         setProgressByType(progData.progress_by_type || {});
       } else {

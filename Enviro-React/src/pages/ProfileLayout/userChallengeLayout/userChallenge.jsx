@@ -2,6 +2,7 @@ import "./userChallenge.css";
 import { useEffect, useState } from "react";
 import SkeletonCard from "../../../components/SkeletonCard";
 import RewardPopup from "@/components/RewardPopup";
+import { http } from "@/utils/fetch";
 
 export default function UserChallenge() {
   const [challenges, setChallenges] = useState([]);
@@ -13,17 +14,7 @@ export default function UserChallenge() {
   useEffect(() => {
     const fetchChallenges = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/user-challenge",
-          {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await http("/api/user-challenge");
 
         if (!response.ok) {
           throw new Error("Gagal ambil data tantangan");

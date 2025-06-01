@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import ChallengeCard from './ChallengeCard';
-import UploadPopup from './PopupUpload';
-import './Sidebar.css';
+import React, { useEffect, useState } from "react";
+import ChallengeCard from "./ChallengeCard";
+import UploadPopup from "./PopupUpload";
+import { http } from "@/utils/fetch";
+import "./Sidebar.css";
 
 const Sidebar = ({ onCompleteChallenge }) => {
-  const [countdown, setCountdown] = useState('');
+  const [countdown, setCountdown] = useState("");
   const [popupOpen, setPopupOpen] = useState(false);
   const [challenges, setChallenges] = useState([]);
 
   useEffect(() => {
     const fetchChallenges = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/challenges-fetch');
+        const response = await http("/api/challenges-fetch");
         const data = await response.json();
         setChallenges(data);
       } catch (error) {
-        console.error('Gagal mengambil data challenge:', error);
+        console.error("Gagal mengambil data challenge:", error);
       }
     };
 
@@ -45,7 +46,7 @@ const Sidebar = ({ onCompleteChallenge }) => {
     setPopupOpen(false);
     onCompleteChallenge(); // Beri sinyal ke parent
   };
-  
+
   return (
     <div className="sidebar">
       <h3 className="countdown">Challenge Minggu Ini:</h3>
@@ -64,7 +65,9 @@ const Sidebar = ({ onCompleteChallenge }) => {
             />
           ))
         ) : (
-          <h3 className="empty-message">Semua challenge selesai dikerjakan 🎉</h3>
+          <h3 className="empty-message">
+            Semua challenge selesai dikerjakan 🎉
+          </h3>
         )}
       </div>
       {popupOpen && (

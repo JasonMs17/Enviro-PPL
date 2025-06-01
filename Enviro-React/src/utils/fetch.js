@@ -5,8 +5,9 @@ export const getCookie = (name) => {
 
 export const fetchCSRFToken = async () => {
   try {
+    const API_URL = import.meta.env.VITE_API_URL;
     // Fetch CSRF token dari Sanctum
-    const response = await fetch("http://localhost:8000/sanctum/csrf-cookie", {
+    const response = await fetch(`${API_URL}/sanctum/csrf-cookie`, {
       method: "GET",
       credentials: "include",
     });

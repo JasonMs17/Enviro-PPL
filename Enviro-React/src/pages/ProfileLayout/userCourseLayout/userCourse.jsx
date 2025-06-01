@@ -3,6 +3,7 @@ import pencemaran from "../../../assets/pencemaranUdara.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SkeletonCard from "../../../components/SkeletonCard";
+import { http } from "@/utils/fetch";
 
 export default function UserCourse() {
   const [materials, setMaterials] = useState([]);
@@ -35,17 +36,7 @@ export default function UserCourse() {
   useEffect(() => {
     const fetchMaterials = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8000/api/user-materials",
-          {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await http("/api/user-materials");
 
         if (!response.ok) {
           throw new Error("Gagal ambil data materi selesai");

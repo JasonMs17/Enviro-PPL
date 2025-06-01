@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import http from "../utils/fetch"; // Adjust the path as needed
-import "./ResetPass.css";
+import "./resetPass.css";
 import logo from "../assets/logoEnviro.png";
 import background from "../assets/Background-login.jpg";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +30,9 @@ function ResetPass() {
         setMessageStatus("success"); // Set success status
         setErrors({});
       } else {
-        setMessage(data.message || "Terjadi kesalahan saat mengirim email reset.");
+        setMessage(
+          data.message || "Terjadi kesalahan saat mengirim email reset."
+        );
         setMessageStatus("error"); // Set error status
       }
     } catch (error) {
@@ -65,7 +67,9 @@ function ResetPass() {
           {errors.email && <p className="error">{errors.email[0]}</p>}
           {message && (
             <p
-              className={`message ${messageStatus === "success" ? "success" : "error"}`}
+              className={`message ${
+                messageStatus === "success" ? "success" : "error"
+              }`}
             >
               {message}
             </p>

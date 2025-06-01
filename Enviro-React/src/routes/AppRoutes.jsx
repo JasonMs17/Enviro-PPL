@@ -64,7 +64,10 @@ const AppRoutes = () => {
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
 
       <Route path="/testingkuis" element={<Quiz />} />
-      <Route path="/challenge" element={<ProtectedRoute element={<Challenge />} />} />
+      <Route
+        path="/challenge"
+        element={<ProtectedRoute element={<Challenge />} />}
+      />
       <Route path="/challenge-claimed" element={<ChallengeClaimed />} />
       <Route
         path="/pencemaran-air/:material_id"

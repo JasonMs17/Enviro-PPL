@@ -48,6 +48,10 @@
   width: 150px;
 }
 
+.navbar p {
+  font-weight: normal;
+}
+
 .login-button {
   margin: 0 15px;
   text-decoration: none;

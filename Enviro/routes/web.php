@@ -10,3 +10,7 @@ Route::get('/chatbot', function () {
 // Rute API Anda sudah ada di api.php:
 // Route::post('/chat', [ChatController::class, 'kirimChat']);
 Route::post('/chat', [ChatController::class, 'kirimChat']);
+
+Route::get('/{any}', function () {
+    return file_get_contents(public_path('react/index.html'));
+})->where('any', '^(?!api).*$');

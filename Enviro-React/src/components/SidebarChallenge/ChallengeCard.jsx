@@ -60,7 +60,7 @@ const ChallengeCard = ({ challenge, onClick }) => {
           <div className="popup-box">
             <h4 className="popup-title">Apakah Anda yakin?</h4>
             <p className="popup-explanation">
-              Challenge tidak bisa diubah setelah diklaim sampai minggu berikutnya.
+              Tantangan tidak bisa diubah setelah diklaim sampai minggu berikutnya.
             </p>
             <div className="popup-buttons">
               <button onClick={() => setShowPopup(false)}>Batal</button>

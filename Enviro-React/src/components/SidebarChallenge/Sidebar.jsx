@@ -49,7 +49,7 @@ const Sidebar = ({ onCompleteChallenge }) => {
 
   return (
     <div className="sidebar">
-      <h3 className="countdown">Challenge Minggu Ini:</h3>
+      <h3 className="countdown">Tantangan Minggu Ini:</h3>
       <div className="challenge-list">
         {challenges.length > 0 ? (
           challenges.map((challenge, index) => (
@@ -66,7 +66,7 @@ const Sidebar = ({ onCompleteChallenge }) => {
           ))
         ) : (
           <h3 className="empty-message">
-            Semua challenge selesai dikerjakan 🎉
+            Semua Tantangan selesai dikerjakan 🎉
           </h3>
         )}
       </div>

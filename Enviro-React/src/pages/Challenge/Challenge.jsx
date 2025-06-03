@@ -15,8 +15,7 @@ import bg5 from "../../assets/bg5.png";
 import Sidebar from "../../components/SidebarChallenge/Sidebar";
 import { http } from "../../utils/fetch";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../components/Modal/Modal";
-import Loading from "../../components/Loading";
+import Modal from "../../components/Modal/Modal"; // Pastikan komponen Modal sudah dibuat
 
 const trees = [
   treeStage1,
@@ -36,42 +35,41 @@ const Challenge = () => {
   const [hasActiveChallenge, setHasActiveChallenge] = useState(false);
   const [showActiveChallengeModal, setShowActiveChallengeModal] =
     useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const stage = progress === 100 ? 5 : Math.floor(progress / 20);
 
   useEffect(() => {
-    const fetchAllData = async () => {
+    const checkActiveChallenge = async () => {
       try {
-        setIsLoading(true);
-        // Fetch both active challenge and progress in parallel
-        const [activeRes, progressRes] = await Promise.all([
-          http("/api/check-active-challenge"),
-          http("/api/challenge-progress"),
-        ]);
+        const res = await http("/api/check-active-challenge");
+        const data = await res.json();
 
-        const [activeData, progressData] = await Promise.all([
-          activeRes.json(),
-          progressRes.json(),
-        ]);
-
-        if (activeData.has_active_challenge) {
+        if (data.has_active_challenge) {
           setHasActiveChallenge(true);
           setShowActiveChallengeModal(true);
-          setCountdown(activeData.countdown_seconds);
+          setCountdown(data.countdown_seconds);
           setCanClaim(false);
         }
-
-        setProgress(progressData.percentage);
       } catch (err) {
-        console.error("Gagal memuat data:", err);
-      } finally {
-        setIsLoading(false);
+        console.error("Gagal memeriksa challenge aktif:", err);
       }
     };
 
-    fetchAllData();
+    checkActiveChallenge();
+  }, []);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await http("/api/challenge-progress");
+        const data = await res.json();
+        setProgress(data.percentage);
+      } catch (err) {
+        console.error("Gagal memuat progress:", err);
+      }
+    };
+    fetchProgress();
   }, []);
 
   useEffect(() => {
@@ -111,8 +109,6 @@ const Challenge = () => {
     navigate("/challenge-claimed");
   };
 
-  if (isLoading) return <Loading />;
-
   return (
     <div
       className={`challenge-page stage-${stage}`}
@@ -131,7 +127,7 @@ const Challenge = () => {
         onClose={handleNavigateToClaimed}
         closeText="Oke"
       >
-        <p>Challenge sebelumnya masih belum selesai nih,</p>
+        <p>Tantangan sebelumnya masih belum selesai nih,</p>
         <p>selesain itu dulu yaa 😉</p>
       </Modal>
 
@@ -174,7 +170,7 @@ const Challenge = () => {
             onClick={() => setChallengeOpen(!challengeOpen)}
           >
             <img src={pupuk} alt="Pupuk" className="pupuk-icon" />
-            <div className="btn-label">Challenge</div>
+            <div className="btn-label">Tantangan</div>
           </button>
         </div>
       </div>

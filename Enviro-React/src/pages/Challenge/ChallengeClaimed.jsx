@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import "./ChallengeClaimed.css";
 import Loading from "../../components/Loading";
 import treeStage1 from "../../assets/tree1.png";
@@ -39,66 +39,59 @@ const Challenge = () => {
   const [uploadFile, setUploadFile] = useState(null);
   const [uploadPreview, setUploadPreview] = useState(null);
   const [countdown, setCountdown] = useState(0);
-  const [countdownEndAt, setCountdownEndAt] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAllData = async () => {
+    const fetchChallengeAndCountdown = async () => {
       try {
-        setIsLoading(true);
-        // Fetch both challenge data and progress in parallel
-        const [challengeRes, progressRes] = await Promise.all([
-          http("/api/user/claimed-challenge"),
-          http("/api/challenge-progress"),
-        ]);
+        const res = await http("/api/user/claimed-challenge");
+        if (!res.ok) throw new Error("Failed to fetch challenge");
 
-        if (!challengeRes.ok) throw new Error("Failed to fetch challenge");
-        if (!progressRes.ok) throw new Error("Failed to fetch progress");
+        const data = await res.json();
+        console.log("API Response:", data);
 
-        const [challengeData, progressData] = await Promise.all([
-          challengeRes.json(),
-          progressRes.json(),
-        ]);
-
-        // Debugging - log response data
-        console.log("API Response:", challengeData);
-
-        // Pastikan data yang diperlukan ada
         if (
-          !challengeData ||
-          typeof challengeData.seconds_remaining === "undefined" ||
-          typeof challengeData.completed === "undefined"
+          !data ||
+          typeof data.seconds_remaining === "undefined" ||
+          typeof data.completed === "undefined"
         ) {
           throw new Error("Invalid response structure");
         }
 
-        setChallengeData(challengeData);
-        setCountdown(Math.max(0, Math.floor(challengeData.seconds_remaining)));
-        setCountdownEndAt(challengeData.countdown_end_at);
-        setProgress(progressData.percentage);
+        setChallengeData(data);
+        setCountdown(Math.max(0, Math.floor(data.seconds_remaining)));
 
-        if (challengeData.completed) {
+        if (data.completed) {
           setChallengeSubmitted(true);
           localStorage.setItem("challengeSubmitted", "true");
         }
 
-        if (challengeData.failed) {
+        if (data.failed) {
           setChallengeFailed(true);
         }
       } catch (err) {
         console.error("Failed to load challenge/countdown:", err);
-        // Set default values jika error
         setCountdown(0);
         setChallengeSubmitted(false);
         setChallengeFailed(false);
-      } finally {
-        setIsLoading(false);
       }
     };
 
-    fetchAllData();
-    const timer = setInterval(fetchAllData, 60000);
+    fetchChallengeAndCountdown();
+    const timer = setInterval(fetchChallengeAndCountdown, 60000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const res = await http("/api/challenge-progress");
+        const data = await res.json();
+        setProgress(data.percentage);
+      } catch (err) {
+        console.error("Gagal memuat progress:", err);
+      }
+    };
+    fetchProgress();
   }, []);
 
   const handleSubmitOption = () => {
@@ -234,9 +227,18 @@ const Challenge = () => {
       try {
         const res = await http("/api/user/deactivate-challenge-report", {
           method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            challenge_id: challengeData?.id,
+          }),
         });
 
-        if (!res.ok) throw new Error("Failed to deactivate challenge");
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || "Failed to deactivate challenge");
+        }
 
         localStorage.removeItem("challengeSubmitted");
         setChallengeSubmitted(false);
@@ -246,12 +248,16 @@ const Challenge = () => {
       }
     };
 
-    if (countdown === 0) {
-      updateStatus();
+    if (challengeSubmitted || challengeFailed) {
+      const timer = setTimeout(() => {
+        updateStatus();
+      }, 5000);
+      
+      return () => clearTimeout(timer);
     }
-  }, [countdown]);
+  }, [challengeSubmitted, challengeFailed]);
 
-  if (isLoading) return <Loading />;
+  if (!challengeData) return <Loading />;
 
   return (
     <div
@@ -268,7 +274,7 @@ const Challenge = () => {
       <div className="challenge-layout">
         <div className="empty-column">
           <div className="countdown-box">
-            <p className="countdown-title">Challenge Reset</p>
+            <p className="countdown-title">Reset Tantangan</p>
             <p
               className="countdown-time"
               style={{ color: "brown", fontWeight: "bold", fontSize: "1.2rem" }}
@@ -294,11 +300,6 @@ const Challenge = () => {
                   alt="Preview Tree"
                   className="preview-tree"
                 />
-                <img
-                  src={trees[stage + 1]}
-                  alt="Preview Tree"
-                  className="preview-tree"
-                />
               </div>
             )}
           </div>
@@ -317,26 +318,27 @@ const Challenge = () => {
             {challengeFailed ? (
               <>
                 <h3>
-                  Yah challenge nya gagal, coba lagi di challenge berikutnya ya!
+                  Yah tantangan nya gagal, coba lagi di tantangan berikutnya ya!
                 </h3>
                 <p>
-                  Kamu dapat mengambil challenge selanjutnya setelah countdown
-                  habis.
+                  Kamu akan segera diarahkan kehalaman sebelumnya.
                 </p>
               </>
             ) : challengeSubmitted || challengeData?.completed ? (
               <>
-                <h3>Terimakasih telah menyelesaikan challenge minggu ini!😉</h3>
-                <p>Challenge akan dinonaktifkan setelah countdown habis.</p>
+                <h3>Terimakasih telah menyelesaikan tantangan minggu ini!😉</h3>
+                <p>
+                  Kamu akan segera diarahkan kehalaman sebelumnya.
+                </p>
               </>
-            ) : countdown > 86400 ? (
-              <>
-                <h3>{challengeData.description}</h3>
-                <p>Semangat menjalankan challengenya🔥🔥!!</p>
-                <p>Challenge dapat disubmit setelah countdown sisa 1 hari.</p>
-                <p>Siapkan foto untuk bukti kamu menyelesaikan challengenya.</p>
-                <p>Nanti akan ada hadiah lho!!</p>
-              </>
+            // ) : countdown > 86400 ? (
+            //   <>
+            //     <h3>{challengeData.description}</h3>
+            //     <p>Semangat menjalankan challengenya🔥🔥!!</p>
+            //     <p>Challenge dapat disubmit setelah countdown sisa 1 hari.</p>
+            //     <p>Siapkan foto untuk bukti kamu menyelesaikan challengenya.</p>
+            //     <p>Nanti akan ada hadiah lho!!</p>
+            //   </>
             ) : (
               <>
                 <h3>{challengeData.question}</h3>
@@ -426,6 +428,7 @@ const Challenge = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
+            <p>Hadiah dapat dilihat di halaman profil.</p>
               <button>Download</button>
             </a>
             <button onClick={handleCloseReward}>Close</button>
@@ -436,7 +439,7 @@ const Challenge = () => {
       {showConfirmPopup && (
         <div className="popup-overlay" onClick={handleConfirmCancel}>
           <div className="popup" onClick={(e) => e.stopPropagation()}>
-            <h3>Kamu yakin milih ini?</h3>
+            <h3>Kamu yakin milih ini? Tantangam akan dianggap gagal!</h3>
             <div
               style={{ display: "flex", justifyContent: "center", gap: "1rem" }}
             >

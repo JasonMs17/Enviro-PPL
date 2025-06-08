@@ -16,6 +16,7 @@ export default function Profile() {
   const [newName, setNewName] = useState("");
   const [newPhoto, setNewPhoto] = useState(null);
   const [previewPhoto, setPreviewPhoto] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     axios
@@ -32,13 +33,28 @@ export default function Profile() {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+    setError(""); // Reset error message
+
     if (file) {
+      // Check file size (2MB = 2 * 1024 * 1024 bytes)
+      if (file.size > 2 * 1024 * 1024) {
+        setError("Ukuran file terlalu besar. Maksimal 2MB");
+        return;
+      }
+
+      // Check file type
+      if (!file.type.startsWith("image/")) {
+        setError("File harus berupa gambar");
+        return;
+      }
+
       setNewPhoto(file);
       setPreviewPhoto(URL.createObjectURL(file));
     }
   };
 
   const handleSaveChanges = async () => {
+    setError(""); // Reset error message
     const formData = new FormData();
     formData.append("name", newName);
     if (newPhoto) {
@@ -56,10 +72,10 @@ export default function Profile() {
       if (!response.ok) {
         if (contentType && contentType.includes("application/json")) {
           const errData = await response.json();
-          console.error("Update gagal:", errData);
+          setError(errData.message || "Gagal mengupdate profil");
         } else {
           const text = await response.text();
-          console.error("Update gagal. Response bukan JSON:", text);
+          setError("Terjadi kesalahan saat mengupdate profil");
         }
         return;
       }
@@ -77,6 +93,7 @@ export default function Profile() {
       setPreviewPhoto(resData.profile_photo);
       setNewPhoto(null);
     } catch (error) {
+      setError("Terjadi kesalahan saat mengupdate profil");
       console.error("Error saat update:", error);
     }
   };
@@ -177,6 +194,8 @@ export default function Profile() {
                       onChange={handleFileChange}
                       style={{ display: "none" }}
                     />
+                    <p className="file-info">Maksimal ukuran file: 2MB</p>
+                    {error && <p className="error-message">{error}</p>}
                   </div>
                 </div>
 
@@ -196,7 +215,10 @@ export default function Profile() {
                   </button>
                   <button
                     className="cancel-button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      setError("");
+                    }}
                   >
                     Batal
                   </button>

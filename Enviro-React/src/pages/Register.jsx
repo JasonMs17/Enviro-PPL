@@ -18,6 +18,65 @@ function RegisterForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorKey, setErrorKey] = useState(0);
 
+  // Calculate min and max dates for birth date
+  const today = new Date();
+  const minDate = new Date(
+    today.getFullYear() - 100,
+    today.getMonth(),
+    today.getDate()
+  );
+  const maxDate = new Date(
+    today.getFullYear() - 5,
+    today.getMonth(),
+    today.getDate()
+  );
+
+  // Generate years array for dropdown
+  const years = Array.from(
+    { length: maxDate.getFullYear() - minDate.getFullYear() + 1 },
+    (_, i) => minDate.getFullYear() + i
+  ).reverse();
+
+  // Custom header component for DatePicker
+  const CustomHeader = ({
+    date,
+    decreaseMonth,
+    increaseMonth,
+    prevMonthButtonDisabled,
+    nextMonthButtonDisabled,
+    changeYear,
+  }) => (
+    <div className="custom-datepicker-header">
+      <button
+        onClick={decreaseMonth}
+        disabled={prevMonthButtonDisabled}
+        type="button"
+        className="datepicker-nav-button"
+      >
+        {"<"}
+      </button>
+      <select
+        value={date.getFullYear()}
+        onChange={({ target: { value } }) => changeYear(value)}
+        className="datepicker-year-select"
+      >
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
+      <button
+        onClick={increaseMonth}
+        disabled={nextMonthButtonDisabled}
+        type="button"
+        className="datepicker-nav-button"
+      >
+        {">"}
+      </button>
+    </div>
+  );
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -101,6 +160,32 @@ function RegisterForm() {
               errors.birth_date ? "input-error" : ""
             }`}
             required
+            minDate={minDate}
+            maxDate={maxDate}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
+            yearDropdownItemNumber={100}
+            scrollableYearDropdown
+            className="custom-datepicker"
+            popperClassName="custom-datepicker-popper"
+            popperPlacement="bottom-start"
+            popperModifiers={[
+              {
+                name: "offset",
+                options: {
+                  offset: [0, 12],
+                },
+              },
+              {
+                name: "preventOverflow",
+                options: {
+                  boundary: "viewport",
+                  padding: 8,
+                },
+              },
+            ]}
+            calendarClassName="custom-datepicker-calendar"
           />
 
           {errors.birth_date && <p className="error">{errors.birth_date[0]}</p>}

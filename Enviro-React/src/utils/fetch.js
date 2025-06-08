@@ -22,7 +22,7 @@ export const fetchCSRFToken = async () => {
 export const http = async (url, options = {}) => {
   let token = getCookie("XSRF-TOKEN");
 
-  console.log("XSRF-TOKEN", token);
+  // console.log("XSRF-TOKEN", token);
 
   if (!token) {
     await fetchCSRFToken();

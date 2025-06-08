@@ -41,9 +41,9 @@ export default function Footer() {
               <li>
                 <Link to="/">Beranda</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/about-us">Tentang Kami</Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   to="/"

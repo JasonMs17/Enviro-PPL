@@ -270,7 +270,6 @@
   .SidebarCourse {
     position: fixed;
     top: 80px;
-    /* sesuaikan dengan tinggi header */
     left: 0;
     height: calc(100vh - 80px);
     z-index: 1000;
@@ -280,10 +279,12 @@
 
   .SidebarCourse.open {
     transform: translateX(0);
+    width: 280px;
   }
 
   .SidebarCourse.closed {
     transform: translateX(-100%);
+    width: 0;
   }
 
   /* Overlay background saat sidebar terbuka */

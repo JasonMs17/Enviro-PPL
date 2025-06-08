@@ -29,7 +29,7 @@ const ProtectedRoute = ({ element: Element }) => {
 const AppRoutes = () => {
   const { user, loading } = useContext(AuthContext);
 
-  if (loading && user == undefined) {
+  if (loading) {
     return <Loading />;
   }
 

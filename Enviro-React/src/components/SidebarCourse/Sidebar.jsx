@@ -43,11 +43,20 @@ export default function SidebarCourseModule({
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
+    if (window.innerWidth <= 768 && isOpen) {
+      toggleSidebar();
+    }
+  }, []);
+
+  useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
     };
 
     window.addEventListener("resize", handleResize);
+    // Set initial state based on screen size
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 

@@ -46,3 +46,13 @@
         transform: rotate(360deg);
     }
 }
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .content-loading-container {
+        width: 100%;
+        left: 0;
+        height: calc(100vh - 80px);
+        top: 80px;
+    }
+}

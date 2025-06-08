@@ -3,12 +3,18 @@
   top: 0;
   z-index: 999;
   background-color: #ffffff;
-  /* width: 100vw; */
-}
-.hamburger {
-  display: none; 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 2px 2px 4px grey;
+  height: 80px;
+  font-weight: bold;
 }
 
+.hamburger {
+  display: none;
+}
 
 .logo-and-navbar {
   width: 100vw;
@@ -21,17 +27,6 @@
   position: relative;
   margin-bottom: 1rem;
   box-sizing: border-box;
-}
-
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  background-color: white;
-  box-shadow: 2px 2px 4px grey;
-  height: 80px;
-  font-weight: bold;
 }
 
 .user-control {
@@ -156,8 +151,6 @@ nav a.active {
   max-width: 100%;
 }
 
-
-
 @media (max-width: 1000px) {
   .user-control {
     gap: 16px;
@@ -176,11 +169,9 @@ nav a.active {
   }
 }
 
-
-
 @media (max-width: 768px) {
   .hamburger {
-    display: block; 
+    display: block;
     font-size: 28px;
     background: none;
     border: none;
@@ -190,54 +181,51 @@ nav a.active {
   }
 
   .user-control {
-    display: flex;
+    display: none;
     flex-direction: column;
     position: absolute;
     top: 80px;
     left: 0;
     right: 0;
     background: white;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     z-index: 998;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
   }
 
-  .navbar.collapsed {
-     flex-direction: row;
-      justify-content: space-around;
-      align-items: center;
+  .user-control.show {
+    display: flex;
   }
 
-  .navbar.collapsed .hamburger {
-   display: block; 
-    font-size: 28px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #1DBC60;
-    border-radius: 6px;
-  }
-  .navbar.collapsed .user-control {
-    display: none !important;
+  .user-course,
+  .user-challenge,
+  .user-control a {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    margin: 0;
   }
 
-.login-button {
-  margin: 0 15px;
-  text-decoration: none;
-  font-size: 18px;
-   background-color: black;
-  color: white;
-  padding-top: 17px;
-  padding-bottom: 17px;
-  padding-right: 18px;
-  padding-left: 18px;
-  border-radius: 50px;
-  font-weight: bold;
-
+  .user-course.relative-wrapper {
+    margin: 0;
   }
 
-  .signup{
+  .login-button {
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    padding-top: 17px;
+    padding-bottom: 17px;
+    padding-right: 18px;
+    padding-left: 18px;
+    border-radius: 50px;
+    font-weight: bold;
+  }
+
+  .signup {
     display: none;
   }
- 
-} 
+}

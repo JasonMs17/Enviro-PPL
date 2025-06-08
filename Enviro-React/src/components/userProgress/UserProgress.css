@@ -1,408 +1,235 @@
 .user-progress {
     position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .container-progress {
-    background-color: #F0F0F0;
-    width: 100%;
-    border-radius: 20px;
-    padding: 50px 80px;
-    max-width: 1200px;
-    margin-top: 100px;
+    flex: 1;
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 .status-user {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .status {
-    margin: 0px
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
 }
 
 .slider-dots-landing-page {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 0px;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: #1DBC60;
+    transform: scale(1.2);
 }
 
 .main-progress {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    padding-top: 20px;
+    gap: 2rem;
+    align-items: stretch;
+    flex: 1;
+}
 
+.image-polution {
+    flex: 0 0 300px;
+    display: flex;
+    align-items: center;
+}
+
+.image-polution img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .container-detail-progress {
-    width: 665px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .progress-detail {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
+    margin-bottom: 1.5rem;
 }
 
-h4 {
-    font-size: 20px;
-    padding-top: 20px;
-    margin: 0
+.progress-detail h4 {
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
 }
 
 .course-name {
-    font-size: 40px;
+    font-size: 1.5rem;
+    color: #333;
     margin: 0;
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.progress-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .progress-bar-container-landing-page {
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    height: 16px;
-    width: 100%;
-    margin: 20px 0px;
-    position: relative;
+    flex: 1;
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .progress-bar-fill {
-    background-color: #1DBC60;
     height: 100%;
-    border-radius: 10px;
-    transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-
-.image-polution {
-    width: 300px;
-    height: 200px;
-    /* atur sesuai kebutuhan */
-    overflow: hidden;
-    border-radius: 10px;
-}
-
-.image-polution>img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+.progress-percentage {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1DBC60;
+    min-width: 60px;
+    text-align: right;
 }
 
 .slider-button-landing-page {
-    position: absolute;
-    transform: translateY(-50%);
     background: white;
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 1.2rem;
-    color: #1DBC60;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    z-index: 5;
+    z-index: 2;
 }
 
 .slider-button-landing-page:hover {
-    background: #1DBC60;
-    color: white;
-    transform: translateY(-50%) scale(1.1);
+    background: #f0f0f0;
+    transform: scale(1.1);
 }
 
-.slider-button-landing-page.prev-page {
-    left: 10px;
-    bottom: 120px;
-}
-
-.slider-button-landing-page.next-page {
-    right: 10px;
-    bottom: 120px;
-}
-
-.skeleton-image {
-    background: #e0e0e0;
-    width: 100%;
-    height: 100%;
-    min-width: 400px;
-    min-height: 250px;
-    border-radius: 10px;
-    animation: pulse 1.5s infinite;
-}
-
-.skeleton-progress {
-    background: #e0e0e0;
-    width: 100%;
-    height: 100%;
-    min-width: 800px;
-    border-radius: 10px;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.7;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@media (max-width: 1000px) {
-    .container-progress {
-        margin-top: 60px;
-    }
-
-    .status-user {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .main-progress {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 20px;
-        padding-top: 20px;
-    }
-
-    .image-polution {
-        width: 100%;
-        height: auto;
-        max-width: 100%;
-        aspect-ratio: 3 / 2;
-        /* mempertahankan rasio */
-    }
-
-    .image-polution>img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .container-detail-progress {
-        width: 100%;
-    }
-
-    .course-name {
-        font-size: 1.8rem;
-    }
-
-    .slider-button-landing-page {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        bottom: 10px;
-    }
-
-    .slider-button-landing-page.prev-page {
-        left: 5px;
-    }
-
-    .slider-button-landing-page.next-page {
-        right: 5px;
-    }
+.slider-button-landing-page svg {
+    color: #333;
+    font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
+    .user-progress {
+        padding: 1rem;
+    }
+
+    .container-progress {
+        padding: 1.5rem;
+        min-height: 350px;
+    }
+
     .main-progress {
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
+        flex-direction: column;
+        gap: 1.5rem;
     }
 
     .image-polution {
+        flex: 0 0 auto;
         width: 100%;
-        max-width: 300px;
-        height: 200px;
-        overflow: hidden;
-        border-radius: 10px;
+        max-width: 100%;
     }
 
-    .image-polution>img {
+    .image-polution img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: 180px;
     }
 
     .container-detail-progress {
         width: 100%;
-        max-width: 665px;
     }
 
-    .progress-detail {
-        display: flex;
-        flex-direction: column;
-        margin: 0;
-    }
-
-    h4 {
-        font-size: 1rem;
-        padding-top: 20px;
-        margin: 0;
+    .progress-detail h4 {
+        font-size: 0.9rem;
     }
 
     .course-name {
-        font-size: 2rem;
-        margin: 0;
+        font-size: 1.3rem;
+        min-height: 2.6em;
     }
 
-    .progress-bar-container-landing-page {
-        background-color: #e0e0e0;
-        border-radius: 10px;
-        height: 16px;
-        width: 100%;
-        margin: 20px 0;
-        position: relative;
+    .progress-section {
+        margin-top: auto;
     }
 
-    .progress-bar-fill {
-        background-color: #1DBC60;
-        height: 100%;
-        border-radius: 10px;
-        transition: width 0.3s ease-in-out;
+    .progress-percentage {
+        font-size: 1.1rem;
     }
 
     .slider-button-landing-page {
-        position: absolute;
-        background: white;
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.2rem;
-        color: #1DBC60;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        z-index: 5;
-        bottom: 16px;
+        width: 36px;
+        height: 36px;
     }
 
-    .slider-button-landing-page:hover {
-        background: #1DBC60;
-        color: white;
-        transform: scale(1.1);
+    .slider-button-landing-page svg {
+        font-size: 1rem;
     }
-
-    .slider-button-landing-page.prev-page {
-        left: 10px;
-    }
-
-    .slider-button-landing-page.next-page {
-        right: 10px;
-    }
-
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .container-progress {
-        margin-top: 40px;
-    }
-
-    .status-user {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        padding: 1rem;
+        min-height: 320px;
     }
 
     .status {
-        font-size: 25px;
+        font-size: 1.3rem;
     }
 
-    .main-progress {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-    }
-
-    .image-polution {
-        width: 100%;
-        height: 180px;
-        overflow: hidden;
-        border-radius: 10px;
-    }
-
-    .image-polution>img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .container-detail-progress {
-        width: 100%;
-    }
-
-    .progress-detail {
-        margin: 0;
-    }
-
-    h4 {
-        font-size: 1rem;
-        margin: 0;
-        padding-top: 10px;
+    .image-polution img {
+        height: 160px;
     }
 
     .course-name {
-        font-size: 1.5rem;
-        margin: 0;
+        font-size: 1.2rem;
     }
 
-    .progress-bar-container-landing-page {
-        height: 14px;
-        margin: 16px 0;
-        width: 100%;
-    }
-
-    .progress-bar-fill {
-        height: 100%;
-        border-radius: 10px;
-        background-color: #1DBC60;
-        transition: width 0.3s ease-in-out;
-    }
-
-    .slider-button-landing-page {
-        position: absolute;
-        bottom: 10px;
-        width: 36px;
-        height: 36px;
+    .progress-percentage {
         font-size: 1rem;
-        border-radius: 50%;
-        background: white;
-        color: #1DBC60;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 5;
-    }
-
-    .slider-button-landing-page:hover {
-        background: #1DBC60;
-        color: white;
-        transform: scale(1.1);
-    }
-
-    .slider-button-landing-page.prev-page {
-        left: 20px;
-    }
-
-    .slider-button-landing-page.next-page {
-        right: 20px;
     }
 }

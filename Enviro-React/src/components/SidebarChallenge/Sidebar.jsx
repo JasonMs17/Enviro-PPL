@@ -4,19 +4,23 @@ import UploadPopup from "./PopupUpload";
 import { http } from "@/utils/fetch";
 import "./Sidebar.css";
 
-const Sidebar = ({ onCompleteChallenge }) => {
+const Sidebar = ({ onCompleteChallenge, onClose }) => {
   const [countdown, setCountdown] = useState("");
   const [popupOpen, setPopupOpen] = useState(false);
   const [challenges, setChallenges] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchChallenges = async () => {
+      setIsLoading(true);
       try {
         const response = await http("/api/challenges-fetch");
         const data = await response.json();
         setChallenges(data);
       } catch (error) {
         console.error("Gagal mengambil data challenge:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -49,27 +53,35 @@ const Sidebar = ({ onCompleteChallenge }) => {
 
   return (
     <div className="sidebar">
-      <h3 className="countdown">Tantangan Minggu Ini:</h3>
-      <div className="challenge-list">
-        {challenges.length > 0 ? (
-          challenges.map((challenge, index) => (
-            <ChallengeCard
-              key={index}
-              challenge={{
-                id: challenge.id,
-                name: challenge.title,
-                description: challenge.description,
-                points: 10,
-              }}
-              onClick={() => setPopupOpen(challenge.id)}
-            />
-          ))
-        ) : (
-          <h3 className="empty-message">
-            Semua Tantangan selesai dikerjakan 🎉
-          </h3>
-        )}
+      <div className="sidebar-header">
+        <h3 className="countdown">Tantangan Minggu Ini:</h3>
+        <button className="close-button" onClick={onClose}>
+          ×
+        </button>
       </div>
+      {isLoading ? (
+        <div className="sidebar-loading-state">
+          <div className="sidebar-loading-spinner"></div>
+          <p>Memuat tantangan...</p>
+        </div>
+      ) : challenges.length > 0 ? (
+        <div className="challenge-list">
+          challenges.map((challenge, index) => (
+          <ChallengeCard
+            key={index}
+            challenge={{
+              id: challenge.id,
+              name: challenge.title,
+              description: challenge.description,
+              points: 10,
+            }}
+            onClick={() => setPopupOpen(challenge.id)}
+          />
+          ))
+        </div>
+      ) : (
+        <h3 className="empty-message">Semua Tantangan selesai dikerjakan 🎉</h3>
+      )}
       {popupOpen && (
         <UploadPopup
           onComplete={() => handleUploadComplete(popupOpen)}

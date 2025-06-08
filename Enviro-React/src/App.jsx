@@ -9,12 +9,12 @@ import ScrollToTop from "./components/ScrollToTop";
 
 function AppWrapper() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
         <ScrollToTop />
         <App />
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

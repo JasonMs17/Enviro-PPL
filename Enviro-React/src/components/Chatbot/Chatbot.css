@@ -3,7 +3,8 @@
   position: fixed;
   bottom: 10px;
   right: 10px;
-  background: linear-gradient(135deg, #1DBC60, #34a853); /* Gradient color */
+  background: linear-gradient(135deg, #1DBC60, #34a853);
+  /* Gradient color */
   color: white;
   border: none;
   padding: 12px 18px;
@@ -17,7 +18,8 @@
 
 .chat-button:hover {
   background: linear-gradient(135deg, #34a853, #1DBC60);
-  transform: scale(1.1); /* Slight scaling effect */
+  transform: scale(1.1);
+  /* Slight scaling effect */
 }
 
 /* Chat container */
@@ -42,7 +44,8 @@
 
 /* Chat header */
 .chat-header {
-  background: linear-gradient(135deg, #1DBC60, #34a853); /* Gradient color */
+  background: linear-gradient(135deg, #1DBC60, #34a853);
+  /* Gradient color */
   color: white;
   text-align: center;
   padding: 15px;
@@ -114,9 +117,11 @@
   0% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     opacity: 1;
   }
@@ -187,13 +192,48 @@
 /* Mobile responsiveness */
 @media (max-width: 480px) {
   .chat-container {
-    width: 90%;
-    right: 5%;
-    bottom: 70px;
+    width: 100%;
+    height: calc(100vh - 80px);
+    /* Increased navbar height to 64px */
+    position: fixed;
+    top: 80px;
+    /* Start below navbar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    max-height: calc(100vh - 80px);
   }
 
   .chat-box {
-    max-height: 250px;
+    max-height: calc(100vh - 204px);
+    /* 64px navbar + 140px for header/input */
+    padding-bottom: 20px;
+    /* Add some padding at bottom */
+  }
+
+  .input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+    z-index: 10;
+    /* Ensure it stays on top */
+  }
+
+  .template-questions {
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+    z-index: 9;
+    /* Below input container but above chat */
   }
 
   .input-container input {

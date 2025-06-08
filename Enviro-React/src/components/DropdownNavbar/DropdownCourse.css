@@ -1,63 +1,64 @@
 .DropDownCourse {
-    position: absolute;
-    top: calc(100% + 20px); 
-    left: 0;
-    white-space: nowrap;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 1px solid grey;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: rgba(149, 157, 166, 0.2) 0px 8px 24px;
+  position: absolute;
+  top: calc(100% + 20px);
+  left: 0;
+  white-space: nowrap;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px solid grey;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: rgba(149, 157, 166, 0.2) 0px 8px 24px;
 
-    opacity: 0;
-    transform: translateY(-5%);
-    transition: transform 150ms ease-in-out, opacity 150ms ease-in-out;
-    pointer-events: none;
-  }
-  
-  .DropDownCourse.open {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: all;
-  }
-  
-  .course-type {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    list-style-type: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #18181b;
-    margin: 0;
-    font-weight: bold;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  
+  opacity: 0;
+  transform: translateY(-5%);
+  transition: transform 150ms ease-in-out, opacity 150ms ease-in-out;
+  pointer-events: none;
+  z-index: 1000;
+}
 
-  li a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    border-radius: 8px;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  
-  li a:hover {
-    background-color: #f5f5f5;
-  }
+.DropDownCourse.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.course-type {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  list-style-type: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #18181b;
+  margin: 0;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+li a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  border-radius: 8px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+li a:hover {
+  background-color: #f5f5f5;
+}
 
 .course-type li a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 8px 12px;
-    border-radius: 8px;
-  }
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
 
 @media (max-width: 768px) {
   .DropDownCourse {
@@ -66,26 +67,23 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    margin: 0;
   }
 
   .DropDownCourse.open {
     opacity: 1;
     max-height: 500px;
+    padding: 15px 0;
   }
 
-  .dropdown-trigger {
-    font-weight: bold;
-    display: block;
+  .course-type {
+    padding: 0;
+  }
+
+  .course-type li a {
     padding: 12px 16px;
-    cursor: pointer;
-    text-align: left;
-    background-color: transparent;
-    border: none;
-    width: 100%;
   }
 }
-
-
-  
-
-  

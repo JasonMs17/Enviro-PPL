@@ -24,22 +24,21 @@ const Navbar = ({ toggleSidebar }) => {
   // location.pathname.includes("/pencemaran-udara/");
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsMobileMenuOpen(false);
+        setOpenProfile(false);
+      }
+    };
     window.addEventListener("resize", handleResize);
+    // Set initial state for mobile
+    if (window.innerWidth <= 768) {
+      setIsMobileMenuOpen(false);
+      setOpenProfile(false);
+    }
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/user", {
-      method: "GET",
-      credentials: "include",
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Gagal mengambil data user");
-        return response.json();
-      })
-      .then((data) => setUser(data))
-      .catch((error) => console.error("Gagal ambil data user:", error));
   }, []);
 
   const courseTimeoutRef = useRef(null);
@@ -64,12 +63,36 @@ const Navbar = ({ toggleSidebar }) => {
     profileTimeoutRef.current = setTimeout(() => setOpenProfile(false), 200);
   };
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen((prev) => !prev);
   };
 
-  const imageClick = () => navigate("/profile/course");
+  const handleNavigation = (e, path) => {
+    e.preventDefault();
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+    navigate(path);
+  };
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      if (isMobile) {
+        setIsMobileMenuOpen(false);
+      }
+    }
+  };
+
+  const imageClick = () => {
+    if (isMobile) {
+      setOpenProfile(true);
+      setIsMobileMenuOpen(false);
+    } else {
+      navigate("/profile/course");
+    }
+  };
 
   const handleCloseVerifyModal = () => {
     setShowVerifyModal(false);
@@ -78,25 +101,25 @@ const Navbar = ({ toggleSidebar }) => {
   const handleVerifyEmail = () => {
     navigate("/send-email");
     setShowVerifyModal(false);
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
   };
 
   return (
     <>
-      <header className={`navbar ${isMobileMenuOpen ? "collapsed" : ""}`}>
-        <button
-          className="hamburger"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
+      <header className="navbar">
+        <button className="hamburger" onClick={handleMobileMenuToggle}>
           ☰
         </button>
 
         <div className="enviro-logo">
-          <Link to="/">
+          <Link to="/" onClick={() => isMobile && setIsMobileMenuOpen(false)}>
             <img src={logoEnviro} alt="Website Logo" />
           </Link>
         </div>
         {/* Main navigation */}
-        <nav className={`user-control ${isMobileMenuOpen ? "show" : "hide"}`}>
+        <nav className={`user-control ${isMobileMenuOpen ? "show" : ""}`}>
           <div
             className="user-course relative-wrapper"
             onMouseEnter={handleCourseEnter}
@@ -134,6 +157,9 @@ const Navbar = ({ toggleSidebar }) => {
                   navigate("/challenge");
                   setTimeout(() => scrollToSection("challenge-section"), 100);
                 }
+                if (isMobile) {
+                  setIsMobileMenuOpen(false);
+                }
               }}
             >
               Challenge
@@ -150,16 +176,22 @@ const Navbar = ({ toggleSidebar }) => {
           >
             About Us
           </a>
-
-          {/* Mobile-only login/signup if not logged in */}
         </nav>
         <div className="login-signup">
           {!user ? (
             <>
-              <Link className="login-button" to="/login">
+              <Link
+                className="login-button"
+                to="/login"
+                onClick={() => isMobile && setIsMobileMenuOpen(false)}
+              >
                 Masuk
               </Link>
-              <Link className="signup" to="/register">
+              <Link
+                className="signup"
+                to="/register"
+                onClick={() => isMobile && setIsMobileMenuOpen(false)}
+              >
                 Sign Up
               </Link>
             </>

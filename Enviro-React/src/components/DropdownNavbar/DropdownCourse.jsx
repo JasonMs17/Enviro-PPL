@@ -25,8 +25,9 @@ export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     if (isMobile) {
+      e.preventDefault();
       setIsOpenMobile((prev) => !prev);
     }
   };
@@ -59,11 +60,9 @@ export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
         return;
       }
 
-      // Jika email sudah terverifikasi atau is_verified tidak false, lanjut ke challenge
       navigate(path);
     } catch (error) {
       console.error("Error checking email verification:", error);
-      // Jika terjadi error, tetap lanjut ke challenge
       navigate(path);
     }
   };
@@ -79,7 +78,12 @@ export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
           <li>
             <a
               href="#"
-              onClick={(e) => handleChallengeClick(e, "/pencemaran-tanah/19")}
+              onClick={(e) => {
+                if (isMobile) {
+                  handleClick(e);
+                }
+                handleChallengeClick(e, "/pencemaran-tanah/19");
+              }}
             >
               Polusi Tanah
             </a>
@@ -87,7 +91,12 @@ export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
           <li>
             <a
               href="#"
-              onClick={(e) => handleChallengeClick(e, "/pencemaran-air/1")}
+              onClick={(e) => {
+                if (isMobile) {
+                  handleClick(e);
+                }
+                handleChallengeClick(e, "/pencemaran-air/1");
+              }}
             >
               Polusi Air
             </a>
@@ -95,7 +104,12 @@ export default function DropDownCourse({ open, onMouseEnter, onMouseLeave }) {
           <li>
             <a
               href="#"
-              onClick={(e) => handleChallengeClick(e, "/pencemaran-udara/10")}
+              onClick={(e) => {
+                if (isMobile) {
+                  handleClick(e);
+                }
+                handleChallengeClick(e, "/pencemaran-udara/10");
+              }}
             >
               Polusi Udara
             </a>

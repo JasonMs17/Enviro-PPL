@@ -15,7 +15,7 @@ const Navbar = ({ toggleSidebar }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [showVerifyModal, setShowVerifyModal] = useState(false);
-  const { user, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   // const location = useLocation();
   // const isInCoursePage =

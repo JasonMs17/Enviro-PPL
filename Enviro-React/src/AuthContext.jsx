@@ -7,6 +7,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const clearUserData = () => {
+    setUser(null);
+    localStorage.removeItem("user");
+  };
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -14,14 +19,41 @@ export const AuthProvider = ({ children }) => {
 
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      setUser(parsedUser); // Set the nested user directly
-      setLoading(false);
-
-      // console.log("User after setting:", parsedUser); 
+      setUser(parsedUser);
+      // Verify session validity immediately after setting user from localStorage
+      verifySession();
     } else {
       fetchUserFromSession();
     }
   }, []);
+
+  const verifySession = async () => {
+    try {
+      const response = await http("/api/user", {
+        method: "GET",
+      });
+
+      // console.log("Response received:", response);
+
+      if (!response.ok) {
+        throw new Error("Session invalid");
+      }
+
+      const text = await response.text(); // Get the raw response text
+      console.log("Raw response text:", text);
+
+      if (text) {
+        const data = JSON.parse(text); // Parse the response as JSON
+        setUser(data);
+        localStorage.setItem("user", JSON.stringify(data));
+      } else {
+        throw new Error("Empty response body");
+      }
+    } catch (error) {
+      console.error("Session verification failed:", error);
+      clearUserData();
+    }
+  };
 
   const fetchUserFromSession = async () => {
     try {
@@ -47,20 +79,20 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Error fetching user from session:", error);
-      setUser(null);
-      localStorage.removeItem("user");
+      clearUserData();
     } finally {
       setLoading(false);
     }
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
+    clearUserData();
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, logout }}>
+    <AuthContext.Provider
+      value={{ user, setUser, loading, logout, verifySession }}
+    >
       {children}
     </AuthContext.Provider>
   );

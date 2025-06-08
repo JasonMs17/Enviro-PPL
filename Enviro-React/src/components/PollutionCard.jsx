@@ -13,7 +13,7 @@ const PollutionCard = ({
   onRequireLogin,
 }) => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
+  const { user, verifySession } = useContext(AuthContext);
   const [showVerifyModal, setShowVerifyModal] = useState(false);
 
   const handleLearnMore = async () => {
@@ -23,31 +23,19 @@ const PollutionCard = ({
     }
 
     try {
-      // Fetch latest user data
-      const response = await fetch("/api/user", {
-        method: "GET",
-        credentials: "include",
-      });
+      // Verify session first
+      await verifySession();
 
-      if (!response.ok) throw new Error("Failed to fetch user data");
-
-      const userData = await response.json();
-      setUser(userData); // Update user context with latest data
-
-      if (!userData.email_verified_at) {
+      // If session is valid, proceed with navigation
+      if (!user.email_verified_at) {
         setShowVerifyModal(true);
         return;
       }
 
       navigate(route);
     } catch (error) {
-      console.error("Error fetching user data:", error);
-      // If there's an error, proceed with current user data
-      if (!user.email_verified_at) {
-        setShowVerifyModal(true);
-        return;
-      }
-      navigate(route);
+      console.error("Error verifying session:", error);
+      onRequireLogin(); // Redirect to login if session is invalid
     }
   };
 
@@ -66,14 +54,10 @@ const PollutionCard = ({
           </button>
         </div>
       </div>
-
       {showVerifyModal && (
         <VerifyEmailModal
           onClose={() => setShowVerifyModal(false)}
-          onVerify={() => {
-            navigate("/send-email");
-            setShowVerifyModal(false);
-          }}
+          user={user}
         />
       )}
     </>

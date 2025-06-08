@@ -221,3 +221,106 @@ progress::-webkit-progress-value {
 .tree-stage-5 {
   transition: transform 0.3s ease;
 }
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  .challenge-layout {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .empty-column {
+    order: 2;
+    width: 100%;
+  }
+
+  .center-column {
+    order: 1;
+    width: 100%;
+    margin-top: 0 !important;
+  }
+
+  .button-column {
+    order: 3;
+    width: 100%;
+    padding-top: 10px;
+  }
+
+  .progress-preview-wrapper {
+    margin-top: 10px;
+    padding: 10px;
+    max-width: 100%;
+  }
+
+  .tree-image {
+    width: 80px;
+  }
+
+  /* Reset all stage-specific margins for mobile */
+  .challenge-page.stage-0 .center-column,
+  .challenge-page.stage-1 .center-column,
+  .challenge-page.stage-2 .center-column,
+  .challenge-page.stage-3 .center-column,
+  .challenge-page.stage-4 .center-column,
+  .challenge-page.stage-5 .center-column {
+    margin-top: 0 !important;
+  }
+
+  /* Adjust tree scaling for mobile */
+  .tree-stage-0 {
+    transform: scale(0.8);
+  }
+
+  .tree-stage-1 {
+    transform: scale(1);
+  }
+
+  .tree-stage-2 {
+    transform: scale(1.4);
+  }
+
+  .tree-stage-3 {
+    transform: scale(2.1);
+  }
+
+  .tree-stage-4 {
+    transform: scale(2.8);
+  }
+
+  .tree-stage-5 {
+    transform: scale(3.5);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .challenge-layout {
+    padding: 5px;
+  }
+
+  .btn-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .pupuk-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .btn-label {
+    font-size: 11px;
+  }
+
+  .progress-preview-wrapper {
+    padding: 8px;
+  }
+
+  .progress-bar {
+    height: 15px;
+  }
+
+  .preview-tree {
+    width: 25px;
+  }
+}

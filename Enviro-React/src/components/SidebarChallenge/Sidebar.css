@@ -13,25 +13,47 @@
   font-family: sans-serif;
 }
 
-.countdown {
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
   background-color: #444444;
   padding: 12px;
+  border-radius: 8px;
+}
+
+.header-content {
+  flex: 1;
+}
+
+.countdown {
+  color: #1DBC60;
   font-size: 18px;
-  text-align: center;
-  margin-bottom: 20px;
-  border-radius: 8px 8px 8px 8px;
+  margin: 0 0 8px 0;
+  text-align: left;
 }
 
 .countdown-timer {
   color: whitesmoke;
-  background-color: #444444;
-  padding: 10px;
-  font-size: 28px;
+  font-size: 16px;
   font-weight: bold;
-  text-align: center;
-  margin-top: 0px;
-  margin-bottom: 20px;
-  border-radius: 0 0 8px 8px;
+  text-align: left;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #1DBC60;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+  margin-left: 8px;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #19a955;
 }
 
 .challenge-list {
@@ -46,5 +68,35 @@
   font-size: 18px;
   text-align: center;
   margin-bottom: 20px;
-  border-radius: 8px 8px 8px 8px;
+  border-radius: 8px;
+  color: #1DBC60;
+}
+
+.sidebar-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: whitesmoke;
+}
+
+.sidebar-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #444444;
+  border-top: 4px solid #1DBC60;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

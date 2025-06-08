@@ -28,19 +28,37 @@ const Sidebar = ({ onCompleteChallenge, onClose }) => {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const calculateTimeUntilNextMonday = () => {
       const now = new Date();
       const nextMonday = new Date(now);
-      nextMonday.setDate(now.getDate() + ((7 - now.getDay()) % 7));
+
+      // Set to next Monday at 00:00:00
+      nextMonday.setDate(now.getDate() + ((8 - now.getDay()) % 7));
       nextMonday.setHours(0, 0, 0, 0);
+
+      // If we're already past Monday 00:00, set to next week
+      if (now > nextMonday) {
+        nextMonday.setDate(nextMonday.getDate() + 7);
+      }
+
       const diff = nextMonday - now;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+      const hours = Math.floor(
+        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      setCountdown(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+      return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    // Update immediately
+    setCountdown(calculateTimeUntilNextMonday());
+
+    // Then update every second
+    const interval = setInterval(() => {
+      setCountdown(calculateTimeUntilNextMonday());
     }, 1000);
 
     return () => clearInterval(interval);
@@ -48,13 +66,16 @@ const Sidebar = ({ onCompleteChallenge, onClose }) => {
 
   const handleUploadComplete = () => {
     setPopupOpen(false);
-    onCompleteChallenge(); // Beri sinyal ke parent
+    onCompleteChallenge();
   };
 
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h3 className="countdown">Tantangan Minggu Ini:</h3>
+        <div className="header-content">
+          <h3 className="countdown">Tantangan Minggu Ini:</h3>
+          <div className="countdown-timer">{countdown}</div>
+        </div>
         <button className="close-button" onClick={onClose}>
           ×
         </button>
@@ -66,18 +87,18 @@ const Sidebar = ({ onCompleteChallenge, onClose }) => {
         </div>
       ) : challenges.length > 0 ? (
         <div className="challenge-list">
-          challenges.map((challenge, index) => (
-          <ChallengeCard
-            key={index}
-            challenge={{
-              id: challenge.id,
-              name: challenge.title,
-              description: challenge.description,
-              points: 10,
-            }}
-            onClick={() => setPopupOpen(challenge.id)}
-          />
-          ))
+          {challenges.map((challenge, index) => (
+            <ChallengeCard
+              key={index}
+              challenge={{
+                id: challenge.id,
+                name: challenge.title,
+                description: challenge.description,
+                points: 10,
+              }}
+              onClick={() => setPopupOpen(challenge.id)}
+            />
+          ))}
         </div>
       ) : (
         <h3 className="empty-message">Semua Tantangan selesai dikerjakan 🎉</h3>

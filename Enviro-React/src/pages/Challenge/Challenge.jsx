@@ -176,7 +176,10 @@ const Challenge = () => {
       </div>
 
       {challengeOpen && (
-        <Sidebar onCompleteChallenge={handleChallengeComplete} />
+        <Sidebar
+          onCompleteChallenge={handleChallengeComplete}
+          onClose={() => setChallengeOpen(false)}
+        />
       )}
     </div>
   );

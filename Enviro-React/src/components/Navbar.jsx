@@ -133,7 +133,7 @@ const Navbar = ({ toggleSidebar }) => {
                 setTimeout(() => scrollToSection("explore-section"), 100);
               }}
             >
-              Learn With Us
+              Belajar
             </a>
             {user && !isMobile && (
               <DropDownCourse
@@ -162,19 +162,14 @@ const Navbar = ({ toggleSidebar }) => {
                 }
               }}
             >
-              Challenge
+              Tantangan
             </a>
           </div>
 
           <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/");
-              setTimeout(() => scrollToSection("about-section"), 100);
-            }}
+            href="/about-us"
           >
-            About Us
+            Tentang Kami
           </a>
         </nav>
         <div className="login-signup">
@@ -192,7 +187,7 @@ const Navbar = ({ toggleSidebar }) => {
                 to="/register"
                 onClick={() => isMobile && setIsMobileMenuOpen(false)}
               >
-                Sign Up
+                Daftar
               </Link>
             </>
           ) : (

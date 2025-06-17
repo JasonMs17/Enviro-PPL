@@ -67,7 +67,7 @@ const LandingPage = () => {
       icon: FaUsers,
       title: "Tantangan Ramah Lingkungan",
       description:
-        "Fitur challenge mingguan yang mendorong pengguna menerapkan kebiasaan ramah lingkungan dan membangun kesadaran melalui aksi nyata.",
+        "Fitur tantangan mingguan yang mendorong pengguna menerapkan kebiasaan ramah lingkungan dan membangun kesadaran melalui aksi nyata.",
     },
     {
       icon: FaBookReader,
@@ -184,7 +184,7 @@ const LandingPage = () => {
         </div> */}
 
         <div className="explore-section" id="explore-section">
-          <h2>More to explore</h2>
+          <h2>Pelajari</h2>
           <div className="pollution-types">
             {pollutionTypes.map((type, index) => (
               <PollutionCard
@@ -212,7 +212,7 @@ const LandingPage = () => {
             <div className="stat-item">
               <FaChartLine className="stat-icon" />
               <h3>5+</h3>
-              <p>Challenge Mingguan</p>
+              <p>Tantangan Mingguan</p>
             </div>
             {/* <div className="stat-item">
               <FaHandHoldingHeart className="stat-icon" />

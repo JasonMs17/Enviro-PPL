@@ -54,7 +54,6 @@
   }
 }
 
-
 .logoEnviro {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -113,6 +112,43 @@ input {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#Login:hover:not(:disabled) {
+  background-color: #19a352;
+  transform: translateY(-2px);
+}
+
+#Login:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#Login.loading {
+  position: relative;
+  color: transparent;
+}
+
+#Login.loading::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin: -10px 0 0 -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .signup-lupapassword {
@@ -126,7 +162,6 @@ input {
   margin-left: auto;
   margin-right: auto;
 }
-
 
 .highlight {
   color: #1DBC60;

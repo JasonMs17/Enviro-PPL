@@ -11,9 +11,12 @@ export default function LoginUser() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errorKey, setErrorKey] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
 
     try {
       const response = await http("/api/login", {
@@ -28,6 +31,7 @@ export default function LoginUser() {
         } else {
           const errData = await response.json();
           console.error("Login gagal:", errData);
+          setErrorMessage("Terjadi kesalahan saat login. Silakan coba lagi.");
         }
         return;
       }
@@ -39,6 +43,9 @@ export default function LoginUser() {
       window.location.href = "/";
     } catch (error) {
       console.error("Login error:", error);
+      setErrorMessage("Terjadi kesalahan saat login. Silakan coba lagi.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,6 +67,7 @@ export default function LoginUser() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={errorMessage ? "input-error" : ""}
+              disabled={isLoading}
             />
           </div>
           <div className="input-box">
@@ -71,9 +79,16 @@ export default function LoginUser() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={errorMessage ? "input-error" : ""}
+              disabled={isLoading}
             />
           </div>
-          <input type="submit" id="Login" value="Login" />
+          <input
+            type="submit"
+            id="Login"
+            value={isLoading ? "Loading..." : "Login"}
+            disabled={isLoading}
+            className={isLoading ? "loading" : ""}
+          />
         </form>
 
         {errorMessage && (
@@ -86,7 +101,7 @@ export default function LoginUser() {
             <p>
               Belum punya akun?{" "}
               <a href="/register" className="highlight">
-                Sign Up
+                Daftar
               </a>
             </p>
           </div>

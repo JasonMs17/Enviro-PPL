@@ -63,11 +63,14 @@
 }
 
 .course-content {
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    margin-bottom: 2rem;
     font-size: 18px;
     line-height: 1.8;
     width: 100%;
     max-width: 900px;
-    padding: 0 15px;
     color: #2d3748;
 }
 

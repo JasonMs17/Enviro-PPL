@@ -16,6 +16,7 @@ import Sidebar from "../../components/SidebarChallenge/Sidebar";
 import { http } from "../../utils/fetch";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/Modal/Modal"; // Pastikan komponen Modal sudah dibuat
+import Loading from "@/components/Loading";
 
 const trees = [
   treeStage1,
@@ -35,6 +36,7 @@ const Challenge = () => {
   const [hasActiveChallenge, setHasActiveChallenge] = useState(false);
   const [showActiveChallengeModal, setShowActiveChallengeModal] =
     useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const stage = progress === 100 ? 5 : Math.floor(progress / 20);
@@ -56,10 +58,6 @@ const Challenge = () => {
       }
     };
 
-    checkActiveChallenge();
-  }, []);
-
-  useEffect(() => {
     const fetchProgress = async () => {
       try {
         const res = await http("/api/challenge-progress");
@@ -67,9 +65,17 @@ const Challenge = () => {
         setProgress(data.percentage);
       } catch (err) {
         console.error("Gagal memuat progress:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchProgress();
+
+    const initializeData = async () => {
+      setIsLoading(true);
+      await Promise.all([checkActiveChallenge(), fetchProgress()]);
+    };
+
+    initializeData();
   }, []);
 
   useEffect(() => {
@@ -106,8 +112,12 @@ const Challenge = () => {
 
   const handleNavigateToClaimed = () => {
     setShowActiveChallengeModal(false);
-    navigate("/challenge-claimed");
+    navigate("/challenge-claimed", { replace: true });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div
@@ -127,8 +137,9 @@ const Challenge = () => {
         onClose={handleNavigateToClaimed}
         closeText="Oke"
       >
-        <p>Tantangan sebelumnya masih belum selesai nih,</p>
-        <p>selesain itu dulu yaa 😉</p>
+        <div className="challenge-modal-content">
+          <p>Tantangan sebelumnya masih belum selesai nih, selesain itu dulu yaa 😉</p>
+        </div>
       </Modal>
 
       <div className="challenge-layout">

@@ -52,6 +52,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Session verification failed:", error);
       clearUserData();
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,6 +89,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     clearUserData();
+    setLoading(false);
   };
 
   return (

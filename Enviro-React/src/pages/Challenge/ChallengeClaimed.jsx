@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import "./ChallengeClaimed.css";
-import Loading from "../../components/Loading";
+import Loading from "@/components/Loading";
 import treeStage1 from "../../assets/tree1.png";
 import treeStage2 from "../../assets/tree2.png";
 import treeStage3 from "../../assets/tree3.png";

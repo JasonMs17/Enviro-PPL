@@ -17,7 +17,7 @@ export default function UserCourse() {
     } else if (materialId >= 19 && materialId <= 27) {
       return "pencemaran-tanah";
     }
-    return "pencemaran-udara";
+    return null;
   };
 
   const getCategoryTitle = (category) => {
@@ -85,14 +85,20 @@ export default function UserCourse() {
   }
 
   // Group materials by category
-  const groupedMaterials = materials.reduce((acc, material) => {
-    const category = getCategoryByMaterialId(material.material_id);
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(material);
-    return acc;
-  }, {});
+  const groupedMaterials = materials
+    .filter(
+      (material) => material.material_id >= 1 && material.material_id <= 27
+    )
+    .reduce((acc, material) => {
+      const category = getCategoryByMaterialId(material.material_id);
+      if (category) {
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(material);
+      }
+      return acc;
+    }, {});
 
   return (
     <div className="materials-container">

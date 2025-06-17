@@ -232,7 +232,7 @@ function RegisterForm() {
             <p>
               Sudah punya akun?{" "}
               <a href="/login" className="highlight">
-                Login
+                Masuk
               </a>
             </p>
           </div>

@@ -1,8 +1,10 @@
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Footer.css";
 
 export default function Footer() {
+  const navigate = useNavigate();
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -41,15 +43,15 @@ export default function Footer() {
               <li>
                 <Link to="/">Beranda</Link>
               </li>
-              {/* <li>
+              <li>
                 <Link to="/about-us">Tentang Kami</Link>
-              </li> */}
+              </li>
               <li>
                 <Link
                   to="/"
                   onClick={(e) => {
                     e.preventDefault();
-                    Navigate("/")
+                    navigate("/");
                     setTimeout(() => scrollToSection("explore-section"), 100);
                   }}
                 >
@@ -57,7 +59,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/challenge">Challenge</Link>
+                <Link to="/challenge">Tantangan</Link>
               </li>
             </ul>
           </div>

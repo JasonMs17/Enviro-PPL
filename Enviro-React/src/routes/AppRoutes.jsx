@@ -20,6 +20,7 @@ import ChallengeClaimed from "@/pages/Challenge/ChallengeClaimed";
 import LandingPage from "../components/LandingPage";
 import LandingPageLogin from "../components/LandingPageLogin";
 import MaterialDetail from "../components/MaterialDetail/MaterialDetail";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const ProtectedRoute = ({ element: Element }) => {
   const { user } = useContext(AuthContext);
@@ -61,6 +62,7 @@ const AppRoutes = () => {
       <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
 
       <Route path="/testingkuis" element={<Quiz />} />
+      <Route path="/about-us" element={<AboutUs />} />
       <Route
         path="/challenge"
         element={<ProtectedRoute element={<Challenge />} />}

@@ -324,3 +324,19 @@ progress::-webkit-progress-value {
     width: 25px;
   }
 }
+
+.challenge-modal-content {
+  padding: 1.5rem;
+  text-align: center;
+  color: #2d3748;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.challenge-modal-content p {
+  margin: 0.5rem 0;
+}
+
+.challenge-modal-content p:last-child {
+  margin-bottom: 0;
+}

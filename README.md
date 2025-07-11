@@ -7,6 +7,39 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Tentang Proyek
+
+Platform edukasi interaktif bertema lingkungan yang dikembangkan untuk meningkatkan kesadaran masyarakat terhadap dampak polusi air, udara, dan tanah terhadap kesehatan. Proyek ini dikembangkan menggunakan Laravel (backend) dan React.js (frontend).
+
+---
+
+## Tim dan Kontribusi
+
+### Faizzani — *Team Lead, Scrum Master, QA*
+- Mengatur alur kerja tim, komunikasi, dan pembagian tugas melalui Trello
+- Menyusun seluruh dokumen proyek dan materi edukasi
+- Menyusun skenario challenge mingguan
+- Melakukan Quality Assurance, menyusun dan menjalankan skenario pengujian (black-box & white-box)
+
+### Jason — *Backend Developer*
+- Mengembangkan fitur Login, Register, dan Verifikasi Email
+- Membangun backend untuk fitur Kuis
+- Mengimplementasikan fitur Chatbot 
+
+### Yusuf — *Backend Developer*
+- Mengembangkan backend untuk fitur Tantangan Mingguan (Challenge)
+- Membangun backend untuk akses materi edukasi 
+
+### Josef — *Frontend Developer*
+- Mengembangkan tampilan halaman materi edukasi
+- Mengembangkan frontend laporan progres pengguna
+
+### Calvin — *Frontend Developer*
+- Mengimplementasikan tampilan untuk fitur kuis
+- Mengimplementasikan tampilan untuk challenge mingguan
+
+---
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
